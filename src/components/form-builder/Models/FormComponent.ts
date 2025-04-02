@@ -26,6 +26,7 @@ export class FormComponentModel {
   label: string;
   label_description?: string;
   type: string;
+  value?: string | number;
   content?: string;
   description?: string;
   options?: { label: string; value: string; checked?: boolean }[];
@@ -41,6 +42,7 @@ export class FormComponentModel {
     this.label = input.label;
     this.label_description = input.label_description;
     this.type = input.type;
+    this.value = input.value;
     this.category = input.category;
     this.icon = input.icon;
     this.properties = {

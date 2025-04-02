@@ -16,6 +16,7 @@ export function FormInput(component: FormComponentModel) {
       id={component.getField("attributes.id")}
       name={component.getField("attributes.name")}
       className={cn(component.getField("attributes.class"))}
+      defaultValue={component.value}
     />
   );
 }
@@ -35,6 +36,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       id="${escapeHtml(component.getField("attributes.id"))}"
       name="${escapeHtml(component.getField("attributes.name"))}"
       className="${escapeHtml(component.getField("attributes.class"))}"
+      defaultValue="${escapeHtml(String(component.value))}"
     />  
     `,
     dependencies: {

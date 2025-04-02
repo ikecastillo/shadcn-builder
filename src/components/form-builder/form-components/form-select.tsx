@@ -17,7 +17,7 @@ import { OptionsGroup } from "../sidebar/groups/options-group";
 
 export function FormSelect(component: FormComponentModel) {
   return (
-    <Select key={component.id}>
+    <Select key={component.id} value={component.value as string} >
       <SelectTrigger
         id={component.getField("attributes.id")}
         name={component.getField("attributes.name")}
@@ -49,6 +49,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       id="${escapeHtml(component.getField("attributes.id"))}"
       name="${escapeHtml(component.getField("attributes.name"))}"
       className="${escapeHtml(component.getField("attributes.class"))}"
+      value="${escapeHtml(component.value as string)}"
     >
       <SelectTrigger>
         <SelectValue placeholder="${escapeHtml(component.getField("attributes.placeholder"))}" />
@@ -75,7 +76,7 @@ export const SelectDesignProperties: DesignPropertiesViews = {
   grid: <GridGroup />,
   html: <HtmlGroup />,
   label: <LabelGroup />,
-  input: <InputGroup whitelist={["placeholder", "description"]} />,
+  input: <InputGroup whitelist={["placeholder", "description", "value"]} />,
   options: <OptionsGroup />,
   button: null,
 };

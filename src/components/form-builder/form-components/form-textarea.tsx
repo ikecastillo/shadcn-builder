@@ -17,6 +17,7 @@ export function FormTextarea(component: FormComponentModel) {
         name={component.getField("attributes.name")}
         placeholder={component.getField("attributes.placeholder")}
         className={component.getField("attributes.class")}
+        defaultValue={component.value}
       />
     </div>
   );
@@ -36,6 +37,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       name="${escapeHtml(component.getField("attributes.name"))}"
       placeholder="${escapeHtml(component.getField("attributes.placeholder"))}"
       className="${escapeHtml(component.getField("attributes.class"))}"
+      defaultValue="${escapeHtml(String(component.value))}"
     />
     `,
     dependencies: {

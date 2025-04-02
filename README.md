@@ -2,15 +2,18 @@
 
 I'm building a modern form builder application that allows you to create complex forms with a drag-and-drop interface. This is a fun side project I work on in my free time, and while I'm not full-time on it, I'm actively developing new features and improvements when I can.
 
-## Features (In Progress)
+# Online preview
+Visit [shadcn-builder.com](https://www.shadcn-builder.com?ref=README) to try it out!
+
+
+## Features
 
 - 🎨 Drag-and-drop form builder interface
 - 📱 Responsive design with mobile-first approach
 - 🎯 Real-time preview of your form
 - 🧩 Modular component system
-- 🎨 Built with shadcn/ui for beautiful, accessible components
 - 🔄 Live code generation
-- 📦 Easy component installation with shadcn CLI integration
+- 📦 Easy component installation with shadcn CLI integration (In Progress)
 
 ## Tech Stack
 
@@ -19,6 +22,7 @@ I'm building a modern form builder application that allows you to create complex
 - Tailwind CSS v4
 - shadcn/ui
 - DND Kit for drag-and-drop
+- TipTap WYSIWYG Editor
 - React Hook Form
 - Zod for validation
 

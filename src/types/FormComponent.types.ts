@@ -12,6 +12,7 @@ export interface FormComponentModelInput {
   properties?: FormComponentProperties;
   content?: string;
   description?: string;
+  value?: string | number;
   attributes?: FormComponentAttributes;
   overrides?: FormComponentOverrides;
   options?: { label: string; value: string; checked?: boolean }[];

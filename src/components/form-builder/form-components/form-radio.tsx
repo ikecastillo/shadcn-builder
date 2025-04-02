@@ -16,6 +16,7 @@ export function FormRadio(component: FormComponentModel) {
       id={component.getField("attributes.id")}
       name={component.getField("attributes.name")}
       className={cn(component.getField("attributes.class"))}
+      value={component.value as string}
     >
       {component.options?.map((option) => (
         <div key={option.value} className="flex items-center space-x-2">
@@ -45,6 +46,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       id="${escapeHtml(component.getField("attributes.id"))}"
       name="${escapeHtml(component.getField("attributes.name"))}"
       className="${escapeHtml(component.getField("attributes.class"))}"
+      value="${escapeHtml(String(component.value))}"
     > 
       ${component.options?.map((option) => `
         <div key="${escapeHtml(option.value)}" className="flex items-center space-x-2">
@@ -69,7 +71,7 @@ export const RadioDesignProperties: DesignPropertiesViews = {
   grid: <GridGroup />,
   html: <HtmlGroup />,
   label: <LabelGroup />,
-  input: <InputGroup whitelist={["placeholder", "description"]} />,
+  input: <InputGroup whitelist={["placeholder", "description", "value"]} />,
   options: <OptionsGroup />,
   button: null,
 };

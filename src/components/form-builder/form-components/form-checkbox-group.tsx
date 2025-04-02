@@ -48,7 +48,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
           <Checkbox
             id="${escapeHtml(component.getField("attributes.id"))}-${escapeHtml(option.value)}"
             name="${escapeHtml(component.getField("attributes.name"))}"
-            defaultChecked={${option.checked || false}}
+            checked={${option.checked || false}}
           />
           <Label htmlFor="${escapeHtml(component.getField("attributes.id"))}-${escapeHtml(option.value)}">
             ${escapeHtml(option.label)}

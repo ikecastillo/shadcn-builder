@@ -28,31 +28,35 @@ export function OptionsGroup() {
     }
   };
 
+  const showCheckbox = selectedComponent.type !== 'radio' && selectedComponent.type !== 'select';
+
   return (
     <>
       {selectedComponent.options && selectedComponent.options.length !== 0 && (
         <div className="grid grid-cols-2 text-sm text-gray-400">
-          <span className="ml-9">value</span>
+          <span className={showCheckbox ? "ml-9" : ""}>value</span>
           <span>label</span>
         </div>
       )}
       {selectedComponent.options?.map((option: any, index: number) => (
         <div key={index} className="flex items-center space-x-2">
-          <Checkbox
-            id={`option-${index}-checked`}
-            checked={option.checked}
-            onCheckedChange={(checked) =>
-              handleChange(
-                "options",
-                [
-                  ...(selectedComponent.options ?? []).slice(0, index),
-                  { ...option, checked },
-                  ...(selectedComponent.options ?? []).slice(index + 1),
-                ],
-                true
-              )
-            }
-          />
+          {showCheckbox && (
+            <Checkbox
+              id={`option-${index}-checked`}
+              checked={option.checked}
+              onCheckedChange={(checked) =>
+                handleChange(
+                  "options",
+                  [
+                    ...(selectedComponent.options ?? []).slice(0, index),
+                    { ...option, checked },
+                    ...(selectedComponent.options ?? []).slice(index + 1),
+                  ],
+                  true
+                )
+              }
+            />
+          )}
           <Input
             value={option.value}
             onChange={(e) =>
