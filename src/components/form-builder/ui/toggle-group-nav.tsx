@@ -20,11 +20,17 @@ export function ToggleGroupNav({
   onValueChange,
   className,
 }: ToggleGroupNavProps) {
+  const handleValueChange = (value: string) => {
+    if (value && value !== defaultValue) {
+      onValueChange(value);
+    }
+  };
+
   return (
     <ToggleGroup
       type="single"
       value={defaultValue}
-      onValueChange={onValueChange}
+      onValueChange={handleValueChange}
       className={cn("flex bg-muted rounded-md p-0.5 h-auto", className)}
       size="sm"
     >
