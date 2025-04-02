@@ -13,7 +13,7 @@ import { DropdownComponents } from "../helpers/dropdown-components";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { closestCenter, DndContext } from "@dnd-kit/core";
 import { FormRow, Viewports } from "@/types/form-builder.types";
-import { FormComponentModel } from "../models/FormComponent";
+import { FormComponentModel } from "@/models/FormComponent";
 import { memo, useCallback, useMemo } from 'react';
 
 interface SortableRowProps {

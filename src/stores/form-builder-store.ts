@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { FormBuilderStore, FormRow, Viewports } from '@/types/form-builder.types';
 import { AVAILABLE_COMPONENTS } from '@/config/available-components';
-import { FormComponentModel } from '@/components/form-builder/models/FormComponent';
+import { FormComponentModel } from '@/models/FormComponent';
 
 const generateComponentId = (component: FormComponentModel, rows: FormRow[]): string => {
   const existingComponents = rows.flatMap(row => row.components);

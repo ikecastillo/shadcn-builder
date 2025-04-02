@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "../models/FormComponent";
+import { FormComponentModel } from "@/models/FormComponent";
 import { HtmlGroup } from "../sidebar/groups/html-group";
 import { GridGroup } from "../sidebar/groups/grid-group";
 import { LabelGroup } from "../sidebar/groups/label-group";

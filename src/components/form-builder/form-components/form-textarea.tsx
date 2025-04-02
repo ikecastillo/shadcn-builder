@@ -1,6 +1,6 @@
 import { Textarea } from "@/components/ui/textarea";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "../models/FormComponent";
+import { FormComponentModel } from "@/models/FormComponent";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { HtmlGroup } from "../sidebar/groups/html-group";
 import { GridGroup } from "../sidebar/groups/grid-group";

@@ -1,4 +1,4 @@
-import { FormComponentModel } from "@/components/form-builder/models/FormComponent";
+import { FormComponentModel } from "@/models/FormComponent";
 import * as Icons from "lucide-react";
 import { HTMLAttributes, HTMLInputTypeAttribute } from 'react';
 

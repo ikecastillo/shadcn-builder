@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/select";
 import React from "react";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "../models/FormComponent";
+import { FormComponentModel } from "@/models/FormComponent";
 import { GridGroup } from "../sidebar/groups/grid-group";
 import { HtmlGroup } from "../sidebar/groups/html-group";
 import { LabelGroup } from "../sidebar/groups/label-group";

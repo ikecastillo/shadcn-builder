@@ -17,7 +17,7 @@ import { GridGroup } from "../sidebar/groups/grid-group"
 import { HtmlGroup } from "../sidebar/groups/html-group"
 import { LabelGroup } from "../sidebar/groups/label-group"
 import { InputGroup } from "../sidebar/groups/input-group"    
-import { FormComponentModel } from "../models/FormComponent"
+import { FormComponentModel } from "@/models/FormComponent"
 
 export function FormDatePicker(component: FormComponentModel) {
 

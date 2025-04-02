@@ -15,7 +15,7 @@ import {
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { getComponentViews } from "@/config/available-components";
-import { FormComponentModel } from "../models/FormComponent";
+import { FormComponentModel } from "@/models/FormComponent";
 import { FormWysiwygEditor } from "../form-components/wysiwyg/form-wysiwyg-editor";
 
 export interface FormComponentProps {
