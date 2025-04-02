@@ -7,7 +7,7 @@ import {
   Code,
   Underline,
 } from "lucide-react";
-import { Icon } from "@/components/form-builder/helpers/icon";
+import { Icon } from "@/components/form-builder/helpers/icon-render";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
