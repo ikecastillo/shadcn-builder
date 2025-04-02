@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "../Models/FormComponent";
+import { FormComponentModel } from "../models/FormComponent";
 import { HtmlGroup } from "../sidebar/groups/html-group";
 import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";

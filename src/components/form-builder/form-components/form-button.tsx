@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "../Models/FormComponent";
+import { FormComponentModel } from "../models/FormComponent";
 import { GridGroup } from "../sidebar/groups/grid-group";
 import { HtmlGroup } from "../sidebar/groups/html-group";
 import { ButtonGroup } from "../sidebar/groups/button-group";

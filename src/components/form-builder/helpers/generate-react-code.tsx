@@ -1,5 +1,5 @@
 import { FormRow } from "@/types/form-builder.types";
-import { FormComponentModel } from "../Models/FormComponent";
+import { FormComponentModel } from "../models/FormComponent";
 import { getComponentViews } from "@/config/available-components";
 import { cn, generateTWClassesForAllViewports } from "@/lib/utils";
 import { useFormBuilderStore } from "@/stores/form-builder-store";

@@ -5,7 +5,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { FormComponentModel } from "@/components/form-builder/Models/FormComponent";
+import { FormComponentModel } from "@/components/form-builder/models/FormComponent";
 
 interface ViewportOverrideIndicatorProps {
   component: FormComponentModel;

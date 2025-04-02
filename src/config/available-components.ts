@@ -1,5 +1,5 @@
 import { ComponentViews, FormRow } from "@/types/form-builder.types";
-import { FormComponentModel } from "@/components/form-builder/Models/FormComponent";
+import { FormComponentModel } from "@/components/form-builder/models/FormComponent";
 import {
   // Form Components
   FormInput,

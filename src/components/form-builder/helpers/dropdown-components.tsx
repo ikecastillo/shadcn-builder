@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ComponentIcon } from "./component-icon";
 import { AVAILABLE_COMPONENTS } from "@/config/available-components";
-import { FormComponentModel } from "../Models/FormComponent";
+import { FormComponentModel } from "../models/FormComponent";
 
 export const DropdownComponents = ({
     rowId = 0,
