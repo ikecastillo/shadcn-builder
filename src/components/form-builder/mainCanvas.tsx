@@ -6,6 +6,14 @@ import GenerateEditorMode from "./canvas/generate-editor-mode";
 import { IFrame } from "./helpers/iframe";
 import { Pre } from "@/components/ui/pre";
 import { generateJsonSchema } from "./helpers/generate-json";
+import { cn } from "@/lib/utils";
+
+// Memoize static viewport styles
+const viewportEditorStyles = {
+  sm: "w-[418px]",
+  md: "w-[866px]",
+  lg: "w-[1134px]",
+} as const;
 
 const viewportPreviewStyles = {
   sm: "w-[320px]",
@@ -35,7 +43,9 @@ export function MainCanvas() {
   const mode = useFormBuilderStore((state) => state.mode);
   const viewport = useFormBuilderStore((state) => state.viewport);
   const showJson = useFormBuilderStore((state) => state.showJson);
-  const selectedComponent = useFormBuilderStore((state) => state.selectedComponent);
+  const selectedComponent = useFormBuilderStore(
+    (state) => state.selectedComponent
+  );
 
   const previewIframeRef = useRef<HTMLIFrameElement>(null);
   const editorIframeRef = useRef<HTMLIFrameElement>(null);
@@ -43,11 +53,15 @@ export function MainCanvas() {
   // Add effect to scroll to selected component
   useEffect(() => {
     if (selectedComponent && editorIframeRef.current) {
-      const iframeDoc = editorIframeRef.current.contentDocument || editorIframeRef.current.contentWindow?.document;
+      const iframeDoc =
+        editorIframeRef.current.contentDocument ||
+        editorIframeRef.current.contentWindow?.document;
       if (iframeDoc) {
-        const element = iframeDoc.querySelector(`[data-component-id="${selectedComponent.id}"]`);
+        const element = iframeDoc.querySelector(
+          `[data-component-id="${selectedComponent.id}"]`
+        );
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
         }
       }
     }
@@ -67,7 +81,10 @@ export function MainCanvas() {
       <div
         className={`h-full w-full ${mode === "editor" ? "block" : "hidden"}`}
       >
-        <IFrame ref={editorIframeRef}>
+        <IFrame
+          ref={editorIframeRef}
+          className={cn(`${viewportEditorStyles[viewport]}`, "mx-auto")}
+        >
           <GenerateEditorMode />
         </IFrame>
       </div>

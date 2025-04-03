@@ -1,10 +1,11 @@
+import { cn } from "@/lib/utils";
 import { useEffect, useState, forwardRef } from "react";
 import { createPortal } from "react-dom";
 
 const styles = new Map<string, string>();
 
-export const IFrame = forwardRef<HTMLIFrameElement, { children: React.ReactNode, id?: string }>(
-  ({ children, id }, ref) => {
+export const IFrame = forwardRef<HTMLIFrameElement, { children: React.ReactNode, id?: string, className?: string }>(
+  ({ children, id, className }, ref) => {
     const [internalRef, setInternalRef] = useState<HTMLIFrameElement | null>(null);
     const container = internalRef?.contentDocument?.body;
 
@@ -36,7 +37,7 @@ export const IFrame = forwardRef<HTMLIFrameElement, { children: React.ReactNode,
       <iframe 
         title="iframe" 
         ref={setRefs} 
-        className="w-full h-full border-0"
+        className={cn("w-full h-full border-0", className)}
         id={id}
       >
         {container && createPortal(children, container)}

@@ -47,13 +47,6 @@ const SortableRowsList = memo(
 
 SortableRowsList.displayName = "SortableRowsList";
 
-// Memoize static viewport styles
-const viewportEditorStyles = {
-  sm: "w-[418px]",
-  md: "w-[866px]",
-  lg: "w-[1134px]",
-} as const;
-
 export default function GenerateEditorMode() {
   // Split store selectors to minimize re-renders
   const rows = useFormBuilderStore((state) => state.rows);
@@ -104,14 +97,9 @@ export default function GenerateEditorMode() {
   
   return (
     <div
-      className={`px-6 pt-6 pb-24 ${viewportEditorStyles[viewport]} ${geist.className} mx-auto`}
+      className={`px-6 pt-6 pb-24 ${geist.className} mx-auto`}
       onClick={handleClick}
     >
-      {selectedComponent && (
-        <div
-          className={`bg-slate-200/50 w-full z-10 fixed inset-0`}
-        ></div>
-      )}
       <Form {...form}>
         <DndContext
           sensors={sensors}
