@@ -24,7 +24,8 @@ import {
   ContentTypeOptions,
   useEditorContentTypes,
 } from "./hooks/useEditorContentTypes";
- 
+import { useTextAlign } from "./hooks/useTextAlign";
+import { icons } from "lucide-react";
 // Memoize the toolbar button to prevent re-renders
 const ToolbarButton = memo(
   ({
@@ -65,9 +66,11 @@ const ToolbarDropdownMenu = memo(
   ({
     options,
     menuRef,
+    defaultIcon = "Pilcrow",
   }: {
     options: ContentTypeOptions;
     menuRef: React.RefObject<HTMLDivElement | null>;
+    defaultIcon?: keyof typeof icons;
   }) => {
     const activeItem = useMemo(
       () => options.find((option) => isOption(option) && option.isActive()),
@@ -85,7 +88,7 @@ const ToolbarDropdownMenu = memo(
           >
             <Icon
               name={
-                (activeItem?.type === "option" && activeItem.icon) || "Pilcrow"
+                (activeItem?.type === "option" && activeItem.icon) || defaultIcon
               }
               className={activeItem ? "text-slate-700" : "text-slate-500"}
             />
@@ -148,6 +151,7 @@ export function EditorToolbar({
   isEditable: boolean;
 }) {
   const options = useEditorContentTypes(editor);
+  const textAlign = useTextAlign(editor);
   const menuRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -187,6 +191,7 @@ export function EditorToolbar({
         >
           <Strikethrough />
         </ToolbarButton>
+        <ToolbarDropdownMenu options={textAlign} menuRef={menuRef} defaultIcon="AlignLeft" />
         <ToolbarSeparator />
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}

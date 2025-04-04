@@ -1880,6 +1880,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-text-align@npm:^2.11.7":
+  version: 2.11.7
+  resolution: "@tiptap/extension-text-align@npm:2.11.7"
+  peerDependencies:
+    "@tiptap/core": ^2.7.0
+  checksum: 10c0/2b2ba7bfff403cccf9e392041ae65a0107354d7d2b22a4c4ed0897b3ca41911fe4a589fdfe6d7a39c8c03cb7a41cea8a76ba2e3a2a5a569deccd925be8e6f04b
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-text-style@npm:^2.11.5":
   version: 2.11.5
   resolution: "@tiptap/extension-text-style@npm:2.11.5"
@@ -3599,6 +3608,7 @@ __metadata:
     "@radix-ui/react-toggle-group": "npm:^1.1.2"
     "@radix-ui/react-tooltip": "npm:^1.1.8"
     "@tailwindcss/postcss": "npm:^4.0.9"
+    "@tiptap/extension-text-align": "npm:^2.11.7"
     "@tiptap/extension-text-style": "npm:^2.11.5"
     "@tiptap/extension-underline": "npm:^2.11.5"
     "@tiptap/pm": "npm:^2.11.5"

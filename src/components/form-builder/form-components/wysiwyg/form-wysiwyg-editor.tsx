@@ -4,6 +4,8 @@ import StarterKit from "@tiptap/starter-kit";
 import { Heading } from "@tiptap/extension-heading";
 import { Underline } from "@tiptap/extension-underline";
 import TextStyle from '@tiptap/extension-text-style'
+import TextAlign from '@tiptap/extension-text-align'
+
 import "./form-wysiwyg-editor.css";
 import { EditorToolbar } from "./editor-toolbar";
 import customClass from "./extensions/textCustomStyle";
@@ -76,6 +78,9 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
         Underline,
         TextColorStyle,
         customClass,
+        TextAlign.configure({
+          types: ['heading', 'paragraph', "textStyle"],
+        }),
       ],
       []
     );
