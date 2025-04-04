@@ -26,6 +26,7 @@ import {
 } from "./hooks/useEditorContentTypes";
 import { useTextAlign } from "./hooks/useTextAlign";
 import { icons } from "lucide-react";
+import HorizontalRule from "@tiptap/extension-horizontal-rule";
 // Memoize the toolbar button to prevent re-renders
 const ToolbarButton = memo(
   ({

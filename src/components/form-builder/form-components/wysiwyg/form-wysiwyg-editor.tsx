@@ -53,6 +53,16 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
             },
           },
           heading: false,
+          bulletList: {
+            HTMLAttributes: {
+              class: "my-6 ml-6 list-disc [&>li]:mt-2",
+            },
+          },
+          orderedList: {
+            HTMLAttributes: {
+              class: "my-6 ml-6 list-decimal [&>li]:mt-2",
+            },
+          },
         }),
         Heading.configure({ levels: [1, 2, 3, 4] }).extend({
           levels: [1, 2, 3, 4],
@@ -80,7 +90,7 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
         customClass,
         TextAlign.configure({
           types: ['heading', 'paragraph', "textStyle"],
-        }),
+        })
       ],
       []
     );

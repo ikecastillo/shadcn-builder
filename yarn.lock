@@ -1835,6 +1835,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-horizontal-rule@npm:^2.11.7":
+  version: 2.11.7
+  resolution: "@tiptap/extension-horizontal-rule@npm:2.11.7"
+  peerDependencies:
+    "@tiptap/core": ^2.7.0
+    "@tiptap/pm": ^2.7.0
+  checksum: 10c0/cb04c4910d234ab85672bb9aa08c4415fd2bc7b094440e0293776dcebb3f13cdc21ac9c3dcdde2aa280cf842a75818c8cbad8d5e5bb5e8052fc6a82464fe5867
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-italic@npm:^2.11.5":
   version: 2.11.5
   resolution: "@tiptap/extension-italic@npm:2.11.5"
@@ -3608,6 +3618,7 @@ __metadata:
     "@radix-ui/react-toggle-group": "npm:^1.1.2"
     "@radix-ui/react-tooltip": "npm:^1.1.8"
     "@tailwindcss/postcss": "npm:^4.0.9"
+    "@tiptap/extension-horizontal-rule": "npm:^2.11.7"
     "@tiptap/extension-text-align": "npm:^2.11.7"
     "@tiptap/extension-text-style": "npm:^2.11.5"
     "@tiptap/extension-underline": "npm:^2.11.5"
