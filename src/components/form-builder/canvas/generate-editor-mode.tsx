@@ -22,7 +22,7 @@ import { FormRow } from "@/types/form-builder.types";
 import { Geist } from "next/font/google";
 // Memoize the empty state component
 const EmptyState = memo(() => (
-  <div className="mt-10 p-6 text-center text-sm text-muted-foreground bg-black/5 rounded-lg max-w-md mx-auto border-dashed border-2 border-slate-300">
+  <div className="p-6 text-center text-sm text-muted-foreground bg-black/5 rounded-lg max-w-md mx-auto border-dashed border-2 border-slate-300">
     Please add a component to the form
   </div>
 ));
