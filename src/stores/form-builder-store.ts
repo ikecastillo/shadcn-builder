@@ -187,7 +187,7 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
           };
         });
       },
-      selectComponent: (component: FormComponentModel | null) => set(() => ({ selectedComponent: component ? new FormComponentModel(component) : null, selectedRow: null })),
+      selectComponent: (component: FormComponentModel | null) => set(() => ({ selectedComponent: component ? new FormComponentModel(component) : null })),
       getComponentFieldValue: (component: FormComponentModel, field: string) => {
         const state = get();
 

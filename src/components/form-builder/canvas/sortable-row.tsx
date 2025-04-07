@@ -14,7 +14,7 @@ import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { closestCenter, DndContext } from "@dnd-kit/core";
 import { FormRow, Viewports } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 
 interface SortableRowProps {
   row: FormRow;
@@ -84,7 +84,8 @@ const RowColumn = memo(({
 
   const selectedComponent = useFormBuilderStore(state => state.selectedComponent);
   const selectComponent = useFormBuilderStore(state => state.selectComponent);
-  
+  const selectRow = useFormBuilderStore(state => state.selectRow);
+
   const columnStyle = useMemo(() => ({
     transform: columnTransform
       ? `translate3d(${columnTransform.x}px, 0, 0)`
@@ -108,10 +109,10 @@ const RowColumn = memo(({
 
 
   const handleClick = useCallback((e: React.MouseEvent) => {
-    console.log("clicked");
     e.stopPropagation();
-    selectedComponent?.id !== component.id && selectComponent(component);
-  }, [component, selectedComponent, selectComponent]);
+    selectRow(row);
+    selectComponent(component);
+  }, [component, selectComponent, selectRow, row]);
 
   return (
     <div
@@ -160,12 +161,13 @@ export const SortableRow = memo(({
   const selectedRow = useFormBuilderStore(state => state.selectedRow);
   const viewport = useFormBuilderStore(state => state.viewport);
   const selectedComponent = useFormBuilderStore(state => state.selectedComponent);
+
   const style = useMemo(() => ({
     transform: transform ? `translate3d(0, ${transform.y}px, 0)` : undefined,
     transition,
-    zIndex: isDragging ? 100 : 0,
+    zIndex: isDragging ? 100 : selectedRow?.id === row.id ? 100 : 0,
     ...(isDragging ? { zIndex: 20 } : undefined),
-  }), [transform, transition, isDragging]);
+  }), [transform, transition, isDragging, selectedRow?.id, row.id]);
 
   const handleColumnDragEnd = useCallback((event: any) => {
     const { active, over } = event;
@@ -194,7 +196,6 @@ export const SortableRow = memo(({
         <div
           className={cn(
             "form-row flex-1 grid grid-cols-12 gap-4",
-            selectedRow?.id === row.id && "bg-slate-100"
           )}
         >
           <DndContext

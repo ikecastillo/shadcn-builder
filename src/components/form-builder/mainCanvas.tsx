@@ -48,7 +48,7 @@ export function MainCanvas() {
   const selectedComponent = useFormBuilderStore(
     (state) => state.selectedComponent
   );
-
+  const selectRow = useFormBuilderStore((state) => state.selectRow);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
   const previewIframeRef = useRef<HTMLIFrameElement>(null);
   const editorIframeRef = useRef<HTMLIFrameElement>(null);
@@ -86,6 +86,7 @@ export function MainCanvas() {
         onClick={() => {
           if (selectedComponent) {
             selectComponent(null);
+            selectRow(null);
           }
         }}
       >
