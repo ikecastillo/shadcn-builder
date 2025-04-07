@@ -100,8 +100,6 @@ export function RenderEditorComponent({
         ) : (
           <div
             className="relative group/component"
-            {...dndAttributes}
-            {...dndListeners}
           >
             <div className="flex items-center select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ">
               <Icons.GripVertical
