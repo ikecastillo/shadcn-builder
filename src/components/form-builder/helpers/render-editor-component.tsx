@@ -35,12 +35,11 @@ export function RenderEditorComponent({
 }: FormComponentProps & { dndAttributes: any; dndListeners: any }) {
   const { removeComponent, selectedComponent, viewport, updateComponent } =
     useFormBuilderStore();
-  const rowColumns = row.components.length;
 
   const componentViews = getComponentViews(component);
 
   return (
-    <div className="relative flex h-full" key={component.id}>
+    <div className={cn("relative flex h-full", selectedComponent && "opacity-30", selectedComponent?.id === component.id && "opacity-100")} key={component.id}>
       <div className="relative flex-1 group/component">
         {component.category === "form" ? (
           <>
@@ -51,12 +50,29 @@ export function RenderEditorComponent({
                 <FormItem>
                   <div className="flex items-center select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ">
                     <Icons.GripVertical
-                      className="h-4 w-4 text-slate-400 cursor-grab active:cursor-grabbing"
+                      className="h-4 w-4 text-slate-400 cursor-grab active:cursor-grabbing focus:outline-none"
                       {...dndAttributes}
                       {...dndListeners}
                     />
-                    <FormLabel className="shrink-0 text-xs text-slate-500">
-                      {component.getField("label", viewport)}
+                    <FormLabel
+                      className={cn(
+                        "shrink-0 flex items-center gap-2 cursor-pointer",
+                        component.id === selectedComponent?.id && "font-bold"
+                      )}
+                    >
+                      {component.getField(
+                        "properties.style.showLabel",
+                        viewport
+                      ) === "yes" && component.getField("label", viewport)}
+
+                      <span
+                        className={cn(
+                          "text-xs text-slate-400",
+                          component.getField("properties.style.showLabel", viewport) === "no" ? "opacity-100" : "group-hover/component:opacity-100 opacity-0"
+                        )}
+                      >
+                        {component.getField("type")}
+                      </span>
                     </FormLabel>
                   </div>
                   <Button
@@ -82,19 +98,28 @@ export function RenderEditorComponent({
             />
           </>
         ) : (
-          <div className="relative group/component">
-            <>
-              <div className="flex items-center select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ">
-                <Icons.GripVertical
-                  className="h-4 w-4 text-slate-400 cursor-grab active:cursor-grabbing"
-                  {...dndAttributes}
-                  {...dndListeners}
-                />
-                <FormLabel className="shrink-0 text-xs text-slate-500">
-                  {component.getField("label", viewport)}
-                </FormLabel>
-              </div>
-            </>
+          <div
+            className="relative group/component"
+            {...dndAttributes}
+            {...dndListeners}
+          >
+            <div className="flex items-center select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ">
+              <Icons.GripVertical
+                className="h-4 w-4 text-slate-400 cursor-grab active:cursor-grabbing"
+                {...dndAttributes}
+                {...dndListeners}
+              />
+              <FormLabel
+                className={cn(
+                  "shrink-0 flex items-center gap-2 cursor-pointer",
+                  component.id === selectedComponent?.id && "font-bold"
+                )}
+              >
+                <span className="text-xs text-slate-400">
+                  {component.getField("type")}
+                </span>
+              </FormLabel>
+            </div>
             <Button
               variant="ghost"
               size="icon"
@@ -112,7 +137,7 @@ export function RenderEditorComponent({
             <FormWysiwygEditor
               value={component.content || ""}
               onChange={(content) => {
-                updateComponent(component.id, "content", content, true)
+                updateComponent(component.id, "content", content, true);
               }}
               isEditable={selectedComponent?.id === component.id}
             />

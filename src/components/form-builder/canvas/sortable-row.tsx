@@ -32,11 +32,11 @@ const RowDropzone = memo(({
   position?: "before" | "after";
   rowId: number;
 }) => (
-  <div className="flex items-center justify-center relative mx-8">
+  <div className="flex items-center justify-center absolute mx-8 group-hover/row:opacity-100 opacity-0 border-t border-indigo-200 -bottom-3 -left-2 -right-2">
     <DropdownComponents
       newRow={newRow}
       {...(position === "before" ? { before: rowId } : { after: rowId })}
-      className="z-10 absolute bg-slate-100 rounded-full"
+      className="z-10 absolute bg-indigo-200 rounded-full"
     />
   </div>
 ));
@@ -45,15 +45,13 @@ RowDropzone.displayName = 'RowDropzone';
 
 // Memoize the draggable button component
 const DraggableButton = memo(({ attributes, listeners }: any) => (
-  <Button
-    variant="ghost"
-    size="icon"
-    className="h-8 w-8 cursor-grab active:cursor-grabbing self-center"
+  <div
+    className="h-6 w-6 cursor-grab active:cursor-grabbing self-center group-hover/row:opacity-100 opacity-0 flex items-center justify-center"
     {...attributes}
     {...listeners}
   >
     <GripVertical className="h-4 w-4 text-slate-400" />
-  </Button>
+  </div>
 ));
 
 DraggableButton.displayName = 'DraggableButton';
@@ -62,7 +60,6 @@ DraggableButton.displayName = 'DraggableButton';
 const RowColumn = memo(({
   component,
   index,
-  viewport,
   row,
   form,
   isLast,
@@ -94,6 +91,7 @@ const RowColumn = memo(({
       : undefined,
     transition: columnTransition,
     zIndex: columnIsDragging ? 30 : 1,
+    backgroundColor: "white",
     ...(selectedComponent?.id === component.id ? { zIndex: 30 } : undefined),
   }), [columnTransform, columnTransition, columnIsDragging, selectedComponent, component]);
 
@@ -110,6 +108,7 @@ const RowColumn = memo(({
 
 
   const handleClick = useCallback((e: React.MouseEvent) => {
+    console.log("clicked");
     e.stopPropagation();
     selectedComponent?.id !== component.id && selectComponent(component);
   }, [component, selectedComponent, selectComponent]);
@@ -118,8 +117,7 @@ const RowColumn = memo(({
     <div
       ref={setNodeRef}
       className={cn(
-        "relative  group hover:ring-1 hover:ring-slate-200 p-2 rounded cursor-pointer",
-        selectedComponent?.id === component.id && "ring-2 ring-indigo-400 hover:ring-indigo-400 hover:ring-2 bg-white",
+        "relative group cursor-pointer ",
         colSpanClasses,
         colStartClasses
       )}
@@ -146,7 +144,6 @@ RowColumn.displayName = 'RowColumn';
 
 export const SortableRow = memo(({
   row,
-  index,
   form,
 }: SortableRowProps) => {
   const {
@@ -162,7 +159,7 @@ export const SortableRow = memo(({
   const updateRow = useFormBuilderStore(state => state.updateRow);
   const selectedRow = useFormBuilderStore(state => state.selectedRow);
   const viewport = useFormBuilderStore(state => state.viewport);
-
+  const selectedComponent = useFormBuilderStore(state => state.selectedComponent);
   const style = useMemo(() => ({
     transform: transform ? `translate3d(0, ${transform.y}px, 0)` : undefined,
     transition,
@@ -189,15 +186,14 @@ export const SortableRow = memo(({
     <div
       ref={setNodeRef}
       style={style}
-      className={cn("group")}
+      className={cn(!selectedComponent && "group/row", "-mx-6 bg-white relative")}
       key={row.id}
     >
-      {index === 0 && !isDragging && <RowDropzone newRow rowId={row.id} position="before" />}
-      <div className="flex items-center">
+      <div className="flex">
         <DraggableButton attributes={attributes} listeners={listeners} />
         <div
           className={cn(
-            "form-row flex-1 grid grid-cols-12 p-4 bg-white ring ring-slate-200",
+            "form-row flex-1 grid grid-cols-12 gap-4",
             selectedRow?.id === row.id && "bg-slate-100"
           )}
         >
@@ -223,10 +219,10 @@ export const SortableRow = memo(({
             </SortableContext>
           </DndContext>
         </div>
-        <div className="w-8">
+        <div className="w-6 border-l border-indigo-200 flex items-center justify-center translate-x-1/2 group-hover/row:opacity-100 opacity-0">
           <DropdownComponents
             rowId={row.id}
-            className={cn("z-10 rounded-full -translate-x-3 bg-slate-100", isDragging && "hidden")}
+            className={cn("z-10 bg-indigo-200 rounded-full absolute -left-[9px]", isDragging && "hidden")}
           />
         </div>
       </div>

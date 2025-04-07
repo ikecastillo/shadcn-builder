@@ -97,7 +97,7 @@ export default function GenerateEditorMode() {
   
   return (
     <div
-      className={`px-6 pt-6 pb-24 ${geist.className} mx-auto`}
+      className={`[&>div]:my-6 [&>div:last-child]:mb-0 [&>div:first-child]:mt-0`}
       onClick={handleClick}
     >
       <Form {...form}>

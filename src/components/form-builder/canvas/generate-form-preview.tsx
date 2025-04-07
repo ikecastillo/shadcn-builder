@@ -62,7 +62,7 @@ export function GenerateFormPreview() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="[&>div]:my-6 [&>div:last-child]:mb-0 [&>div:first-child]:mt-0  bg-white"
+        className="[&>div]:my-6 [&>div:last-child]:mb-0 [&>div:first-child]:mt-0"
       >
         {rows.map((row) => {
           const oneCompViews = getComponentViews(row.components[0], row);

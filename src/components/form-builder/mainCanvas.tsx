@@ -7,12 +7,14 @@ import { IFrame } from "./helpers/iframe";
 import { Pre } from "@/components/ui/pre";
 import { generateJsonSchema } from "./helpers/generate-json";
 import { cn } from "@/lib/utils";
+import { CardContent } from "../ui/card";
+import { Card } from "../ui/card";
 
 // Memoize static viewport styles
 const viewportEditorStyles = {
-  sm: "w-[418px]",
-  md: "w-[866px]",
-  lg: "w-[1134px]",
+  sm: "w-[320px]",
+  md: "w-[768px]",
+  lg: "w-[1024px]",
 } as const;
 
 const viewportPreviewStyles = {
@@ -83,9 +85,13 @@ export function MainCanvas() {
       >
         <IFrame
           ref={editorIframeRef}
-          className={cn(`${viewportEditorStyles[viewport]}`, "mx-auto")}
+          className={cn(`${viewportEditorStyles[viewport]}`, "mx-auto scrollbar-hide")}
         >
-          <GenerateEditorMode />
+          <Card className="mt-6">
+            <CardContent>
+              <GenerateEditorMode />
+            </CardContent>
+          </Card>
         </IFrame>
       </div>
       <div
