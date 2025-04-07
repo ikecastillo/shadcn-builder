@@ -39,7 +39,7 @@ export function RenderEditorComponent({
   const componentViews = getComponentViews(component);
 
   return (
-    <div className={cn("relative flex h-full", selectedComponent && "opacity-30", selectedComponent?.id === component.id && "opacity-100")} key={component.id}>
+    <div className={cn("relative flex h-full", selectedComponent && "opacity-30", selectedComponent?.id === component.id && "opacity-100 outline-2 outline-offset-6 outline-slate-400 rounded-xs")} key={component.id}>
       <div className="relative flex-1 group/component">
         {component.category === "form" ? (
           <>
@@ -57,7 +57,6 @@ export function RenderEditorComponent({
                     <FormLabel
                       className={cn(
                         "shrink-0 flex items-center gap-2 cursor-pointer",
-                        component.id === selectedComponent?.id && "font-bold"
                       )}
                     >
                       {component.getField(

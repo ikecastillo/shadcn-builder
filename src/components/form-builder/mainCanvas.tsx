@@ -49,6 +49,7 @@ export function MainCanvas() {
     (state) => state.selectedComponent
   );
 
+  const selectComponent = useFormBuilderStore((state) => state.selectComponent);
   const previewIframeRef = useRef<HTMLIFrameElement>(null);
   const editorIframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -82,6 +83,11 @@ export function MainCanvas() {
     <div className="flex gap-4 h-full flex-col 3xl:flex-row">
       <div
         className={`h-full w-full ${mode === "editor" ? "block" : "hidden"}`}
+        onClick={() => {
+          if (selectedComponent) {
+            selectComponent(null);
+          }
+        }}
       >
         <IFrame
           ref={editorIframeRef}
