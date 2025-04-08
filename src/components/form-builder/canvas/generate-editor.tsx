@@ -19,7 +19,7 @@ import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useForm } from "react-hook-form";
 import { useMemo, memo, useCallback, useEffect } from "react";
 import { FormRow } from "@/types/form-builder.types";
-import { Geist } from "next/font/google";
+
 // Memoize the empty state component
 const EmptyState = memo(() => (
   <div className="p-6 text-center text-sm text-muted-foreground bg-black/5 rounded-lg max-w-md mx-auto border-dashed border-2 border-slate-300">
@@ -29,7 +29,6 @@ const EmptyState = memo(() => (
 
 EmptyState.displayName = "EmptyState";
 
-const geist = Geist({ subsets: ["latin"] });
 
 // Memoize the sortable rows list
 const SortableRowsList = memo(
@@ -47,16 +46,12 @@ const SortableRowsList = memo(
 
 SortableRowsList.displayName = "SortableRowsList";
 
-export default function GenerateEditorMode() {
+export default function GenerateEditor() {
   // Split store selectors to minimize re-renders
   const rows = useFormBuilderStore((state) => state.rows);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
-  const selectedComponent = useFormBuilderStore(
-    (state) => state.selectedComponent
-  );
   const updateRows = useFormBuilderStore((state) => state.updateRows);
-  const viewport = useFormBuilderStore((state) => state.viewport);
-
+  const mode = useFormBuilderStore((state) => state.mode);
   const form = useForm();
 
   // Create sensors outside of callback
@@ -98,7 +93,7 @@ export default function GenerateEditorMode() {
   return (
     <div
       className={`[&>div]:my-6 [&>div:last-child]:mb-0 [&>div:first-child]:mt-0`}
-      onClick={handleClick}
+      onClick={mode === "editor" ? handleClick : undefined}
     >
       <Form {...form}>
         <DndContext

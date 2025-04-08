@@ -2,7 +2,7 @@
 
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useEffect, useRef, useMemo, memo } from "react";
-import GenerateEditorMode from "./canvas/generate-editor-mode";
+import GenerateEditor from "./canvas/generate-editor";
 import { IFrame } from "./helpers/iframe";
 import { Pre } from "@/components/ui/pre";
 import { generateJsonSchema } from "./helpers/generate-json";
@@ -12,12 +12,6 @@ import { Card } from "../ui/card";
 
 // Memoize static viewport styles
 const viewportEditorStyles = {
-  sm: "w-[320px]",
-  md: "w-[768px]",
-  lg: "w-[1024px]",
-} as const;
-
-const viewportPreviewStyles = {
   sm: "w-[320px]",
   md: "w-[768px]",
   lg: "w-[1024px]",
@@ -42,7 +36,6 @@ JsonPreview.displayName = "JsonPreview";
 export function MainCanvas() {
   // Split store selectors to minimize re-renders
   const rows = useFormBuilderStore((state) => state.rows);
-  const mode = useFormBuilderStore((state) => state.mode);
   const viewport = useFormBuilderStore((state) => state.viewport);
   const showJson = useFormBuilderStore((state) => state.showJson);
   const selectedComponent = useFormBuilderStore(
@@ -76,13 +69,10 @@ export function MainCanvas() {
     }
   }, [rows]);
 
-  const tabsTriggerClass =
-    "relative flex items-center gap-2 cursor-pointer rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none";
-
   return (
     <div className="flex gap-4 h-full flex-col 3xl:flex-row">
       <div
-        className={`h-full w-full ${mode === "editor" ? "block" : "hidden"}`}
+        className={`h-full w-full`}
         onClick={() => {
           if (selectedComponent) {
             selectComponent(null);
@@ -96,20 +86,10 @@ export function MainCanvas() {
         >
           <Card className="mt-6">
             <CardContent>
-              <GenerateEditorMode />
+              <GenerateEditor />
             </CardContent>
           </Card>
         </IFrame>
-      </div>
-      <div
-        className={`h-full mx-auto ${mode === "preview" ? "block" : "hidden"}`}
-      >
-        <iframe
-          ref={previewIframeRef}
-          src="/canvas/preview"
-          className={`h-full border-0 mx-auto ${viewportPreviewStyles[viewport]}`}
-          title="Form Canvas"
-        />
       </div>
       {showJson && <JsonPreview rows={rows} />}
     </div>

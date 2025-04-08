@@ -41,6 +41,8 @@ export default function FormBuilderPage() {
     (state) => state.toggleJsonPreview
   );
 
+  const selectRow = useFormBuilderStore((state) => state.selectRow);
+  const selectComponent = useFormBuilderStore((state) => state.selectComponent);
   const [showCodeDialog, setShowCodeDialog] = useState(false);
   const [generatedCode, setGeneratedCode] = useState<{
     code: string;
@@ -119,9 +121,13 @@ export default function FormBuilderPage() {
             <ToggleGroupNav
               items={modeItems}
               defaultValue={mode}
-              onValueChange={(value) =>
-                updateMode(value as "editor" | "preview")
-              }
+              onValueChange={(value) => {
+                if (value === "preview") {
+                  selectComponent(null);
+                  selectRow(null);
+                }
+                updateMode(value as "editor" | "preview");
+              }}
             />
           </div>
         </div>

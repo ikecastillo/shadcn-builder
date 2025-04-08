@@ -32,6 +32,7 @@ export const TextColorStyle = TextStyle.extend({
 
 export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
   ({ value, onChange, isEditable = false }) => {
+
     // Memoize editor extensions
     const extensions = useMemo(
       () => [
@@ -96,14 +97,14 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
     );
 
     const editor = useEditor({
-      editable: true,
-      immediatelyRender: false,
+      editable: isEditable,
+      immediatelyRender: true,
       extensions,
       content: value,
       onUpdate: ({ editor }) => {
         onChange(editor.getHTML());
       },
-    });
+    }, [isEditable]);
 
     // Only update content when value prop changes and it's different from our local content
 
