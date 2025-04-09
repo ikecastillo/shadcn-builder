@@ -25,6 +25,7 @@ export const DEFAULT_PROPERTIES: FormComponentProperties = {
 export class FormComponentModel {
   id: string;
   label: string;
+  label_info: string;
   label_description?: string;
   type: string;
   value?: string | number;
@@ -42,6 +43,7 @@ export class FormComponentModel {
   constructor(input: FormComponentModelInput) {
     this.id = input.id;
     this.label = input.label;
+    this.label_info = input.label_info;
     this.label_description = input.label_description;
     this.type = input.type;
     this.value = input.value;

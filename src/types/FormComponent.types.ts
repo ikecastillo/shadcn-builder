@@ -5,6 +5,7 @@ import { HTMLAttributes, HTMLInputTypeAttribute } from "react";
 export interface FormComponentModelInput {
   id: string;
   label: string;
+  label_info: string;
   label_description?: string;
   type: string;
   category: "form" | "content";

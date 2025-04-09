@@ -83,6 +83,12 @@ export function MainCanvas() {
         <IFrame
           ref={editorIframeRef}
           className={cn(`${viewportEditorStyles[viewport]}`, "mx-auto")}
+          onClick={() => {
+            if (selectedComponent) {
+              selectComponent(null);
+              selectRow(null);
+            }
+          }}
         >
           <Card className="mt-6">
             <CardContent>

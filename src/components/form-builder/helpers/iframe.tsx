@@ -4,8 +4,8 @@ import { createPortal } from "react-dom";
 
 const styles = new Map<string, string>();
 
-export const IFrame = forwardRef<HTMLIFrameElement, { children: React.ReactNode, id?: string, className?: string }>(
-  ({ children, id, className }, ref) => {
+export const IFrame = forwardRef<HTMLIFrameElement, { children: React.ReactNode, id?: string, className?: string, onClick?: () => void }>(
+  ({ children, id, className, onClick }, ref) => {
     const [internalRef, setInternalRef] = useState<HTMLIFrameElement | null>(null);
     const container = internalRef?.contentDocument?.body;
 
@@ -47,6 +47,20 @@ export const IFrame = forwardRef<HTMLIFrameElement, { children: React.ReactNode,
         resizeObserver.disconnect();
       };
     }, [internalRef]);
+
+    useEffect(() => {
+      if (!internalRef?.contentDocument?.body) return;
+      
+      const handleClick = () => {
+        onClick?.();
+      };
+
+      internalRef.contentDocument.body.addEventListener('click', handleClick);
+
+      return () => {
+        internalRef.contentDocument?.body?.removeEventListener('click', handleClick);
+      };
+    }, [internalRef, onClick]);
 
     return (
       <iframe 
