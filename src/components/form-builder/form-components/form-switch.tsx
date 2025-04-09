@@ -69,4 +69,5 @@ export const SwitchDesignProperties: DesignPropertiesViews = {
   input: <InputGroup whitelist={["description", "asCard"]} />,
   options: null,
   button: null,
+  validation: null,
 };

@@ -43,7 +43,7 @@ import {
 const typographyComponents: FormComponentModel[] = [
   new FormComponentModel({
     id: "text",
-    label: "Text",
+    label: "Text Block",
     type: "text",
     category: "content",
     icon: "Text",
@@ -101,7 +101,7 @@ const formComponents: FormComponentModel[] = [
   }),
   new FormComponentModel({
     id: "tel-input",
-    label: "Tel Input",
+    label: "Telephone Input",
     type: "tel",
     category: "form",
     icon: "PhoneIcon",
@@ -109,7 +109,7 @@ const formComponents: FormComponentModel[] = [
   }),
   new FormComponentModel({
     id: "url-input",
-    label: "Url Input",
+    label: "URL Input",
     type: "url",
     category: "form",
     icon: "LinkIcon",

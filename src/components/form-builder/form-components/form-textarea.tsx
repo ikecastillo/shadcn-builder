@@ -55,4 +55,5 @@ export const TextareaDesignProperties: DesignPropertiesViews = {
   input: <InputGroup />,
   options: null,
   button: null,
+  validation: null,
 };

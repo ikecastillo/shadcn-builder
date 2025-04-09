@@ -74,4 +74,5 @@ export const RadioDesignProperties: DesignPropertiesViews = {
   input: <InputGroup whitelist={["placeholder", "description", "value"]} />,
   options: <OptionsGroup />,
   button: null,
+  validation: null,
 };

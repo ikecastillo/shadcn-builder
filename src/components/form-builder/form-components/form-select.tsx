@@ -79,4 +79,5 @@ export const SelectDesignProperties: DesignPropertiesViews = {
   input: <InputGroup whitelist={["placeholder", "description", "value"]} />,
   options: <OptionsGroup />,
   button: null,
+  validation: null,
 };

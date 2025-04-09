@@ -165,13 +165,12 @@ const RowColumn = memo(
 
 RowColumn.displayName = "RowColumn";
 
-export const SortableRow = memo(({ row, form }: SortableRowProps) => {
+export const SortableRow = memo(({ row, form, index }: SortableRowProps) => {
   const {
     attributes,
     listeners,
     setNodeRef,
     transform,
-    transition,
     isDragging,
   } = useSortable({ id: row.id });
 
@@ -187,11 +186,10 @@ export const SortableRow = memo(({ row, form }: SortableRowProps) => {
   const style = useMemo(
     () => ({
       transform: transform ? `translate3d(0, ${transform.y}px, 0)` : undefined,
-      transition,
       zIndex: isDragging ? 100 : selectedRow?.id === row.id ? 100 : 0,
       ...(isDragging ? { zIndex: 20 } : undefined),
     }),
-    [transform, transition, isDragging, selectedRow?.id, row.id]
+    [transform, isDragging, selectedRow?.id, row.id]
   );
 
   const handleColumnDragEnd = useCallback(

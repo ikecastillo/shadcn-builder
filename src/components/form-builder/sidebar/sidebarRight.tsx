@@ -39,6 +39,7 @@ const PROPERTY_SECTIONS = [
   { key: "label", title: "Label" },
   { key: "grid", title: "Grid layout" },
   { key: "html", title: "HTML" },
+  { key: "validation", title: "Validation" },
 ] as const;
 
 export function SidebarRight() {

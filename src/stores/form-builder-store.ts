@@ -34,11 +34,12 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
         set((state) => {
           const newComponent = new FormComponentModel({...component});
           newComponent.id = generateComponentId(newComponent, state.rows);
+
           newComponent.attributes = {
             ...newComponent.attributes,
             id: newComponent.id
           };
-          
+
           const newRow = { id: state.rows.length + 1, components: [newComponent] };
 
           if (after !== undefined) {
@@ -59,7 +60,12 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
           rows: state.rows.filter((row) => row.id !== rowId),
         }));
       },
-      updateRows: (rows: FormRow[]) => set({ rows }), 
+      updateRows: (rows: FormRow[]) => set({ 
+        rows: rows.map((row, index) => ({
+          ...row,
+          id: index + 1
+        }))
+      }),
       updateRow: (row: FormRow) => set((state) => ({
         rows: state.rows.map((r) => r.id === row.id ? row : r)
       })),
