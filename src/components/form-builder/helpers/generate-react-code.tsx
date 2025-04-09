@@ -74,7 +74,13 @@ const generateZodSchemaForComponent = (
   const validations = component.getField("validations");
   const isRequired = shouldForceRequired(validations);
 
-  if (!validations) return "";
+  if (!validations) {
+    if (component.type === "number") {
+      return `z.coerce.number()`;
+    }
+
+    return `z.string()`;
+  };
 
   if (component.type === "number") {
     return `z.coerce.number()${isRequired ? '.min(1, { message: "This field is required" })' : ""}${validations.min ? `.min(${validations.min}, { message: "Must be at least ${validations.min}" })` : ""}${validations.max ? `.max(${validations.max}, { message: "Must be at most ${validations.max}" })` : ""}`;

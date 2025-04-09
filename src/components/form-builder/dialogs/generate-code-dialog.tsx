@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Pre } from "@/components/ui/pre";
-import { Download, Copy, Check } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import * as prettier from "prettier/standalone";
 import * as parserTypescript from "prettier/parser-typescript";

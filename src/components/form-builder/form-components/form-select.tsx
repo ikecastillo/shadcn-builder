@@ -47,10 +47,9 @@ export function getReactCode(component: FormComponentModel): ReactCode {
     <Select
       key="${component.id}"
       id="${escapeHtml(component.getField("attributes.id"))}"
-      name="${escapeHtml(component.getField("attributes.name"))}"
       className="${escapeHtml(component.getField("attributes.class"))}"
-      value="${escapeHtml(component.value as string)}"
-    >
+      {...field}
+      >
       <SelectTrigger>
         <SelectValue placeholder="${escapeHtml(component.getField("attributes.placeholder"))}" />
       </SelectTrigger>
