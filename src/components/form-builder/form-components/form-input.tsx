@@ -7,7 +7,10 @@ import { InputGroup } from "../sidebar/groups/input-group";
 import { GridGroup } from "../sidebar/groups/grid-group";
 import { cn, escapeHtml } from "@/lib/utils";
 import { ValidationGroup } from "../sidebar/groups/validation-group";
+
+
 export function FormInput(component: FormComponentModel) {
+
   return (
     <Input
       key={component.id}

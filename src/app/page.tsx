@@ -85,9 +85,9 @@ export default function FormBuilderPage() {
             </sup>
           </h2>
         </div>
-        <div className="p-2 flex-1 grid-cols-3 hidden md:grid">
-          <div className="col-span-1"></div>
-          <div className="col-span-1 flex justify-center">
+        <div className="p-2 flex-1 grid-cols-2 xl:grid-cols-3 hidden md:grid">
+          <div className="hidden xl:block col-span-1"></div>
+          <div className="col-span-1 flex xl:justify-center">
             <div className=" text-center flex flex-row items-center justify-center gap-1 border rounded-md h-9 px-4">
               <div
                 className="max-w-80 overflow-y-hidden whitespace-nowrap text-sm outline-none scrollbar-hide"
@@ -137,6 +137,7 @@ export default function FormBuilderPage() {
             size="sm"
             className="w-full cursor-pointer"
             onClick={handleGenerateCode}
+            disabled={rows.length === 0}
           >
             Generate Code
           </Button>
@@ -160,7 +161,7 @@ export default function FormBuilderPage() {
             <DndContext>
               <div className="flex w-full h-screen justify-between">
                 <SidebarLeft />
-                <main className="flex-1 overflow-auto relative bg-slate-50 bg-dotted pt-14">
+                <main className="flex-1 overflow-auto relative bg-slate-50 bg-dotted pt-14 scrollbar-hide">
                   <MainCanvas />
                 </main>
                 <SidebarRight />

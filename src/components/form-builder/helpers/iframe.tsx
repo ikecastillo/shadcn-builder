@@ -33,6 +33,21 @@ export const IFrame = forwardRef<HTMLIFrameElement, { children: React.ReactNode,
       }
     };
 
+    useEffect(() => {
+      if (!internalRef?.contentDocument?.body) return;
+
+      const resizeObserver = new ResizeObserver(() => {
+        const height = internalRef.contentDocument?.body.scrollHeight;
+        internalRef.style.height = `${height}px`;
+      });
+
+      resizeObserver.observe(internalRef.contentDocument.body);
+
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }, [internalRef]);
+
     return (
       <iframe 
         title="iframe" 

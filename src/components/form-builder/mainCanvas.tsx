@@ -82,7 +82,7 @@ export function MainCanvas() {
       >
         <IFrame
           ref={editorIframeRef}
-          className={cn(`${viewportEditorStyles[viewport]}`, "mx-auto scrollbar-hide")}
+          className={cn(`${viewportEditorStyles[viewport]}`, "mx-auto")}
         >
           <Card className="mt-6">
             <CardContent>
