@@ -26,6 +26,8 @@ import { GenerateCodeDialog } from "@/components/form-builder/dialogs/generate-c
 import { MobileNotification } from "@/components/form-builder/ui/mobile-notification";
 import { useIsMobile } from "@/hooks/use-mobile";
 import SocialLinks from "@/components/form-builder/sidebar/socialLinks";
+import { OpenJsonDialog } from "@/components/form-builder/dialogs/open-json-dialog";
+
 export default function FormBuilderPage() {
   const isMobile = useIsMobile();
   // Split the store selectors to only subscribe to what we need
@@ -86,7 +88,9 @@ export default function FormBuilderPage() {
           </h2>
         </div>
         <div className="p-2 flex-1 grid-cols-2 xl:grid-cols-3 hidden md:grid">
-          <div className="hidden xl:block col-span-1"></div>
+          <div className="hidden xl:block col-span-1">
+            {process.env.NODE_ENV === "development" && <OpenJsonDialog />}
+          </div>
           <div className="col-span-1 flex xl:justify-center">
             <div className=" text-center flex flex-row items-center justify-center gap-1 border rounded-md h-9 px-4">
               <div
