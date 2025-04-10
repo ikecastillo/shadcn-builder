@@ -59,7 +59,7 @@ export function OpenJsonDialog() {
             Paste your form JSON code here. The JSON should be an array of rows with components.
           </DialogDescription>
         </DialogHeader>
-        <div className="min-h-[500px] w-full overflow-y-auto flex flex-col gap-4">
+        <div className="h-[500px] w-full overflow-y-auto flex flex-col gap-4">
           <Textarea
             value={jsonInput}
             onChange={(e) => setJsonInput(e.target.value)}
