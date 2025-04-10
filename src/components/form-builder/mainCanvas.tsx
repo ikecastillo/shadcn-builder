@@ -3,7 +3,6 @@
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useEffect, useRef, useMemo, memo } from "react";
 import GenerateEditor from "./canvas/generate-editor";
-import { IFrame } from "./helpers/iframe";
 import { Pre } from "@/components/ui/pre";
 import { generateJsonSchema } from "./helpers/generate-json";
 import { cn } from "@/lib/utils";
@@ -12,9 +11,9 @@ import { Card } from "../ui/card";
 
 // Memoize static viewport styles
 const viewportEditorStyles = {
-  sm: "w-[320px]",
-  md: "w-[768px]",
-  lg: "w-[1024px]",
+  sm: "w-[370px]",
+  md: "w-[818px]",
+  lg: "w-[1074px]",
 } as const;
 
 // Memoize the JSON preview component
@@ -80,22 +79,18 @@ export function MainCanvas() {
           }
         }}
       >
-        <IFrame
-          ref={editorIframeRef}
-          className={cn(`${viewportEditorStyles[viewport]}`, "mx-auto")}
-          onClick={() => {
-            if (selectedComponent) {
-              selectComponent(null);
-              selectRow(null);
-            }
-          }}
+        <Card
+          className={cn(
+            'transition-all duration-300',
+            `${viewportEditorStyles[viewport]}`,
+            "mx-auto scrollbar-hide mt-6"
+          )}
         >
-          <Card className="mt-6">
-            <CardContent>
-              <GenerateEditor />
-            </CardContent>
-          </Card>
-        </IFrame>
+          <CardContent className="@container">
+            <GenerateEditor />
+          </CardContent>
+        </Card>
+        
       </div>
       {showJson && <JsonPreview rows={rows} />}
     </div>
