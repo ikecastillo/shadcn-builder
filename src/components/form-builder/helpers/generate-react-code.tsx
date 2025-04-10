@@ -240,7 +240,7 @@ export default function ${formTitle.replace(/\s+/g, "").charAt(0).toUpperCase() 
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 @container">
 ${formCode}
       </form>
     </Form>
