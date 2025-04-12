@@ -1,7 +1,7 @@
-import { FormRow } from "@/types/form-builder.types";
-export const generateJsonSchema = (rows: FormRow[]) => {
+import { FormComponentModel } from "@/models/FormComponent";
+export const generateJsonSchema = (components: FormComponentModel[]) => {
   return {
-    rows,
+    components,
     validation: {},
     };
   };

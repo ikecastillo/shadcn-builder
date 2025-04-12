@@ -1,7 +1,7 @@
 import { UseFormReturn } from "react-hook-form";
 import {
   arrayMove,
-  horizontalListSortingStrategy,
+  verticalListSortingStrategy,
   SortableContext,
   useSortable,
 } from "@dnd-kit/sortable";
@@ -17,9 +17,10 @@ import { FormComponentModel } from "@/models/FormComponent";
 import { memo, useCallback, useEffect, useMemo } from "react";
 
 interface SortableRowProps {
-  row: FormRow;
+  component: FormComponentModel;
   index: number;
   form: UseFormReturn<any>;
+  activeIndex: number;
 }
 
 // Memoize the row dropzone component
@@ -59,20 +60,19 @@ const DraggableButton = memo(({ attributes, listeners }: any) => (
 DraggableButton.displayName = "DraggableButton";
 
 // Memoize the row column component
-const RowColumn = memo(
+export const RowColumn = memo(
   ({
     component,
     index,
-    row,
     form,
-    isLast,
+    activeIndex,
+    overPosition,
   }: {
     component: FormComponentModel;
     index: number;
-    viewport: Viewports;
-    row: FormRow;
     form: UseFormReturn<any>;
-    isLast: boolean;
+    activeIndex: number;
+    overPosition: "left" | "right" | "top" | "bottom" | null;
   }) => {
     const {
       attributes: columnAttributes,
@@ -81,6 +81,7 @@ const RowColumn = memo(
       transform: columnTransform,
       transition: columnTransition,
       isDragging: columnIsDragging,
+      over: columnOver,
     } = useSortable({
       id: component.id,
     });
@@ -91,7 +92,6 @@ const RowColumn = memo(
     const selectComponent = useFormBuilderStore(
       (state) => state.selectComponent
     );
-    const selectRow = useFormBuilderStore((state) => state.selectRow);
     const mode = useFormBuilderStore((state) => state.mode);
     const columnStyle = useMemo(
       () => ({
@@ -100,7 +100,6 @@ const RowColumn = memo(
           : undefined,
         transition: columnTransition,
         zIndex: columnIsDragging ? 30 : 1,
-        backgroundColor: "white",
         ...(selectedComponent?.id === component.id
           ? { zIndex: 30 }
           : undefined),
@@ -115,24 +114,23 @@ const RowColumn = memo(
     );
 
     const colSpanClasses = useMemo(
-      () => generateTWClassesForAllViewports(component, "colSpan", row),
-      [component, row]
+      () => generateTWClassesForAllViewports(component, "colSpan"),
+      [component]
     );
 
     const colStartClasses = useMemo(
-      () => generateTWClassesForAllViewports(component, "colStart", row),
-      [component, row]
+      () => generateTWClassesForAllViewports(component, "colStart"),
+      [component]
     );
 
     const handleClick = useCallback(
       (e: React.MouseEvent) => {
-        if (mode === "editor") {
+        if (mode === "editor" && !columnIsDragging) {
           e.stopPropagation();
-          selectRow(row);
           selectComponent(component);
         }
       },
-      [component, selectComponent, selectRow, row, mode]
+      [component, selectComponent, mode, columnIsDragging]
     );
 
     return (
@@ -141,18 +139,23 @@ const RowColumn = memo(
         className={cn(
           "relative group cursor-pointer ",
           colSpanClasses,
-          colStartClasses
+          colStartClasses,
         )}
         style={columnStyle}
         key={component.id}
         onClick={handleClick}
         data-component-id={component.id}
       >
+        {columnOver?.id === component.id && (
+          <RowColumnDropzone
+            activeIndex={activeIndex}
+            index={index}
+            overPosition={overPosition}
+          />
+        )}
         <RenderEditorComponent
           key={component.id}
           index={index}
-          isLast={isLast}
-          row={row}
           component={component}
           form={form}
           dndAttributes={columnAttributes}
@@ -165,106 +168,28 @@ const RowColumn = memo(
 
 RowColumn.displayName = "RowColumn";
 
-export const SortableRow = memo(({ row, form, index }: SortableRowProps) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    isDragging,
-  } = useSortable({ id: row.id });
-
-  // Split store selectors
-  const updateRow = useFormBuilderStore((state) => state.updateRow);
-  const selectedRow = useFormBuilderStore((state) => state.selectedRow);
-  const viewport = useFormBuilderStore((state) => state.viewport);
-  const selectedComponent = useFormBuilderStore(
-    (state) => state.selectedComponent
-  );
-  const mode = useFormBuilderStore((state) => state.mode);
-
-  const style = useMemo(
-    () => ({
-      transform: transform ? `translate3d(0, ${transform.y}px, 0)` : undefined,
-      zIndex: isDragging ? 100 : selectedRow?.id === row.id ? 100 : 0,
-      ...(isDragging ? { zIndex: 20 } : undefined),
-    }),
-    [transform, isDragging, selectedRow?.id, row.id]
-  );
-
-  const handleColumnDragEnd = useCallback(
-    (event: any) => {
-      const { active, over } = event;
-      if (active.id !== over.id) {
-        const oldIndex = row.components.findIndex(
-          (component) => component.id === active.id
-        );
-        const newIndex = row.components.findIndex(
-          (component) => component.id === over.id
-        );
-        const newComponents = arrayMove(row.components, oldIndex, newIndex);
-        const newRow = { ...row, components: newComponents };
-        updateRow(newRow);
-      }
-    },
-    [row, updateRow]
-  );
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className={cn(
-        mode === "editor" && !selectedComponent && "group/row",
-        mode === "editor" && "-mx-6",
-        " bg-white relative"
-      )}
-      key={row.id}
-    >
-      <div className="flex">
-        {mode === "editor" && (
-          <DraggableButton attributes={attributes} listeners={listeners} />
+const RowColumnDropzone = memo(
+  ({
+    activeIndex,
+    index,
+    overPosition,
+  }: {
+    activeIndex: number;
+    index: number;
+    overPosition: "left" | "right" | "top" | "bottom" | null;
+  }) => {
+    return (
+      <div
+        className={cn(
+          " bg-indigo-500 absolute",
+          overPosition === "top" && "left-0 -top-1.5 right-0 h-0.5",
+          overPosition === "bottom" && "left-0 -bottom-1.5 right-0 h-0.5",
+          overPosition === "left" && "-left-1.5 top-0 bottom-0 w-0.5",
+          overPosition === "right" && "-right-1.5 top-0 bottom-0 w-0.5"
         )}
-        <div className={cn("form-row flex-1 grid grid-cols-12 gap-4")}>
-          <DndContext
-            collisionDetection={closestCenter}
-            onDragEnd={handleColumnDragEnd}
-          >
-            <SortableContext
-              items={row.components.map((component) => component.id)}
-              strategy={horizontalListSortingStrategy}
-            >
-              {row.components.map((component, index) => (
-                <RowColumn
-                  key={component.id}
-                  component={component}
-                  index={index}
-                  viewport={viewport}
-                  row={row}
-                  form={form}
-                  isLast={index === row.components.length - 1}
-                />
-              ))}
-            </SortableContext>
-          </DndContext>
-        </div>
-        {mode === "editor" && (
-          <div className="w-6 border-l border-indigo-200 flex items-center justify-center translate-x-1/2 group-hover/row:opacity-100 opacity-0">
-            <DropdownComponents
-              rowId={row.id}
-              className={cn(
-                "z-10 bg-indigo-200 rounded-full absolute -left-[9px]",
-                isDragging && "hidden"
-              )}
-            />
-          </div>
-        )}
-      </div>
-      {mode === "editor" && !isDragging && (
-        <RowDropzone newRow rowId={row.id} position="after" />
-      )}
-    </div>
-  );
-});
+      ></div>
+    );
+  }
+);
 
-SortableRow.displayName = "SortableRow";
+RowColumnDropzone.displayName = "RowColumnDropzone";

@@ -52,9 +52,11 @@ const generateImports = (): string => {
     .join("\n");
 };
 
-const shouldForceRequired = (validations: FormComponentValidationTypes): boolean => {
+const shouldForceRequired = (
+  validations: FormComponentValidationTypes
+): boolean => {
   if (!validations) return false;
-  
+
   // If required is explicitly set to "no", check for min/max validations
   if (validations.required === false) {
     return (
@@ -64,7 +66,7 @@ const shouldForceRequired = (validations: FormComponentValidationTypes): boolean
       validations.maxLength !== undefined
     );
   }
-  
+
   return validations.required || false;
 };
 
@@ -80,7 +82,7 @@ const generateZodSchemaForComponent = (
     }
 
     return `z.string()`;
-  };
+  }
 
   if (component.type === "number") {
     return `z.coerce.number()${isRequired ? '.min(1, { message: "This field is required" })' : ""}${validations.min ? `.min(${validations.min}, { message: "Must be at least ${validations.min}" })` : ""}${validations.max ? `.max(${validations.max}, { message: "Must be at most ${validations.max}" })` : ""}`;
@@ -90,48 +92,47 @@ const generateZodSchemaForComponent = (
 };
 
 const generateFormCode = async (
-  rows: FormRow[]
+  components: FormComponentModel[]
 ): Promise<{ code: string; dependenciesImports: DependenciesImports }> => {
   const formTitle = useFormBuilderStore.getState().formTitle;
-  const formCode = rows
-    .map((row) => {
-      const components = row.components
-        .map((comp) => {
-          const componentCode = generateComponentCode(comp);
 
-          const colSpanClasses = generateTWClassesForAllViewports(
-            comp,
-            "colSpan",
-            row
-          );
-          const colStartClasses = generateTWClassesForAllViewports(
-            comp,
-            "colStart",
-            row
-          );
+  const componentsMap = components
+    .map((comp) => {
+      const componentCode = generateComponentCode(comp);
 
-          const labelClasses = generateTWClassesForAllViewports(
-            comp,
-            "showLabel",
-            row
-          );
+      const colSpanClasses = generateTWClassesForAllViewports(
+        comp,
+        "colSpan",
+        row
+      );
+      const colStartClasses = generateTWClassesForAllViewports(
+        comp,
+        "colStart",
+        row
+      );
 
-          const labelPositionClasses = generateTWClassesForAllViewports(
-            comp,
-            "labelPosition"
-          );
+      const labelClasses = generateTWClassesForAllViewports(
+        comp,
+        "showLabel",
+        row
+      );
 
-          const labelAlignClasses = generateTWClassesForAllViewports(
-            comp,
-            "labelAlign"
-          );
+      const labelPositionClasses = generateTWClassesForAllViewports(
+        comp,
+        "labelPosition"
+      );
 
-          const visibilityClasses = generateTWClassesForAllViewports(
-            comp,
-            "visible"
-          );
-          return comp.category === "form"
-            ? `          <FormField
+      const labelAlignClasses = generateTWClassesForAllViewports(
+        comp,
+        "labelAlign"
+      );
+
+      const visibilityClasses = generateTWClassesForAllViewports(
+        comp,
+        "visible"
+      );
+      return comp.category === "form"
+        ? `          <FormField
             control={form.control}
             name="${comp.getField("attributes.id")}"
             render={({ field }) => (
@@ -171,15 +172,13 @@ const generateFormCode = async (
               </FormItem>
             )}
           />`
-            : componentCode;
-        })
-        .join("\n");
-
-      return `        <div className="grid grid-cols-12 gap-4">
-${components}
-        </div>`;
+        : componentCode;
     })
     .join("\n");
+
+  const formCode = `        <div className="grid grid-cols-12 gap-4">
+${componentsMap}
+        </div>`;
 
   const imports = generateImports();
 
@@ -189,21 +188,16 @@ ${imports}
 
 export default function ${formTitle.replace(/\s+/g, "").charAt(0).toUpperCase() + formTitle.replace(/\s+/g, "").slice(1)}() {
   const formSchema = z.object({
-    ${rows
-      .map((row) => {
-        return row.components
-          .map((comp) => {
-            if (comp.category === "form") {
-              const schema = generateZodSchemaForComponent(comp);
-              return `"${comp.getField("attributes.id")}": ${schema},`;
-            }
-            return "";
-          })
-          .filter(Boolean)
-          .join("\n");
-      })
-      .filter(Boolean)
-      .join("\n")}
+      ${components
+        .map((comp) => {
+          if (comp.category === "form") {
+            const schema = generateZodSchemaForComponent(comp);
+            return `"${comp.getField("attributes.id")}": ${schema},`;
+          }
+          return "";
+        })
+        .filter(Boolean)
+        .join("\n")}
   });
 
 
@@ -211,23 +205,18 @@ export default function ${formTitle.replace(/\s+/g, "").charAt(0).toUpperCase() 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ${rows
-        .map((row) => {
-          return row.components
-            .map((comp) => {
-              if (comp.category === "form") {
-                const defaultValue = comp.getField("value");
+      ${components
+        .map((comp) => {
+          if (comp.category === "form") {
+            const defaultValue = comp.getField("value");
 
-                if (comp.type === "number") {
-                  return `"${comp.getField("attributes.id")}": ${defaultValue || 0},`;
-                }
+            if (comp.type === "number") {
+              return `"${comp.getField("attributes.id")}": ${defaultValue || 0},`;
+            }
 
-                return `"${comp.getField("attributes.id")}": "${defaultValue || ""}",`;
-              }
-              return "";
-            })
-            .filter(Boolean)
-            .join("\n");
+            return `"${comp.getField("attributes.id")}": "${defaultValue || ""}",`;
+          }
+          return "";
         })
         .filter(Boolean)
         .join("\n")}

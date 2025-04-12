@@ -34,7 +34,6 @@ export default function FormBuilderPage() {
   const viewport = useFormBuilderStore((state) => state.viewport);
   const mode = useFormBuilderStore((state) => state.mode);
   const showJson = useFormBuilderStore((state) => state.showJson);
-  const rows = useFormBuilderStore((state) => state.rows);
   const formTitle = useFormBuilderStore((state) => state.formTitle);
   const updateViewport = useFormBuilderStore((state) => state.updateViewport);
   const updateMode = useFormBuilderStore((state) => state.updateMode);
@@ -42,8 +41,7 @@ export default function FormBuilderPage() {
   const toggleJsonPreview = useFormBuilderStore(
     (state) => state.toggleJsonPreview
   );
-
-  const selectRow = useFormBuilderStore((state) => state.selectRow);
+  const components = useFormBuilderStore((state) => state.components);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
   const [showCodeDialog, setShowCodeDialog] = useState(false);
   const [generatedCode, setGeneratedCode] = useState<{
@@ -70,7 +68,7 @@ export default function FormBuilderPage() {
   );
 
   const handleGenerateCode = async () => {
-    const generatedCode = await generateFormCode(rows);
+    const generatedCode = await generateFormCode(components);
     setGeneratedCode(generatedCode);
     setShowCodeDialog(true);
   };
@@ -128,7 +126,6 @@ export default function FormBuilderPage() {
               onValueChange={(value) => {
                 if (value === "preview") {
                   selectComponent(null);
-                  selectRow(null);
                 }
                 updateMode(value as "editor" | "preview");
               }}
@@ -141,7 +138,7 @@ export default function FormBuilderPage() {
             size="sm"
             className="w-full cursor-pointer"
             onClick={handleGenerateCode}
-            disabled={rows.length === 0}
+            disabled={components.length === 0}
           >
             Generate Code
           </Button>

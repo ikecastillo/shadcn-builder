@@ -17,7 +17,7 @@ import { ComponentIcon } from "../helpers/component-icon";
 import SocialLinks from "./socialLinks";
 
 export function SidebarLeft() {
-  const { addRow } = useFormBuilderStore();
+  const { addComponent } = useFormBuilderStore();
 
   // Group components by purpose
   const typographyComponents = AVAILABLE_COMPONENTS.filter(
@@ -56,7 +56,7 @@ export function SidebarLeft() {
             <SidebarMenu className="gap-2">
               {typographyComponents.map((component) => (
                 <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addRow(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
+                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
                     <div className="bg-slate-100 p-2 rounded-md text-slate-500">
                       <ComponentIcon
                         icon={component.icon}
@@ -82,7 +82,7 @@ export function SidebarLeft() {
             <SidebarMenu className="gap-2">
               {inputComponents.map((component) => (
                 <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addRow(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
+                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
                     <div className="bg-slate-100 p-2 rounded-md text-slate-500">
                       <ComponentIcon
                         icon={component.icon}
@@ -108,7 +108,7 @@ export function SidebarLeft() {
             <SidebarMenu className="gap-2">
               {selectionComponents.map((component) => (
                 <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addRow(component)} className="h-12 hover:bg-slate-100 cursor-pointer  ">
+                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer  ">
                     <div className="bg-slate-100 p-2 rounded-md text-slate-500">
                       <ComponentIcon
                         icon={component.icon}
@@ -134,7 +134,7 @@ export function SidebarLeft() {
             <SidebarMenu className="gap-2">
               {dateComponents.map((component) => (
                 <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addRow(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
+                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
                     <div className="bg-slate-100 p-2 rounded-md text-slate-500">
                       <ComponentIcon
                         icon={component.icon}
@@ -160,7 +160,7 @@ export function SidebarLeft() {
             <SidebarMenu className="gap-2">
               {buttonComponents.map((component) => (
                 <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addRow(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
+                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
                     <div className="bg-slate-100 p-2 rounded-md text-slate-500">
                       <ComponentIcon
                         icon={component.icon}

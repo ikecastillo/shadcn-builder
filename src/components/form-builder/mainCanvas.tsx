@@ -8,7 +8,7 @@ import { generateJsonSchema } from "./helpers/generate-json";
 import { cn } from "@/lib/utils";
 import { CardContent } from "../ui/card";
 import { Card } from "../ui/card";
-
+import { FormComponentModel } from "@/models/FormComponent";
 // Memoize static viewport styles
 const viewportEditorStyles = {
   sm: "w-[370px]",
@@ -17,10 +17,10 @@ const viewportEditorStyles = {
 } as const;
 
 // Memoize the JSON preview component
-const JsonPreview = memo(({ rows }: { rows: any[] }) => {
+const JsonPreview = memo(({ components }: { components: FormComponentModel[] }) => {
   const jsonString = useMemo(
-    () => JSON.stringify(generateJsonSchema(rows), null, 2),
-    [rows]
+    () => JSON.stringify(generateJsonSchema(components), null, 2),
+    [components]
   );
 
   return (
@@ -34,39 +34,13 @@ JsonPreview.displayName = "JsonPreview";
 
 export function MainCanvas() {
   // Split store selectors to minimize re-renders
-  const rows = useFormBuilderStore((state) => state.rows);
   const viewport = useFormBuilderStore((state) => state.viewport);
   const showJson = useFormBuilderStore((state) => state.showJson);
   const selectedComponent = useFormBuilderStore(
     (state) => state.selectedComponent
   );
-  const selectRow = useFormBuilderStore((state) => state.selectRow);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
-  const previewIframeRef = useRef<HTMLIFrameElement>(null);
-  const editorIframeRef = useRef<HTMLIFrameElement>(null);
-
-  // Add effect to scroll to selected component
-  useEffect(() => {
-    if (selectedComponent && editorIframeRef.current) {
-      const iframeDoc =
-        editorIframeRef.current.contentDocument ||
-        editorIframeRef.current.contentWindow?.document;
-      if (iframeDoc) {
-        const element = iframeDoc.querySelector(
-          `[data-component-id="${selectedComponent.id}"]`
-        );
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-      }
-    }
-  }, [selectedComponent]);
-
-  useEffect(() => {
-    if (previewIframeRef.current) {
-      previewIframeRef.current.src = previewIframeRef.current.src;
-    }
-  }, [rows]);
+  const components = useFormBuilderStore((state) => state.components);
 
   return (
     <div className="flex gap-4 h-full flex-col 3xl:flex-row">
@@ -75,7 +49,6 @@ export function MainCanvas() {
         onClick={() => {
           if (selectedComponent) {
             selectComponent(null);
-            selectRow(null);
           }
         }}
       >
@@ -92,7 +65,7 @@ export function MainCanvas() {
         </Card>
         
       </div>
-      {showJson && <JsonPreview rows={rows} />}
+      {showJson && <JsonPreview components={components} />}
     </div>
   );
 }

@@ -261,8 +261,6 @@ export const generateTWClassesForAllViewports = (
     // If no Desktop override, try to get Tablet override
     const tabletOverride = override["md"]?.properties?.style?.[styleKey];
 
-    console.log(desktopOverride, tabletOverride);
-
     if (desktopOverride) {
       if (styleKey === "colSpan" && desktopOverride === "auto" && row) {
         const colSpan = Math.floor(12 / row?.components.length);
