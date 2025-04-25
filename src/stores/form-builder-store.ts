@@ -105,9 +105,7 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
         const [movedComponent] = components.splice(oldIndex, 1);
         components.splice(newIndex, 0, movedComponent);
 
-        console.log(components);
-
-        return { components };
+        return { components, selectedComponent: movedComponent };
       }),
     }),
     {

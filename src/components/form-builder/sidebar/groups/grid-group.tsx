@@ -86,7 +86,6 @@ export function GridGroup() {
               <SelectValue placeholder="Select column span" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="auto">Auto</SelectItem>
               {Array.from({ length: 12 }, (_, i) => i + 1).map((num) => (
                 <SelectItem key={num} value={`${num}`}>
                   {num}

@@ -18,7 +18,6 @@ import { FormComponentModel } from "@/models/FormComponent";
 import { FormWysiwygEditor } from "../form-components/wysiwyg/form-wysiwyg-editor";
 
 export interface FormComponentProps {
-  index: number;
   form: UseFormReturn<FieldValues, undefined>;
   component: FormComponentModel;
 }
@@ -26,9 +25,7 @@ export interface FormComponentProps {
 export function RenderEditorComponent({
   form,
   component,
-  dndAttributes,
-  dndListeners,
-}: FormComponentProps & { dndAttributes: any; dndListeners: any }) {
+}: FormComponentProps) {
   const { removeComponent, selectedComponent, viewport, updateComponent } =
     useFormBuilderStore();
   const mode = useFormBuilderStore((state) => state.mode);
@@ -41,7 +38,6 @@ export function RenderEditorComponent({
         selectedComponent && "opacity-30",
         selectedComponent?.id === component.id &&
           "opacity-100 outline-2 outline-offset-6 outline-slate-400 rounded-xs",
-        mode === "editor" && "group/component"
       )}
       key={component.id}
     >
@@ -53,13 +49,6 @@ export function RenderEditorComponent({
             render={({ field }) => (
               <FormItem className={cn(mode === "editor" && "group/component")}>
                 <div className="flex items-center select-none">
-                  {mode === "editor" && (
-                    <Icons.GripVertical
-                      className="h-4 w-4 text-slate-400 cursor-grab active:cursor-grabbing focus:outline-none"
-                      {...dndAttributes}
-                      {...dndListeners}
-                    />
-                  )}
                   <FormLabel
                     className={cn(
                       "shrink-0 flex items-center gap-2 ",
@@ -89,22 +78,6 @@ export function RenderEditorComponent({
                     )}
                   </FormLabel>
                 </div>
-                {mode === "editor" && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className={cn(
-                      "h-8 w-8 absolute right-0 -top-2 m-0! text-red-500 group-hover/component:opacity-100 opacity-0",
-                      component.id === selectedComponent?.id && "opacity-100"
-                    )}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeComponent(component.id);
-                    }}
-                  >
-                    <Icons.Trash2Icon className="h-4 w-4" />
-                  </Button>
-                )}
                 <FormControl>{componentViews?.render}</FormControl>
                 {component.description && (
                   <FormDescription>{component.description}</FormDescription>

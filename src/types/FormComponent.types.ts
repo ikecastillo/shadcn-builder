@@ -32,7 +32,6 @@ export interface FormComponentStyles {
   labelAlign?: "start" | "center" | "end";
   textAlign?: "left" | "center" | "right";
   colSpan?:
-    | "auto"
     | "1"
     | "2"
     | "3"

@@ -262,10 +262,7 @@ export const generateTWClassesForAllViewports = (
     const tabletOverride = override["md"]?.properties?.style?.[styleKey];
 
     if (desktopOverride) {
-      if (styleKey === "colSpan" && desktopOverride === "auto" && row) {
-        const colSpan = Math.floor(12 / row?.components.length);
-        classes.push(`@5xl:${transformStyleKeyToClassName(styleKey)}-${colSpan}`);
-      } else if (styleMap[styleKey] && styleMap[styleKey]["lg"] && styleMap[styleKey]["lg"][desktopOverride]) {
+      if (styleMap[styleKey] && styleMap[styleKey]["lg"] && styleMap[styleKey]["lg"][desktopOverride]) {
         classes.push(styleMap[styleKey]["lg"][desktopOverride]);
       } else {
         classes.push(`@5xl:${desktopOverride}`);
@@ -273,10 +270,7 @@ export const generateTWClassesForAllViewports = (
     }
 
     if (tabletOverride) {
-      if (styleKey === "colSpan" && tabletOverride === "auto" && row) {
-        const colSpan = Math.floor(12 / row?.components.length);
-        classes.push(`@3xl:${transformStyleKeyToClassName(styleKey)}-${colSpan}`);
-      } else if (styleMap[styleKey] && styleMap[styleKey]["md"] && styleMap[styleKey]["md"][tabletOverride]) {
+      if (styleMap[styleKey] && styleMap[styleKey]["md"] && styleMap[styleKey]["md"][tabletOverride]) {
         classes.push(styleMap[styleKey]["md"][tabletOverride]);
       } else {
         classes.push(`@3xl:${tabletOverride}`);

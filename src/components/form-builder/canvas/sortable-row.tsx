@@ -1,20 +1,14 @@
 import { UseFormReturn } from "react-hook-form";
-import {
-  arrayMove,
-  verticalListSortingStrategy,
-  SortableContext,
-  useSortable,
-} from "@dnd-kit/sortable";
 import { GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn, generateTWClassesForAllViewports } from "@/lib/utils";
 import { RenderEditorComponent } from "../helpers/render-editor-component";
 import { DropdownComponents } from "../helpers/dropdown-components";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { closestCenter, DndContext } from "@dnd-kit/core";
-import { FormRow, Viewports } from "@/types/form-builder.types";
+import { Over, useDraggable, useDroppable } from "@dnd-kit/core";
 import { FormComponentModel } from "@/models/FormComponent";
-import { memo, useCallback, useEffect, useMemo } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import * as Icons from "lucide-react";
 
 interface SortableRowProps {
   component: FormComponentModel;
@@ -60,136 +54,178 @@ const DraggableButton = memo(({ attributes, listeners }: any) => (
 DraggableButton.displayName = "DraggableButton";
 
 // Memoize the row column component
-export const RowColumn = memo(
-  ({
-    component,
-    index,
-    form,
-    activeIndex,
-    overPosition,
-  }: {
-    component: FormComponentModel;
-    index: number;
-    form: UseFormReturn<any>;
-    activeIndex: number;
-    overPosition: "left" | "right" | "top" | "bottom" | null;
-  }) => {
-    const {
-      attributes: columnAttributes,
-      listeners: columnListeners,
-      setNodeRef,
-      transform: columnTransform,
-      transition: columnTransition,
-      isDragging: columnIsDragging,
-      over: columnOver,
-    } = useSortable({
-      id: component.id,
-    });
+export const RowColumn = ({
+  component,
+  index,
+  form,
+}: {
+  component: FormComponentModel;
+  index: number;
+  form: UseFormReturn<any>;
+}) => {
+  const {
+    attributes: columnAttributes,
+    listeners: columnListeners,
+    setNodeRef,
+    transform: columnTransform,
+    isDragging: columnIsDragging,
+    over: columnOver,
+    active: columnActive,
+  } = useDraggable({
+    id: component.id,
+    data: {
+      component,
+      index,
+    },
+  });
 
-    const selectedComponent = useFormBuilderStore(
-      (state) => state.selectedComponent
-    );
-    const selectComponent = useFormBuilderStore(
-      (state) => state.selectComponent
-    );
-    const mode = useFormBuilderStore((state) => state.mode);
-    const columnStyle = useMemo(
-      () => ({
-        transform: columnTransform
-          ? `translate3d(${columnTransform.x}px, 0, 0)`
-          : undefined,
-        transition: columnTransition,
-        zIndex: columnIsDragging ? 30 : 1,
-        ...(selectedComponent?.id === component.id
-          ? { zIndex: 30 }
-          : undefined),
-      }),
-      [
-        columnTransform,
-        columnTransition,
-        columnIsDragging,
-        selectedComponent,
-        component,
-      ]
-    );
+  const selectedComponent = useFormBuilderStore(
+    (state) => state.selectedComponent
+  );
+  const selectComponent = useFormBuilderStore((state) => state.selectComponent);
+  const removeComponent = useFormBuilderStore((state) => state.removeComponent);
+  const mode = useFormBuilderStore((state) => state.mode);
 
-    const colSpanClasses = useMemo(
-      () => generateTWClassesForAllViewports(component, "colSpan"),
-      [component]
-    );
+  const columnStyle = useMemo(
+    () => ({
+      columnTransform,
+      zIndex: columnIsDragging ? 30 : 1,
+      ...(selectedComponent?.id === component.id ? { zIndex: 30 } : undefined),
+    }),
+    [columnTransform, columnIsDragging, selectedComponent, component]
+  );
 
-    const colStartClasses = useMemo(
-      () => generateTWClassesForAllViewports(component, "colStart"),
-      [component]
-    );
+  const colSpanClasses = useMemo(
+    () => generateTWClassesForAllViewports(component, "colSpan"),
+    [component]
+  );
 
-    const handleClick = useCallback(
-      (e: React.MouseEvent) => {
-        if (mode === "editor" && !columnIsDragging) {
-          e.stopPropagation();
-          selectComponent(component);
-        }
-      },
-      [component, selectComponent, mode, columnIsDragging]
-    );
+  const colStartClasses = useMemo(
+    () => generateTWClassesForAllViewports(component, "colStart"),
+    [component]
+  );
 
-    return (
+  const handleClick = useCallback(
+    (e: React.MouseEvent) => {
+      console.log("columnIsDragging", columnIsDragging);
+      if (mode === "editor" && !columnIsDragging) {
+        e.stopPropagation();
+        selectComponent(component);
+      }
+    },
+    [component, selectComponent, mode, columnIsDragging]
+  );
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={cn(
+        "relative group",
+        colSpanClasses,
+        colStartClasses,
+        mode === "editor" && "group/component"
+      )}
+      key={component.id}
+      data-component-id={component.id}
+    >
       <div
-        ref={setNodeRef}
         className={cn(
-          "relative group cursor-pointer ",
-          colSpanClasses,
-          colStartClasses,
+          "absolute top-0 left-0 right-0 bottom-0 cursor-pointer hover:outline-1 hover:outline-offset-6 hover:outline-slate-400 rounded-xs",
+          columnIsDragging && "cursor-grabbing",
+          mode === "preview" && "hidden"
         )}
         style={columnStyle}
-        key={component.id}
         onClick={handleClick}
-        data-component-id={component.id}
+        {...columnAttributes}
+        {...columnListeners}
       >
-        {columnOver?.id === component.id && (
-          <RowColumnDropzone
-            activeIndex={activeIndex}
-            index={index}
-            overPosition={overPosition}
-          />
-        )}
-        <RenderEditorComponent
-          key={component.id}
+        <RowColumnDropzone
           index={index}
+          position={"left"}
+          overColumn={columnOver}
           component={component}
-          form={form}
-          dndAttributes={columnAttributes}
-          dndListeners={columnListeners}
         />
+        <RowColumnDropzone
+          index={index}
+          position={"right"}
+          overColumn={columnOver}
+          component={component}
+        />
+        <RowColumnDropzone
+          index={index}
+          position={"top"}
+          overColumn={columnOver}
+          component={component}
+        />
+        <RowColumnDropzone
+          index={index}
+          position={"bottom"}
+          overColumn={columnOver}
+          component={component}
+        />
+
+        <Button
+          variant="link"
+          size="icon"
+          className={cn(
+            "h-8 w-8 absolute right-0 -top-2 m-0! text-slate-500 hover:text-red-500 group-hover/component:opacity-100 opacity-0 cursor-pointer",
+            component.id === selectedComponent?.id && "opacity-100"
+          )}
+          onClick={(e) => {
+            e.stopPropagation();
+            removeComponent(component.id);
+          }}
+        >
+          <Icons.Trash2Icon className="h-4 w-4" />
+        </Button>
       </div>
-    );
-  }
-);
+
+      <RenderEditorComponent
+        key={component.id}
+        component={component}
+        form={form}
+      />
+    </div>
+  );
+};
 
 RowColumn.displayName = "RowColumn";
 
-const RowColumnDropzone = memo(
-  ({
-    activeIndex,
-    index,
-    overPosition,
-  }: {
-    activeIndex: number;
-    index: number;
-    overPosition: "left" | "right" | "top" | "bottom" | null;
-  }) => {
-    return (
-      <div
-        className={cn(
-          " bg-indigo-500 absolute",
-          overPosition === "top" && "left-0 -top-1.5 right-0 h-0.5",
-          overPosition === "bottom" && "left-0 -bottom-1.5 right-0 h-0.5",
-          overPosition === "left" && "-left-1.5 top-0 bottom-0 w-0.5",
-          overPosition === "right" && "-right-1.5 top-0 bottom-0 w-0.5"
-        )}
-      ></div>
-    );
-  }
-);
+const RowColumnDropzone = ({
+  index,
+  position,
+  overColumn,
+  component,
+}: {
+  index: number;
+  position: "left" | "right" | "top" | "bottom" | null;
+  overColumn: Over | null;
+  component: FormComponentModel;
+}) => {
+  const customId = `${index}-${position}`;
+  const overColumnId = overColumn?.id;
+  const { setNodeRef } = useDroppable({
+    id: customId,
+    data: {
+      index,
+      position,
+      component,
+    },
+  });
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={cn(
+        " bg-indigo-500 absolute opacity-0 rounded-full",
+        overColumnId === customId && "opacity-100",
+        position === "top" && "left-0 -top-2.25 right-0 h-0.5",
+        position === "bottom" && "left-0 -bottom-2.25 right-0 h-0.5",
+        position === "left" && "-left-2.25 top-0 bottom-0 w-0.5",
+        position === "right" && "-right-2.25 top-0 bottom-0 w-0.5"
+      )}
+    ></div>
+  );
+};
 
 RowColumnDropzone.displayName = "RowColumnDropzone";

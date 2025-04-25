@@ -1,8 +1,8 @@
 "use client";
 
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { useEffect, useRef, useMemo, memo } from "react";
-import GenerateEditor from "./canvas/generate-editor";
+import { useMemo, memo } from "react";
+import GenerateCanvasGrid from "./canvas/generate-canvas-grid";
 import { Pre } from "@/components/ui/pre";
 import { generateJsonSchema } from "./helpers/generate-json";
 import { cn } from "@/lib/utils";
@@ -60,7 +60,7 @@ export function MainCanvas() {
           )}
         >
           <CardContent className="@container">
-            <GenerateEditor />
+            <GenerateCanvasGrid />
           </CardContent>
         </Card>
         
