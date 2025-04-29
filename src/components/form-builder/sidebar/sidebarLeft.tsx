@@ -15,171 +15,125 @@ import {
 } from "@/components/ui/sidebar";
 import { ComponentIcon } from "../helpers/component-icon";
 import SocialLinks from "./socialLinks";
+import { DragOverlay, useDraggable } from "@dnd-kit/core";
+
+interface ComponentGroup {
+  label: string;
+  components: typeof AVAILABLE_COMPONENTS;
+}
 
 export function SidebarLeft() {
   const { addComponent } = useFormBuilderStore();
 
-  // Group components by purpose
-  const typographyComponents = AVAILABLE_COMPONENTS.filter(
-    (comp) => comp.category === "content"
-  );
-  const inputComponents = AVAILABLE_COMPONENTS.filter((comp) =>
-    [
-      "input",
-      "textarea",
-      "number",
-      "email",
-      "password",
-      "tel",
-      "url",
-      "file",
-    ].includes(comp.type)
-  );
-  const selectionComponents = AVAILABLE_COMPONENTS.filter((comp) =>
-    ["select", "checkbox", "checkbox-group", "radio", "switch"].includes(
-      comp.type
-    )
-  );
-  const dateComponents = AVAILABLE_COMPONENTS.filter((comp) =>
-    ["date"].includes(comp.type)
-  );
-  const buttonComponents = AVAILABLE_COMPONENTS.filter((comp) =>
-    ["button"].includes(comp.type)
-  );
+  const componentGroups: ComponentGroup[] = [
+    {
+      label: "Typography",
+      components: AVAILABLE_COMPONENTS.filter(
+        (comp) => comp.category === "content"
+      ),
+    },
+    {
+      label: "Input Fields",
+      components: AVAILABLE_COMPONENTS.filter((comp) =>
+        [
+          "input",
+          "textarea",
+          "number",
+          "email",
+          "password",
+          "tel",
+          "url",
+          "file",
+        ].includes(comp.type)
+      ),
+    },
+    {
+      label: "Selection Fields",
+      components: AVAILABLE_COMPONENTS.filter((comp) =>
+        ["select", "checkbox", "checkbox-group", "radio", "switch"].includes(
+          comp.type
+        )
+      ),
+    },
+    {
+      label: "Date & Time",
+      components: AVAILABLE_COMPONENTS.filter((comp) =>
+        ["date"].includes(comp.type)
+      ),
+    },
+    {
+      label: "Buttons",
+      components: AVAILABLE_COMPONENTS.filter((comp) =>
+        ["button"].includes(comp.type)
+      ),
+    },
+  ];
+
+  const ComponentItem = ({
+    component,
+    index,
+  }: {
+    component: (typeof AVAILABLE_COMPONENTS)[0];
+    index: number;
+  }) => {
+    const {
+      attributes: columnAttributes,
+      listeners: columnListeners,
+      setNodeRef,
+    } = useDraggable({
+      id: component.id,
+      data: {
+        component,
+        action: "add",
+      },
+    });
+
+    return (
+      <SidebarMenuItem key={component.id} ref={setNodeRef}>
+        <SidebarMenuButton
+          onClick={() => addComponent(component)}
+          className="h-12 hover:bg-slate-100 cursor-pointer"
+        >
+          <div
+            {...columnAttributes}
+            {...columnListeners}
+            className="flex items-center gap-2"
+          >
+            <div className="bg-slate-100 p-2 rounded-md text-slate-500">
+              <ComponentIcon icon={component.icon} className="w-5 h-5" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-slate-800">
+                {component.label}
+              </span>
+              <span className="text-xs text-gray-500">
+                {component.label_info}
+              </span>
+            </div>
+          </div>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    );
+  };
 
   return (
     <Sidebar className="bg-white top-14 bottom-14">
       <div className="flex flex-col h-[calc(100%-56px)]">
         <SidebarContent className="gap-0">
-          <SidebarGroup>
-            <SidebarGroupLabel>Typography</SidebarGroupLabel>
-            <SidebarMenu className="gap-2">
-              {typographyComponents.map((component) => (
-                <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
-                    <div className="bg-slate-100 p-2 rounded-md text-slate-500">
-                      <ComponentIcon
-                        icon={component.icon}
-                        className="w-5 h-5"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-slate-800">
-                        {component.label}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {component.label_info}
-                      </span>
-                    </div>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
-
-          <SidebarGroup>
-            <SidebarGroupLabel>Input Fields</SidebarGroupLabel>
-            <SidebarMenu className="gap-2">
-              {inputComponents.map((component) => (
-                <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
-                    <div className="bg-slate-100 p-2 rounded-md text-slate-500">
-                      <ComponentIcon
-                        icon={component.icon}
-                        className="w-5 h-5"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-slate-800">
-                        {component.label}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {component.label_info}
-                      </span>
-                    </div>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
-
-          <SidebarGroup>
-            <SidebarGroupLabel>Selection Fields</SidebarGroupLabel>
-            <SidebarMenu className="gap-2">
-              {selectionComponents.map((component) => (
-                <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer  ">
-                    <div className="bg-slate-100 p-2 rounded-md text-slate-500">
-                      <ComponentIcon
-                        icon={component.icon}
-                        className="w-5 h-5"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-slate-800">
-                        {component.label}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {component.label_info}
-                      </span>
-                    </div>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
-
-          <SidebarGroup>
-            <SidebarGroupLabel>Date & Time</SidebarGroupLabel>
-            <SidebarMenu className="gap-2">
-              {dateComponents.map((component) => (
-                <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
-                    <div className="bg-slate-100 p-2 rounded-md text-slate-500">
-                      <ComponentIcon
-                        icon={component.icon}
-                        className="w-5 h-5"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-slate-800">
-                        {component.label}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {component.label_info}
-                      </span>
-                    </div>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
-
-          <SidebarGroup>
-            <SidebarGroupLabel>Buttons</SidebarGroupLabel>
-            <SidebarMenu className="gap-2">
-              {buttonComponents.map((component) => (
-                <SidebarMenuItem key={component.id}>
-                  <SidebarMenuButton onClick={() => addComponent(component)} className="h-12 hover:bg-slate-100 cursor-pointer">
-                    <div className="bg-slate-100 p-2 rounded-md text-slate-500">
-                      <ComponentIcon
-                        icon={component.icon}
-                        className="w-5 h-5"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-slate-800">
-                        {component.label}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {component.label_info}
-                      </span>
-                    </div>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
+          {componentGroups.map((group) => (
+            <SidebarGroup key={group.label}>
+              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+              <SidebarMenu className="gap-2">
+                {group.components.map((component, index) => (
+                  <ComponentItem
+                    key={component.id}
+                    component={component}
+                    index={index}
+                  />
+                ))}
+              </SidebarMenu>
+            </SidebarGroup>
+          ))}
         </SidebarContent>
         <SidebarFooter className="border-t">
           <SocialLinks />

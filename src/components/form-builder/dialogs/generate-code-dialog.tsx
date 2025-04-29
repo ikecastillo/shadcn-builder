@@ -123,8 +123,8 @@ export function GenerateCodeDialog({
               .
             </h3>
           </div>
-          <div className="relative overflow-auto rounded-md min-h-20">
-            <Pre language="typescript" code={formattedCode} />
+          <div className="relative">
+            <Pre language="typescript" code={formattedCode} className="min-h-20 max-h-[400px]" />
             <Button
               variant="ghost"
               size="sm"

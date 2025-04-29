@@ -103,18 +103,15 @@ const generateFormCode = async (
       const colSpanClasses = generateTWClassesForAllViewports(
         comp,
         "colSpan",
-        row
       );
       const colStartClasses = generateTWClassesForAllViewports(
         comp,
         "colStart",
-        row
       );
 
       const labelClasses = generateTWClassesForAllViewports(
         comp,
         "showLabel",
-        row
       );
 
       const labelPositionClasses = generateTWClassesForAllViewports(

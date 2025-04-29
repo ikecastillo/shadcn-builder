@@ -237,16 +237,12 @@ export const generateTWClassesFromStyleObject = (
 export const generateTWClassesForAllViewports = (
   component: FormComponentModel,
   styleKey: keyof FormComponentStyles,
-  row?: FormRow
 ) => {
   const classes: string[] = [];
   const defaultClasses = component.properties?.style?.[styleKey];
 
   if (defaultClasses) {
-    if (styleKey === "colSpan" && defaultClasses === "auto" && row) {
-      const colSpan = Math.floor(12 / row?.components.length);
-      classes.push(`${transformStyleKeyToClassName(styleKey)}-${colSpan}`);
-    } else if (styleMap[styleKey] && styleMap[styleKey]["sm"] && styleMap[styleKey]["sm"][defaultClasses]) {
+    if (styleMap[styleKey] && styleMap[styleKey]["sm"] && styleMap[styleKey]["sm"][defaultClasses]) {
         classes.push(styleMap[styleKey]["sm"][defaultClasses]);
     } else {
       classes.push(`${defaultClasses}`);

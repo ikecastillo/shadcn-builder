@@ -6,8 +6,6 @@ import { FormComponentModel } from '@/models/FormComponent';
 const generateComponentId = (component: FormComponentModel, components: FormComponentModel[]): string => {
   const existingTypes = components.filter(comp => comp.getField("type").startsWith(component.getField("type")));
 
-  console.log(existingTypes);
-
   let counter = existingTypes.length;
   let newId = `${component.getField("id")}-${counter}`;
 
@@ -29,16 +27,18 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
       toggleJsonPreview: () => set((state) => ({ showJson: !state.showJson })),
       updateFormTitle: (title: string) => set({ formTitle: title }),
       addComponent: (component: FormComponentModel) => {
+        const newComponent = new FormComponentModel({...component});
+        let newId = generateComponentId(newComponent, get().components);
+        newComponent.id = newId;
+        newComponent.attributes = {
+          ...newComponent.attributes,
+          id: newComponent.id
+        };
         set((state) => {
-          const newComponent = new FormComponentModel({...component});
-          newComponent.id = generateComponentId(newComponent, state.components);
-          newComponent.attributes = {
-            ...newComponent.attributes,
-            id: newComponent.id
-          };
-
           return { components: [...state.components, newComponent] };
         });
+
+        return newComponent;
       },
       removeComponent: (componentId: string) => {
         set((state) => {
@@ -101,6 +101,10 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
       selectComponent: (component: FormComponentModel | null) => set(() => ({ selectedComponent: component ? new FormComponentModel(component) : null })),
       moveComponent: (oldIndex: number, newIndex: number) => set((state) => {
         const components = [...state.components];
+
+        if (oldIndex === undefined) {
+          oldIndex = components.length - 1;
+        }
 
         const [movedComponent] = components.splice(oldIndex, 1);
         components.splice(newIndex, 0, movedComponent);

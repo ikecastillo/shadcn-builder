@@ -1,3 +1,5 @@
+"use client";
+
 import { UseFormReturn } from "react-hook-form";
 import { GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -70,12 +72,12 @@ export const RowColumn = ({
     transform: columnTransform,
     isDragging: columnIsDragging,
     over: columnOver,
-    active: columnActive,
   } = useDraggable({
     id: component.id,
     data: {
       component,
       index,
+      action: "move",
     },
   });
 
@@ -107,7 +109,6 @@ export const RowColumn = ({
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
-      console.log("columnIsDragging", columnIsDragging);
       if (mode === "editor" && !columnIsDragging) {
         e.stopPropagation();
         selectComponent(component);
@@ -120,65 +121,79 @@ export const RowColumn = ({
     <div
       ref={setNodeRef}
       className={cn(
-        "relative group",
+        "relative group ",
         colSpanClasses,
         colStartClasses,
-        mode === "editor" && "group/component"
+        mode === "editor" && "group/component hover:outline-1 hover:outline-offset-6 hover:outline-primary cursor-pointer",
+        columnIsDragging && "cursor-grabbing",
+        selectedComponent?.id === component.id &&
+          "outline-1 outline-offset-6 outline-primary",
       )}
       key={component.id}
       data-component-id={component.id}
+      onClick={handleClick}
+      {...columnAttributes}
+      {...columnListeners}
     >
-      <div
-        className={cn(
-          "absolute top-0 left-0 right-0 bottom-0 cursor-pointer hover:outline-1 hover:outline-offset-6 hover:outline-slate-400 rounded-xs",
-          columnIsDragging && "cursor-grabbing",
-          mode === "preview" && "hidden"
-        )}
-        style={columnStyle}
-        onClick={handleClick}
-        {...columnAttributes}
-        {...columnListeners}
-      >
-        <RowColumnDropzone
-          index={index}
-          position={"left"}
-          overColumn={columnOver}
-          component={component}
-        />
-        <RowColumnDropzone
-          index={index}
-          position={"right"}
-          overColumn={columnOver}
-          component={component}
-        />
-        <RowColumnDropzone
-          index={index}
-          position={"top"}
-          overColumn={columnOver}
-          component={component}
-        />
-        <RowColumnDropzone
-          index={index}
-          position={"bottom"}
-          overColumn={columnOver}
-          component={component}
-        />
-
-        <Button
-          variant="link"
-          size="icon"
+      {component.category === "form" && (
+        <div
           className={cn(
-            "h-8 w-8 absolute right-0 -top-2 m-0! text-slate-500 hover:text-red-500 group-hover/component:opacity-100 opacity-0 cursor-pointer",
+            "absolute top-0 left-0 right-0 bottom-0",
+            mode === "preview" && "hidden"
+          )}
+          style={columnStyle}
+        ></div>
+      )}
+
+      <RowColumnDropzone
+        index={index}
+        position={"left"}
+        overColumn={columnOver}
+        component={component}
+      />
+      <RowColumnDropzone
+        index={index}
+        position={"right"}
+        overColumn={columnOver}
+        component={component}
+      />
+      <RowColumnDropzone
+        index={index}
+        position={"top"}
+        overColumn={columnOver}
+        component={component}
+      />
+      <RowColumnDropzone
+        index={index}
+        position={"bottom"}
+        overColumn={columnOver}
+        component={component}
+      />
+
+      {mode === "editor" && (
+        <span className={cn(
+            "absolute -top-6.5 -left-1.75 text-xs text-primary opacity-0",
             component.id === selectedComponent?.id && "opacity-100"
           )}
-          onClick={(e) => {
-            e.stopPropagation();
-            removeComponent(component.id);
-          }}
         >
-          <Icons.Trash2Icon className="h-4 w-4" />
-        </Button>
-      </div>
+          {component.getField("type")}
+        </span>
+      )}
+
+      <Button
+        variant="link"
+        size="icon"
+        className={cn(
+          "h-4 w-4 absolute -right-1.75 -top-5.5 m-0! hover:bg-primary/50 group-hover/component:opacity-100 opacity-0 cursor-pointer bg-primary text-white rounded-none",
+          component.id === selectedComponent?.id && "opacity-100"
+        )}
+        onClick={(e) => {
+          e.stopPropagation();
+          removeComponent(component.id);
+        }}
+      >
+        <Icons.Trash2Icon className="size-3" />
+      </Button>
 
       <RenderEditorComponent
         key={component.id}
@@ -217,7 +232,7 @@ const RowColumnDropzone = ({
     <div
       ref={setNodeRef}
       className={cn(
-        " bg-indigo-500 absolute opacity-0 rounded-full",
+        " bg-primary absolute opacity-0 rounded-full",
         overColumnId === customId && "opacity-100",
         position === "top" && "left-0 -top-2.25 right-0 h-0.5",
         position === "bottom" && "left-0 -bottom-2.25 right-0 h-0.5",
