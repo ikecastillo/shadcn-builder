@@ -49,7 +49,7 @@ export function GridGroup() {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 items-center">
+      {/* <div className="grid grid-cols-2 gap-2 items-center">
         <Label className="text-xs text-gray-400 flex-1 inline-block">
           Visible
         </Label>
@@ -70,7 +70,7 @@ export function GridGroup() {
             field="properties.style.visible"
           />
         </div>
-      </div>
+      </div> */}
       <div className="grid grid-cols-2 gap-2 items-center">
         <Label className="text-xs text-gray-400 flex-1 inline-block">
           Column Span
