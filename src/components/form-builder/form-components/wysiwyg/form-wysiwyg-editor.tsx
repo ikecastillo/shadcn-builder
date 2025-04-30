@@ -13,6 +13,8 @@ interface FormWysiwygEditorProps {
   isEditable?: boolean;
   value: string;
   onChange: (content: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 export const TextColorStyle = TextStyle.extend({
@@ -31,7 +33,7 @@ export const TextColorStyle = TextStyle.extend({
 });
 
 export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
-  ({ value, onChange, isEditable = false }) => {
+  ({ value, onChange, isEditable = false, onFocus, onBlur }) => {
 
     // Memoize editor extensions
     const extensions = useMemo(
@@ -103,6 +105,12 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
       content: value,
       onUpdate: ({ editor }) => {
         onChange(editor.getHTML());
+      },
+      onFocus: () => {
+        onFocus?.();
+      },
+      onBlur: () => {
+        onBlur?.();
       },
     }, [isEditable]);
 

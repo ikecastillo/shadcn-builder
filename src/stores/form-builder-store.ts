@@ -22,10 +22,12 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
       viewport: 'sm',
       showJson: false,
       formTitle: 'generatedForm',
+      enableDragging: true,
       updateMode: (mode: 'editor' | 'preview') => set({ mode }),
       updateViewport: (viewport: Viewports) => set({ viewport }),
       toggleJsonPreview: () => set((state) => ({ showJson: !state.showJson })),
       updateFormTitle: (title: string) => set({ formTitle: title }),
+      updateEnableDragging: (enableDragging: boolean) => set({ enableDragging }),
       addComponent: (component: FormComponentModel) => {
         const newComponent = new FormComponentModel({...component});
         let newId = generateComponentId(newComponent, get().components);

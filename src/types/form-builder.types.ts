@@ -43,12 +43,14 @@ export interface FormBuilderStore {
   viewport: Viewports;
   showJson: boolean;
   formTitle: string;
+  enableDragging: boolean;
   updateMode: (mode: 'editor' | 'preview') => void;
   updateViewport: (viewport: Viewports) => void;
   toggleJsonPreview: () => void;
   updateFormTitle: (title: string) => void;
   components: FormComponentModel[];
   selectedComponent: FormComponentModel | null;
+  updateEnableDragging: (enableDragging: boolean) => void;
   addComponent: (component: FormComponentModel) => void;
   removeComponent: (componentId: string) => void;
   updateComponent: (componentId: string, field: string, value: any, isValidForAllViewports?: boolean) => void;

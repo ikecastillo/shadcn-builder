@@ -62,7 +62,7 @@ export const RowColumn = ({
   const removeComponent = useFormBuilderStore((state) => state.removeComponent);
   const updateComponent = useFormBuilderStore((state) => state.updateComponent);
   const mode = useFormBuilderStore((state) => state.mode);
-
+  const enableDragging = useFormBuilderStore((state) => state.enableDragging);
   const columnStyle = useMemo(
     () => ({
       columnTransform,
@@ -134,8 +134,8 @@ export const RowColumn = ({
       key={component.id}
       data-component-id={component.id}
       onClick={handleClick}
-      {...columnAttributes}
-      {...columnListeners}
+      {...(enableDragging ? columnAttributes : {})}
+      {...(enableDragging ? columnListeners : {})}
     >
       {component.category === "form" && (
         <div

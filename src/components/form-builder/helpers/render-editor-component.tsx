@@ -23,8 +23,7 @@ export interface FormComponentProps {
 }
 
 export function RenderEditorComponent({ form, component }: FormComponentProps) {
-  const { selectedComponent, viewport, updateComponent } =
-    useFormBuilderStore();
+  const { selectedComponent, viewport, updateComponent, updateEnableDragging } = useFormBuilderStore();
   const mode = useFormBuilderStore((state) => state.mode);
   const componentViews = getComponentViews(component);
 
@@ -55,13 +54,15 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
         )}
       />
   ) : (
-    <div className={cn("relative flex flex-col h-full")} key={component.id} data-item-id={component.id}>
+    <div className={cn("relative flex flex-col h-full", (selectedComponent?.id === component.id && mode === "editor") && "cursor-text")} key={component.id} data-item-id={component.id}>
       <FormWysiwygEditor
         value={component.content || ""}
         onChange={(content) => {
           updateComponent(component.id, "content", content, true);
         }}
         isEditable={selectedComponent?.id === component.id && mode === "editor"}
+        onFocus={() => updateEnableDragging(false)}
+        onBlur={() => updateEnableDragging(true)}
       />
     </div>
   );
