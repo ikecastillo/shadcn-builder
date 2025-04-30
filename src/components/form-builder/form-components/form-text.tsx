@@ -7,8 +7,8 @@ import { DesignPropertiesViews, FormRow } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 import { HtmlGroup } from "../sidebar/groups/html-group";
 import { GridGroup } from "../sidebar/groups/grid-group";
-export function Text(component: FormComponentModel, row?: FormRow) {
-  const colSpanClasses = generateTWClassesForAllViewports(component, "colSpan", row);
+export function Text(component: FormComponentModel) {
+  const colSpanClasses = generateTWClassesForAllViewports(component, "colSpan");
   const colStartClasses = generateTWClassesForAllViewports(
     component,
     "colStart"

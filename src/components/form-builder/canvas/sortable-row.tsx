@@ -5,42 +5,18 @@ import { GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn, generateTWClassesForAllViewports, getGridRows, updateColSpans } from "@/lib/utils";
 import { RenderEditorComponent } from "../helpers/render-editor-component";
-import { DropdownComponents } from "../helpers/dropdown-components";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { Over, useDraggable, useDroppable } from "@dnd-kit/core";
 import { FormComponentModel } from "@/models/FormComponent";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useMemo } from "react";
 import * as Icons from "lucide-react";
 
 interface SortableRowProps {
   component: FormComponentModel;
   index: number;
   form: UseFormReturn<any>;
-  activeIndex: number;
 }
 
-// Memoize the row dropzone component
-const RowDropzone = memo(
-  ({
-    newRow,
-    position,
-    rowId,
-  }: {
-    newRow?: boolean;
-    position?: "before" | "after";
-    rowId: number;
-  }) => (
-    <div className="flex items-center justify-center absolute mx-8 group-hover/row:opacity-100 opacity-0 border-t border-indigo-200 -bottom-3 -left-2 -right-2">
-      <DropdownComponents
-        newRow={newRow}
-        {...(position === "before" ? { before: rowId } : { after: rowId })}
-        className="z-10 absolute bg-indigo-200 rounded-full"
-      />
-    </div>
-  )
-);
-
-RowDropzone.displayName = "RowDropzone";
 
 // Memoize the draggable button component
 const DraggableButton = memo(({ attributes, listeners }: any) => (
@@ -60,11 +36,7 @@ export const RowColumn = ({
   component,
   index,
   form,
-}: {
-  component: FormComponentModel;
-  index: number;
-  form: UseFormReturn<any>;
-}) => {
+}: SortableRowProps ) => {
   const {
     attributes: columnAttributes,
     listeners: columnListeners,

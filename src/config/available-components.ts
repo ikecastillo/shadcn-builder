@@ -224,7 +224,7 @@ const formComponents: FormComponentModel[] = [
 export const AVAILABLE_COMPONENTS: FormComponentModel[] = [...typographyComponents, ...formComponents];
 
 const typographyViews = {
-  text: { render: (component: FormComponentModel, row?: FormRow) => Text(component, row), renderDesignProperties: TextDesignProperties, reactCode: getReactCodeText },
+  text: { render: (component: FormComponentModel) => Text(component), renderDesignProperties: TextDesignProperties, reactCode: getReactCodeText },
 };
 
 const formViews = {
@@ -239,7 +239,7 @@ const formViews = {
   date: { render: FormDatePicker, renderDesignProperties: DatePickerDesignProperties, reactCode: getReactCodeDatePicker },
 };
 
-export function getComponentViews(component: FormComponentModel, row?: FormRow): ComponentViews | undefined {
+export function getComponentViews(component: FormComponentModel): ComponentViews | undefined {
   const views = {
     ...typographyViews,
     ...formViews,
@@ -255,7 +255,7 @@ export function getComponentViews(component: FormComponentModel, row?: FormRow):
   if (!componentView) return undefined;
 
   return {
-    render:  componentView.render(component, row),
+    render:  componentView.render(component),
     renderDesignProperties: componentView.renderDesignProperties,
     reactCode: componentView.reactCode(component),
   };
