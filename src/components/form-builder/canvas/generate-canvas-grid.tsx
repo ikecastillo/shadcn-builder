@@ -16,8 +16,6 @@ const EmptyState = memo(() => {
     },
   });
 
-  console.log(isOver);
-
   return (
     <div
       ref={setNodeRef}
