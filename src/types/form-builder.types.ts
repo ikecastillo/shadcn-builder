@@ -47,17 +47,12 @@ export interface FormBuilderStore {
   updateViewport: (viewport: Viewports) => void;
   toggleJsonPreview: () => void;
   updateFormTitle: (title: string) => void;
-  rows: FormRow[];
+  components: FormComponentModel[];
   selectedComponent: FormComponentModel | null;
-  selectedRow: FormRow | null;
-  addRow: (component: FormComponentModel, after?: number, before?: number) => void;
-  removeRow: (rowId: number) => void;
-  updateRows: (rows: FormRow[]) => void;
-  updateRow: (row: FormRow) => void;
-  addComponent: (rowId: number, component: FormComponentModel, before?: number, after?: number) => void;
-  removeComponent: (rowId: number, componentId: string) => void;
+  addComponent: (component: FormComponentModel) => void;
+  removeComponent: (componentId: string) => void;
   updateComponent: (componentId: string, field: string, value: any, isValidForAllViewports?: boolean) => void;
+  updateComponents: (components: FormComponentModel[]) => void;
   selectComponent: (component: FormComponentModel | null) => void;
-  getComponentFieldValue: (component: FormComponentModel, field: string) => any;
-  selectRow: (row: FormRow | null) => void;
+  moveComponent: (oldIndex: number, newIndex: number) => void;
 } 

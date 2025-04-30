@@ -17,7 +17,7 @@ export const DEFAULT_PROPERTIES: FormComponentProperties = {
     labelPosition: "top",
     labelAlign: "start",
     textAlign: "left",
-    colSpan: "auto",
+    colSpan: "12",
     colStart: "auto",
   },
 };

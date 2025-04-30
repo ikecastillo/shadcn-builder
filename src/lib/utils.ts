@@ -1,5 +1,5 @@
 import { FormComponentStyles } from "@/types/FormComponent.types";
-import { Viewports, FormRow } from "@/types/form-builder.types";
+import { Viewports } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -237,16 +237,12 @@ export const generateTWClassesFromStyleObject = (
 export const generateTWClassesForAllViewports = (
   component: FormComponentModel,
   styleKey: keyof FormComponentStyles,
-  row?: FormRow
 ) => {
   const classes: string[] = [];
   const defaultClasses = component.properties?.style?.[styleKey];
 
   if (defaultClasses) {
-    if (styleKey === "colSpan" && defaultClasses === "auto" && row) {
-      const colSpan = Math.floor(12 / row?.components.length);
-      classes.push(`${transformStyleKeyToClassName(styleKey)}-${colSpan}`);
-    } else if (styleMap[styleKey] && styleMap[styleKey]["sm"] && styleMap[styleKey]["sm"][defaultClasses]) {
+    if (styleMap[styleKey] && styleMap[styleKey]["sm"] && styleMap[styleKey]["sm"][defaultClasses]) {
         classes.push(styleMap[styleKey]["sm"][defaultClasses]);
     } else {
       classes.push(`${defaultClasses}`);
@@ -261,13 +257,8 @@ export const generateTWClassesForAllViewports = (
     // If no Desktop override, try to get Tablet override
     const tabletOverride = override["md"]?.properties?.style?.[styleKey];
 
-    console.log(desktopOverride, tabletOverride);
-
     if (desktopOverride) {
-      if (styleKey === "colSpan" && desktopOverride === "auto" && row) {
-        const colSpan = Math.floor(12 / row?.components.length);
-        classes.push(`@5xl:${transformStyleKeyToClassName(styleKey)}-${colSpan}`);
-      } else if (styleMap[styleKey] && styleMap[styleKey]["lg"] && styleMap[styleKey]["lg"][desktopOverride]) {
+      if (styleMap[styleKey] && styleMap[styleKey]["lg"] && styleMap[styleKey]["lg"][desktopOverride]) {
         classes.push(styleMap[styleKey]["lg"][desktopOverride]);
       } else {
         classes.push(`@5xl:${desktopOverride}`);
@@ -275,10 +266,7 @@ export const generateTWClassesForAllViewports = (
     }
 
     if (tabletOverride) {
-      if (styleKey === "colSpan" && tabletOverride === "auto" && row) {
-        const colSpan = Math.floor(12 / row?.components.length);
-        classes.push(`@3xl:${transformStyleKeyToClassName(styleKey)}-${colSpan}`);
-      } else if (styleMap[styleKey] && styleMap[styleKey]["md"] && styleMap[styleKey]["md"][tabletOverride]) {
+      if (styleMap[styleKey] && styleMap[styleKey]["md"] && styleMap[styleKey]["md"][tabletOverride]) {
         classes.push(styleMap[styleKey]["md"][tabletOverride]);
       } else {
         classes.push(`@3xl:${tabletOverride}`);
@@ -324,3 +312,60 @@ export const escapeHtml = (text: string, whitelist?: EscapeHtmlWhitelist[]): str
   return text;
   
 };
+
+export const getGridRows = (
+  items: FormComponentModel[],
+  viewport: Viewports
+): FormComponentModel[][] => {
+  const rows: FormComponentModel[][] = [];
+  let currentRow: FormComponentModel[] = [];
+  let currentRowSpan = 0;
+
+  items.forEach((item) => {
+    const colSpan = +item.getField("properties.style.colSpan", viewport) || 12;
+
+    // If adding this item would exceed 12 columns, start a new row
+    if (currentRowSpan + colSpan > 12) {
+      if (currentRow.length > 0) {
+        rows.push([...currentRow]);
+      }
+      currentRow = [item];
+      currentRowSpan = colSpan;
+    } else {
+      currentRow.push(item);
+      currentRowSpan += colSpan;
+    }
+  });
+
+  // Add the last row if it has items
+  if (currentRow.length > 0) {
+    rows.push(currentRow);
+  }
+
+  return rows;
+};
+
+export const updateColSpans = (
+  updateItems: FormComponentModel[]
+): { id: string; span: number }[] => {
+  if (!updateItems.length) return [];
+
+  const totalColumns = 12;
+  const itemCount = updateItems.length;
+
+  // Calculate base span and remainder
+  const baseSpan = Math.floor(totalColumns / itemCount);
+  const remainder = totalColumns % itemCount;
+
+  const adjustedSpans: { id: string; span: number }[] = [];
+
+  // Distribute spans equally, with remainder distributed to first few items
+  updateItems.forEach((item, index) => {
+    if (!item) return;
+    // Add one extra column to the first 'remainder' items
+    const span = index < remainder ? baseSpan + 1 : baseSpan;
+    adjustedSpans.push({ id: item.id, span });
+  });
+
+  return adjustedSpans;
+}

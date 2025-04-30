@@ -3,9 +3,8 @@ import { persist } from 'zustand/middleware';
 import { FormBuilderStore, FormRow, Viewports } from '@/types/form-builder.types';
 import { FormComponentModel } from '@/models/FormComponent';
 
-const generateComponentId = (component: FormComponentModel, rows: FormRow[]): string => {
-  const existingComponents = rows.flatMap(row => row.components);
-  const existingTypes = existingComponents.filter(comp => comp.getField("type").startsWith(component.getField("type")));
+const generateComponentId = (component: FormComponentModel, components: FormComponentModel[]): string => {
+  const existingTypes = components.filter(comp => comp.getField("type").startsWith(component.getField("type")));
 
   let counter = existingTypes.length;
   let newId = `${component.getField("id")}-${counter}`;
@@ -17,7 +16,7 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
   persist(
     (set, get) => ({
       mode: 'editor',
-      rows: [],
+      components: [],
       selectedRow: null,
       selectedComponent: null,    
       viewport: 'sm',
@@ -27,110 +26,23 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
       updateViewport: (viewport: Viewports) => set({ viewport }),
       toggleJsonPreview: () => set((state) => ({ showJson: !state.showJson })),
       updateFormTitle: (title: string) => set({ formTitle: title }),
-      addRow: (component: FormComponentModel, after?: number, before?: number) => 
+      addComponent: (component: FormComponentModel) => {
+        const newComponent = new FormComponentModel({...component});
+        let newId = generateComponentId(newComponent, get().components);
+        newComponent.id = newId;
+        newComponent.attributes = {
+          ...newComponent.attributes,
+          id: newComponent.id
+        };
         set((state) => {
-          const newComponent = new FormComponentModel({...component});
-          newComponent.id = generateComponentId(newComponent, state.rows);
-
-          newComponent.attributes = {
-            ...newComponent.attributes,
-            id: newComponent.id
-          };
-
-          const newRow = { id: state.rows.length + 1, components: [newComponent] };
-
-          if (after !== undefined) {
-            const updatedRows = [...state.rows.slice(0, after), newRow, ...state.rows.slice(after)];
-            return { rows: updatedRows.map((row, index) => ({ ...row, id: index + 1 })) };
-          }
-
-          if (before !== undefined) {
-            const updatedRows = [...state.rows.slice(0, before - 1), newRow, ...state.rows.slice(before - 1)];
-            return { rows: updatedRows.map((row, index) => ({ ...row, id: index + 1 })) };
-          }
-
-          return { rows: [...state.rows, newRow] };
-        }),
-
-      removeRow: (rowId: number) => {
-        set((state) => ({
-          rows: state.rows.filter((row) => row.id !== rowId),
-        }));
-      },
-      updateRows: (rows: FormRow[]) => set({ 
-        rows: rows.map((row, index) => ({
-          ...row,
-          id: index + 1
-        }))
-      }),
-      updateRow: (row: FormRow) => set((state) => ({
-        rows: state.rows.map((r) => r.id === row.id ? row : r)
-      })),
-      selectRow: (row: FormRow | null) => set(() => ({ selectedRow: row, selectedComponent: null })),
-      addComponent: (rowId: number, component: FormComponentModel, before?: number, after?: number) => {
-        set((state) => {
-          const newComponent = new FormComponentModel({...component});
-          newComponent.id = generateComponentId(newComponent, state.rows);
-          newComponent.attributes = {
-            ...newComponent.attributes,
-            id: newComponent.id
-          };
-
-          if (state.rows.length === 0) {
-            return {
-              rows: [{ id: 0, components: [newComponent] }]
-            };
-          }
-
-          if (after !== undefined) {
-            return {
-              rows: state.rows.map((row) => 
-                row.id === rowId 
-                  ? { ...row, components: [...row.components.slice(0, after + 1), newComponent, ...row.components.slice(after + 1)] }
-                  : row
-              ),
-            };
-          }
-
-          if (before !== undefined) {
-            return {
-              rows: state.rows.map((row) =>
-                row.id === rowId
-                  ? { ...row, components: [...row.components.slice(0, before), newComponent, ...row.components.slice(before)] }
-                  : row
-              ),
-            };
-          }
-
-          return {  
-            rows: state.rows.map((row) => 
-              row.id === rowId 
-                ? { ...row, components: [...row.components, newComponent] } 
-                : row
-            ),
-          };
+          return { components: [...state.components, newComponent] };
         });
+
+        return newComponent;
       },
-      removeComponent: (rowId: number, componentId: string) => {
+      removeComponent: (componentId: string) => {
         set((state) => {
-          const row = state.rows.find((r) => r.id === rowId);
-          if (!row) return state;
-
-          // If this is the last component in the row, remove the entire row
-          if (row.components.length === 1) {
-            return {
-              rows: state.rows.filter((r) => r.id !== rowId)
-            };
-          }
-
-          // Otherwise just remove the component
-          return {
-            rows: state.rows.map((r) => 
-              r.id === rowId 
-                ? { ...r, components: r.components.filter((c) => c.id !== componentId) }
-                : r
-            )
-          };
+          return { components: state.components.filter((component) => component.id !== componentId) };
         });
       },
       updateComponent: (componentId: string, field: string, value: any, isValidForAllViewports: boolean = false) => {   
@@ -151,9 +63,7 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
           let updatedComponent = null;
 
           return {
-            rows: state.rows.map((row) => ({
-              ...row,
-              components: row.components.map((component) => {
+            components: state.components.map((component) => {
                 if (component.id !== componentId) return component;
 
                 updatedComponent = component;
@@ -170,7 +80,6 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
                       [viewport]: updateNestedField(viewportOverrides, fieldPath, value)
                     }
                   });
-
                   return updatedComponent;
                 }
                 
@@ -182,60 +91,36 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
                   ...component,
                   ...nestedField
                 });
-
                 return updatedComponent;
               }),
-            })),
             selectedComponent: updatedComponent,
           };
         });
       },
+      updateComponents: (components: FormComponentModel[]) => set({ components }),
       selectComponent: (component: FormComponentModel | null) => set(() => ({ selectedComponent: component ? new FormComponentModel(component) : null })),
-      getComponentFieldValue: (component: FormComponentModel, field: string) => {
-        const state = get();
+      moveComponent: (oldIndex: number, newIndex: number) => set((state) => {
+        const components = [...state.components];
 
-        const getNestedValue = (obj: any, path: string[]): any => {
-          if (path.length === 0) return obj;
-          const [current, ...rest] = path;
-          return obj && typeof obj === 'object' ? getNestedValue(obj[current], rest) : undefined;
-        };
-
-        const fieldPath = field.split('.');
-        
-        if (component.overrides) {
-          // Check Tablet override first
-          if (state.viewport === 'md' && component.overrides['md']) {
-            const overrideValueTablet = getNestedValue(component.overrides['md'], fieldPath);
-            if (overrideValueTablet !== undefined) return overrideValueTablet;
-          }
-
-          // Check Desktop override first
-          if (state.viewport === 'lg' && component.overrides?.[state.viewport]) {
-            const overrideValueDesktop = getNestedValue(component.overrides['lg'], fieldPath);
-            if (overrideValueDesktop !== undefined) return overrideValueDesktop;
-          } else if (state.viewport === 'lg' && !component.overrides['lg'] && component.overrides['md']) {
-            // If Desktop not exists use the Tablet as fallback
-            const overrideValueDesktop = getNestedValue(component.overrides['md'], fieldPath);
-            if (overrideValueDesktop !== undefined) return overrideValueDesktop;
-          }
+        if (oldIndex === undefined) {
+          oldIndex = components.length - 1;
         }
 
-        // Fall back to base component value
-        return getNestedValue(component, fieldPath);
-      },
+        const [movedComponent] = components.splice(oldIndex, 1);
+        components.splice(newIndex, 0, movedComponent);
+
+        return { components, selectedComponent: movedComponent };
+      }),
     }),
     {
       name: 'form-builder-storage',
-      partialize: (state) => ({ rows: state.rows, viewport: state.viewport, formTitle: state.formTitle }),
+      partialize: (state) => ({ components: state.components, viewport: state.viewport, formTitle: state.formTitle }),
       onRehydrateStorage: () => (state) => {
-        if (state?.rows) {
+        if (state?.components) {
 
-          state.rows = state.rows.map(row => ({
-            ...row,
-            components: row.components.map(component => {
-              return new FormComponentModel(component);
-            })
-          }));
+          state.components = state.components.map(component => {
+            return new FormComponentModel(component);
+          });
         }
       }
     }

@@ -36,8 +36,6 @@ export function InputGroup({
     viewport
   );
 
-  let defaultInputType = selectedComponent.getField("attributes.type");
-
   const handleChange = (
     field: string,
     value: any,
@@ -48,7 +46,6 @@ export function InputGroup({
 
   const showOptionsDropdown = ['radio', 'select'].includes(selectedComponent.type);
   const currentValue = String(selectedComponent.value ?? '');
-
   return (
     <div className="space-y-4">
       {whitelist.includes("value") && (

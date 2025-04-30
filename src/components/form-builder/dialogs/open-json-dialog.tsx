@@ -13,14 +13,13 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useState } from "react";
-import { FormRow } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 
 export function OpenJsonDialog() {
   const [open, setOpen] = useState(false);
   const [jsonInput, setJsonInput] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const updateRows = useFormBuilderStore((state) => state.updateRows);
+  const updateComponents = useFormBuilderStore((state) => state.updateComponents);
 
   const handleSubmit = () => {
     try {
@@ -32,12 +31,9 @@ export function OpenJsonDialog() {
       }
 
       // Convert the parsed JSON into FormRow objects
-      const rows: FormRow[] = parsedJson.map((row, index) => ({
-        id: index + 1,
-        components: row.components.map((comp: any) => new FormComponentModel(comp))
-      }));
+      const components: FormComponentModel[] = parsedJson.map((comp: any) => new FormComponentModel(comp));
 
-      updateRows(rows);
+      updateComponents(components);
       setOpen(false);
       setError(null);
     } catch (err) {

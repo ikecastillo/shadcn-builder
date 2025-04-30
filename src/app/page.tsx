@@ -1,6 +1,14 @@
 "use client";
 
-import { DndContext } from "@dnd-kit/core";
+import {
+  closestCenter,
+  DndContext,
+  DragOverlay,
+  DragStartEvent,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+} from "@dnd-kit/core";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { SidebarLeft } from "@/components/form-builder/sidebar/sidebarLeft";
 import { SidebarRight } from "@/components/form-builder/sidebar/sidebarRight";
@@ -17,7 +25,7 @@ import { PencilRulerIcon } from "lucide-react";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { Button } from "@/components/ui/button";
 import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   DependenciesImports,
   generateFormCode,
@@ -27,6 +35,10 @@ import { MobileNotification } from "@/components/form-builder/ui/mobile-notifica
 import { useIsMobile } from "@/hooks/use-mobile";
 import SocialLinks from "@/components/form-builder/sidebar/socialLinks";
 import { OpenJsonDialog } from "@/components/form-builder/dialogs/open-json-dialog";
+import { useForm } from "react-hook-form";
+import { getGridRows, updateColSpans } from "@/lib/utils";
+import { RenderEditorComponent } from "@/components/form-builder/helpers/render-editor-component";
+import { FormComponentModel } from "@/models/FormComponent";
 
 export default function FormBuilderPage() {
   const isMobile = useIsMobile();
@@ -34,7 +46,6 @@ export default function FormBuilderPage() {
   const viewport = useFormBuilderStore((state) => state.viewport);
   const mode = useFormBuilderStore((state) => state.mode);
   const showJson = useFormBuilderStore((state) => state.showJson);
-  const rows = useFormBuilderStore((state) => state.rows);
   const formTitle = useFormBuilderStore((state) => state.formTitle);
   const updateViewport = useFormBuilderStore((state) => state.updateViewport);
   const updateMode = useFormBuilderStore((state) => state.updateMode);
@@ -42,14 +53,15 @@ export default function FormBuilderPage() {
   const toggleJsonPreview = useFormBuilderStore(
     (state) => state.toggleJsonPreview
   );
-
-  const selectRow = useFormBuilderStore((state) => state.selectRow);
+  const components = useFormBuilderStore((state) => state.components);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
   const [showCodeDialog, setShowCodeDialog] = useState(false);
   const [generatedCode, setGeneratedCode] = useState<{
     code: string;
     dependenciesImports: DependenciesImports;
   }>({ code: "", dependenciesImports: {} });
+  const [draggingDOMElement, setDraggingDOMElement] = useState<HTMLElement | null>(null);
+  const form = useForm();
 
   // Memoize static values
   const viewportItems = useMemo(
@@ -69,11 +81,155 @@ export default function FormBuilderPage() {
     []
   );
 
+  const updateComponent = useFormBuilderStore((state) => state.updateComponent);
+  const moveComponent = useFormBuilderStore((state) => state.moveComponent);
+  const addComponent = useFormBuilderStore((state) => state.addComponent);
+  const gridRows = getGridRows(components, viewport);
+
   const handleGenerateCode = async () => {
-    const generatedCode = await generateFormCode(rows);
+    const generatedCode = await generateFormCode(components);
     setGeneratedCode(generatedCode);
     setShowCodeDialog(true);
   };
+
+  // Create sensors outside of callback
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 20,
+    },
+  });
+
+
+  // Memoize sensors array
+  const sensors = useMemo(
+    () => [pointerSensor],
+    [pointerSensor]
+  );
+
+  // Memoize drag end handler
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+
+    if (!over) {
+      return;
+    }
+
+    const action: "move" | "add" = active.data.current.action;
+    let activeComponent = active.data.current.component;
+    const overComponent = over.data.current.component;
+    const position = over.data.current.position;
+    const activeIndex = active.data.current.index;
+    const overIndex = over.data.current.index;
+
+    if (action === "add") {
+      activeComponent = addComponent(active.data.current.component);
+    }
+
+    if (
+      (activeIndex === overIndex &&
+        (position === "left" || position === "right")) ||
+      // Or the diff between active and over is 1
+      (activeIndex - overIndex === 1 && position === "bottom") ||
+      (overIndex - activeIndex === 1 && position === "top")
+    ) {
+      return;
+    }
+
+    if (activeComponent && overComponent) {
+      const overRowItems =
+        gridRows.find((row) =>
+          row.some((item) => item.id === over.data.current?.component.id)
+        ) || [];
+
+      const overRowFirstItemIndex = components.findIndex(
+        (component) => component.id === overRowItems[0].id
+      );
+
+      const overRowLastItemIndex = components.findIndex(
+        (component) => component.id === overRowItems[overRowItems.length - 1].id
+      );
+
+      let activeRowItems =
+        gridRows.find((row) =>
+          row.some((item) => item.id === active.data.current?.component.id)
+        ) || [];
+
+      let draggingInSameRow = overRowItems === activeRowItems;
+
+      // Don´t update the spans if the component is being dragged in the same row
+      activeRowItems = activeRowItems.filter(
+        (item) => item.id !== activeComponent.id
+      );
+      let updatedOverItems = [];
+
+      if (position === "top" || position === "bottom") {
+        updatedOverItems = updateColSpans([activeComponent]);
+      } else {
+        updatedOverItems = updateColSpans([...overRowItems, activeComponent]);
+      }
+
+      if (
+        (!draggingInSameRow && (position === "left" || position === "right")) ||
+        position === "top" ||
+        position === "bottom"
+      ) {
+        updatedOverItems.forEach((item) => {
+          updateComponent(
+            item.id,
+            "properties.style.colSpan",
+            `${item.span}`,
+            false
+          );
+        });
+
+        const updatedActiveItems = updateColSpans([...activeRowItems]);
+
+        updatedActiveItems.forEach((item) => {
+          updateComponent(
+            item.id,
+            "properties.style.colSpan",
+            `${item.span}`,
+            false
+          );
+        });
+      }
+
+      const oldIndex = active.data.current.index;
+      let newIndex =
+        position === "left"
+          ? overIndex
+          : activeIndex < overIndex
+            ? overIndex
+            : overIndex + 1;
+
+      if (position === "top") {
+        newIndex =
+          activeIndex < overIndex
+            ? overRowFirstItemIndex - 1
+            : overRowFirstItemIndex;
+      }
+
+      if (position === "bottom") {
+        newIndex =
+          activeIndex < overIndex
+            ? overRowLastItemIndex
+            : overRowLastItemIndex + 1;
+      }
+
+      moveComponent(oldIndex, newIndex);
+    }
+  };
+
+  const handleDragStart = useCallback(
+    (event: DragStartEvent) => {
+      selectComponent(null);
+      const element = document.querySelector(`[data-item-id="${event.active.data.current?.component.id}"]`);
+      if (element) {
+        setDraggingDOMElement(element as HTMLElement);
+      }
+    },
+    [selectComponent]
+  );
 
   return (
     <div>
@@ -128,7 +284,6 @@ export default function FormBuilderPage() {
               onValueChange={(value) => {
                 if (value === "preview") {
                   selectComponent(null);
-                  selectRow(null);
                 }
                 updateMode(value as "editor" | "preview");
               }}
@@ -141,7 +296,7 @@ export default function FormBuilderPage() {
             size="sm"
             className="w-full cursor-pointer"
             onClick={handleGenerateCode}
-            disabled={rows.length === 0}
+            disabled={components.length === 0}
           >
             Generate Code
           </Button>
@@ -162,14 +317,28 @@ export default function FormBuilderPage() {
             style={{ "--sidebar-width": "300px" } as React.CSSProperties}
             open={mode === "editor"}
           >
-            <DndContext>
+            <DndContext
+              id="form-builder"
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+              onDragStart={handleDragStart}
+            >
               <div className="flex w-full h-screen justify-between">
                 <SidebarLeft />
+
                 <main className="flex-1 overflow-auto relative bg-slate-50 bg-dotted pt-14 scrollbar-hide">
                   <MainCanvas />
                 </main>
                 <SidebarRight />
               </div>
+              <DragOverlay>
+                {draggingDOMElement && (
+                  <div className="bg-white p-2 rounded-md shadow opacity-80">
+                    <div dangerouslySetInnerHTML={{ __html: draggingDOMElement.innerHTML }} className="max-h-52 overflow-hidden" />
+                  </div>
+                )}
+              </DragOverlay>
             </DndContext>
           </SidebarProvider>
           <GenerateCodeDialog
