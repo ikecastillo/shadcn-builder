@@ -23,7 +23,7 @@ export interface FormComponentProps {
 }
 
 export function RenderEditorComponent({ form, component }: FormComponentProps) {
-  const { removeComponent, selectedComponent, viewport, updateComponent } =
+  const { selectedComponent, viewport, updateComponent } =
     useFormBuilderStore();
   const mode = useFormBuilderStore((state) => state.mode);
   const componentViews = getComponentViews(component);
@@ -34,7 +34,7 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
       control={form.control}
       name={component.id}
         render={({ field }) => (
-          <FormItem className={cn(mode === "editor" && "group/component")}>
+          <FormItem className={cn(mode === "editor" && "group/component")} data-item-id={component.id}>
             <div className="flex items-center select-none">
               <FormLabel
                 className={cn(
@@ -55,7 +55,7 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
         )}
       />
   ) : (
-    <div className={cn("relative flex flex-col h-full")} key={component.id}>
+    <div className={cn("relative flex flex-col h-full")} key={component.id} data-item-id={component.id}>
       <FormWysiwygEditor
         value={component.content || ""}
         onChange={(content) => {

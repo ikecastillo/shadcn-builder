@@ -6,20 +6,30 @@ import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useForm } from "react-hook-form";
 import { memo } from "react";
 import { useDroppable } from "@dnd-kit/core";
+import { cn } from "@/lib/utils";
 // Memoize the empty state component
-const EmptyState = memo(() => { 
-  const { setNodeRef } = useDroppable({
+const EmptyState = memo(() => {
+  const { setNodeRef, isOver } = useDroppable({
     id: "empty-state",
     data: {
       index: 0,
     },
   });
 
+  console.log(isOver);
+
   return (
-  <div ref={setNodeRef} className="p-6 text-center text-sm text-muted-foreground bg-black/5 rounded-lg max-w-md mx-auto border-dashed border-2 border-slate-300">
-    Please add a component to the form
-  </div>
-)});
+    <div
+      ref={setNodeRef}
+      className={cn(
+        "p-6 text-center text-sm text-muted-foreground bg-black/5 rounded-lg max-w-md mx-auto border-dashed border-2 border-slate-300",
+        isOver && "border-primary"
+      )}
+    >
+      Please add a component to the form
+    </div>
+  );
+});
 
 EmptyState.displayName = "EmptyState";
 

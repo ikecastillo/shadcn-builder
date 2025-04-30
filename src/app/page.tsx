@@ -35,68 +35,10 @@ import { MobileNotification } from "@/components/form-builder/ui/mobile-notifica
 import { useIsMobile } from "@/hooks/use-mobile";
 import SocialLinks from "@/components/form-builder/sidebar/socialLinks";
 import { OpenJsonDialog } from "@/components/form-builder/dialogs/open-json-dialog";
-import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { useForm } from "react-hook-form";
-import { FormComponentModel } from "@/models/FormComponent";
-import { Viewports } from "@/types/form-builder.types";
+import { getGridRows, updateColSpans } from "@/lib/utils";
 import { RenderEditorComponent } from "@/components/form-builder/helpers/render-editor-component";
-
-const getGridRows = (
-  items: FormComponentModel[],
-  viewport: Viewports
-): FormComponentModel[][] => {
-  const rows: FormComponentModel[][] = [];
-  let currentRow: FormComponentModel[] = [];
-  let currentRowSpan = 0;
-
-  items.forEach((item) => {
-    const colSpan = +item.getField("properties.style.colSpan", viewport) || 12;
-
-    // If adding this item would exceed 12 columns, start a new row
-    if (currentRowSpan + colSpan > 12) {
-      if (currentRow.length > 0) {
-        rows.push([...currentRow]);
-      }
-      currentRow = [item];
-      currentRowSpan = colSpan;
-    } else {
-      currentRow.push(item);
-      currentRowSpan += colSpan;
-    }
-  });
-
-  // Add the last row if it has items
-  if (currentRow.length > 0) {
-    rows.push(currentRow);
-  }
-
-  return rows;
-};
-
-export function updateColSpans(
-  updateItems: FormComponentModel[]
-): { id: string; span: number }[] {
-  if (!updateItems.length) return [];
-
-  const totalColumns = 12;
-  const itemCount = updateItems.length;
-
-  // Calculate base span and remainder
-  const baseSpan = Math.floor(totalColumns / itemCount);
-  const remainder = totalColumns % itemCount;
-
-  const adjustedSpans: { id: string; span: number }[] = [];
-
-  // Distribute spans equally, with remainder distributed to first few items
-  updateItems.forEach((item, index) => {
-    if (!item) return;
-    // Add one extra column to the first 'remainder' items
-    const span = index < remainder ? baseSpan + 1 : baseSpan;
-    adjustedSpans.push({ id: item.id, span });
-  });
-
-  return adjustedSpans;
-}
+import { FormComponentModel } from "@/models/FormComponent";
 
 export default function FormBuilderPage() {
   const isMobile = useIsMobile();
@@ -118,7 +60,7 @@ export default function FormBuilderPage() {
     code: string;
     dependenciesImports: DependenciesImports;
   }>({ code: "", dependenciesImports: {} });
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [draggingDOMElement, setDraggingDOMElement] = useState<HTMLElement | null>(null);
   const form = useForm();
 
   // Memoize static values
@@ -281,7 +223,10 @@ export default function FormBuilderPage() {
   const handleDragStart = useCallback(
     (event: DragStartEvent) => {
       selectComponent(null);
-      setActiveId(event.active.id as string);
+      const element = document.querySelector(`[data-item-id="${event.active.data.current?.component.id}"]`);
+      if (element) {
+        setDraggingDOMElement(element as HTMLElement);
+      }
     },
     [selectComponent]
   );
@@ -388,9 +333,11 @@ export default function FormBuilderPage() {
                 <SidebarRight />
               </div>
               <DragOverlay>
-                <div>
-                  Form element
-                </div>
+                {draggingDOMElement && (
+                  <div className="bg-white p-2 rounded-md shadow opacity-80">
+                    <div dangerouslySetInnerHTML={{ __html: draggingDOMElement.innerHTML }} className="max-h-52 overflow-hidden" />
+                  </div>
+                )}
               </DragOverlay>
             </DndContext>
           </SidebarProvider>

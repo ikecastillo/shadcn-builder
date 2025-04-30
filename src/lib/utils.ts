@@ -1,5 +1,5 @@
 import { FormComponentStyles } from "@/types/FormComponent.types";
-import { Viewports, FormRow } from "@/types/form-builder.types";
+import { Viewports } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -312,3 +312,60 @@ export const escapeHtml = (text: string, whitelist?: EscapeHtmlWhitelist[]): str
   return text;
   
 };
+
+export const getGridRows = (
+  items: FormComponentModel[],
+  viewport: Viewports
+): FormComponentModel[][] => {
+  const rows: FormComponentModel[][] = [];
+  let currentRow: FormComponentModel[] = [];
+  let currentRowSpan = 0;
+
+  items.forEach((item) => {
+    const colSpan = +item.getField("properties.style.colSpan", viewport) || 12;
+
+    // If adding this item would exceed 12 columns, start a new row
+    if (currentRowSpan + colSpan > 12) {
+      if (currentRow.length > 0) {
+        rows.push([...currentRow]);
+      }
+      currentRow = [item];
+      currentRowSpan = colSpan;
+    } else {
+      currentRow.push(item);
+      currentRowSpan += colSpan;
+    }
+  });
+
+  // Add the last row if it has items
+  if (currentRow.length > 0) {
+    rows.push(currentRow);
+  }
+
+  return rows;
+};
+
+export const updateColSpans = (
+  updateItems: FormComponentModel[]
+): { id: string; span: number }[] => {
+  if (!updateItems.length) return [];
+
+  const totalColumns = 12;
+  const itemCount = updateItems.length;
+
+  // Calculate base span and remainder
+  const baseSpan = Math.floor(totalColumns / itemCount);
+  const remainder = totalColumns % itemCount;
+
+  const adjustedSpans: { id: string; span: number }[] = [];
+
+  // Distribute spans equally, with remainder distributed to first few items
+  updateItems.forEach((item, index) => {
+    if (!item) return;
+    // Add one extra column to the first 'remainder' items
+    const span = index < remainder ? baseSpan + 1 : baseSpan;
+    adjustedSpans.push({ id: item.id, span });
+  });
+
+  return adjustedSpans;
+}

@@ -93,6 +93,7 @@ export function SidebarLeft() {
         <SidebarMenuButton
           onClick={() => addComponent(component)}
           className="h-12 hover:bg-slate-100 cursor-pointer"
+          data-item-id={component.id}
         >
           <div
             {...columnAttributes}

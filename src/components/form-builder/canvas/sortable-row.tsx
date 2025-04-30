@@ -3,7 +3,7 @@
 import { UseFormReturn } from "react-hook-form";
 import { GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn, generateTWClassesForAllViewports } from "@/lib/utils";
+import { cn, generateTWClassesForAllViewports, getGridRows, updateColSpans } from "@/lib/utils";
 import { RenderEditorComponent } from "../helpers/render-editor-component";
 import { DropdownComponents } from "../helpers/dropdown-components";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
@@ -81,11 +81,14 @@ export const RowColumn = ({
     },
   });
 
+  const components = useFormBuilderStore((state) => state.components);
+  const viewport = useFormBuilderStore((state) => state.viewport);
   const selectedComponent = useFormBuilderStore(
     (state) => state.selectedComponent
   );
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
   const removeComponent = useFormBuilderStore((state) => state.removeComponent);
+  const updateComponent = useFormBuilderStore((state) => state.updateComponent);
   const mode = useFormBuilderStore((state) => state.mode);
 
   const columnStyle = useMemo(
@@ -116,6 +119,33 @@ export const RowColumn = ({
     },
     [component, selectComponent, mode, columnIsDragging]
   );
+
+  const handleDelete = (id: string) => {
+
+    const gridRows = getGridRows(components, viewport);
+    let activeRowItems =
+        gridRows.find((row) =>
+          row.some((item) => item.id === id)
+        ) || [];
+
+
+    activeRowItems = activeRowItems.filter(
+      (item) => item.id !== id
+    );
+
+    const updatedActiveItems = updateColSpans([...activeRowItems]);
+
+    updatedActiveItems.forEach((item) => {
+      updateComponent(
+        item.id,
+        "properties.style.colSpan",
+        `${item.span}`,
+        false
+      );
+    });
+
+    removeComponent(id);
+  };
 
   return (
     <div
@@ -189,7 +219,7 @@ export const RowColumn = ({
         )}
         onClick={(e) => {
           e.stopPropagation();
-          removeComponent(component.id);
+          handleDelete(component.id);
         }}
       >
         <Icons.Trash2Icon className="size-3" />
