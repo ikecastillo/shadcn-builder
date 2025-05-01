@@ -175,7 +175,7 @@ export const RowColumn = ({
 
       {mode === "editor" && (
         <span className={cn(
-            "absolute -top-6.5 -left-1.75 text-xs text-primary opacity-0",
+            "absolute -top-6.5 -left-1.75 py-0.5 px-1 text-xs opacity-0 bg-primary text-white",
             component.id === selectedComponent?.id && "opacity-100"
           )}
         >
