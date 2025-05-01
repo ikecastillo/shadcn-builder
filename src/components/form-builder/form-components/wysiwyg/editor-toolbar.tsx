@@ -43,8 +43,8 @@ const ToolbarButton = memo(
       variant="ghost"
       size="sm"
       className={cn(
-        "text-slate-500 hover:text-slate-700",
-        isActive ? "bg-slate-100 text-slate-700" : "bg-white"
+        "text-muted-foreground hover:text-primary",
+        isActive ? "bg-muted text-primary" : "bg-white"
       )}
     >
       {children}
@@ -84,20 +84,19 @@ const ToolbarDropdownMenu = memo(
           <div
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
-              activeItem ? "bg-slate-100" : "bg-white"
+              activeItem ? "bg-muted" : "bg-white"
             )}
           >
             <Icon
               name={
                 (activeItem?.type === "option" && activeItem.icon) || defaultIcon
               }
-              className={activeItem ? "text-slate-700" : "text-slate-500"}
+              className={"text-primary"}
             />
-            <Icon name="ChevronDown" className="w-2 h-2" />
+            <Icon name="ChevronDown" className="w-2 h-2 text-primary" />
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent portalProps={{ container: menuRef?.current }}>
-          <div>
             {options.map((option) => {
               return (
                 <div key={option.id}>
@@ -129,7 +128,6 @@ const ToolbarDropdownMenu = memo(
                 </div>
               );
             })}
-          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     );
@@ -156,14 +154,9 @@ export function EditorToolbar({
   const menuRef = useRef<HTMLDivElement>(null);
 
   return (
-    <BubbleMenu
-      editor={editor}
-      tippyOptions={{ duration: 100, maxWidth: "none" }}
-      updateDelay={0}
-      className={cn(isEditable ? "" : "hidden")}
-    >
+
       <div
-        className="flex gap-2 p-2 bg-white rounded-md shadow-sm relative items-center"
+        className="flex gap-2 relative items-center z-20"
         ref={menuRef}
       >
         <ToolbarDropdownMenu options={options} menuRef={menuRef} />
@@ -207,6 +200,5 @@ export function EditorToolbar({
           <Quote />
         </ToolbarButton>
       </div>
-    </BubbleMenu>
   );
 }

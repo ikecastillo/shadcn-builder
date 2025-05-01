@@ -118,7 +118,7 @@ export function SidebarLeft() {
   };
 
   return (
-    <Sidebar className="bg-white top-14 bottom-14">
+    <Sidebar className="bg-white top-13 bottom-14 z-20">
       <div className="flex flex-col h-[calc(100%-56px)]">
         <SidebarContent className="gap-0">
           {componentGroups.map((group) => (

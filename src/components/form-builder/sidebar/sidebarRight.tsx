@@ -92,7 +92,7 @@ export function SidebarRight() {
   }
 
   return (
-    <Sidebar side="right" className="border-l top-14">
+    <Sidebar side="right" className="border-l top-13">
       <SidebarContent>{sidebarContent}</SidebarContent>
     </Sidebar>
   );

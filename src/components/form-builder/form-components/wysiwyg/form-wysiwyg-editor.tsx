@@ -9,6 +9,7 @@ import TextAlign from '@tiptap/extension-text-align'
 import "./form-wysiwyg-editor.css";
 import { EditorToolbar } from "./editor-toolbar";
 import customClass from "./extensions/textCustomStyle";
+import { useFormBuilderStore } from "@/stores/form-builder-store";
 interface FormWysiwygEditorProps {
   isEditable?: boolean;
   value: string;
@@ -98,6 +99,8 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
       []
     );
 
+    const setEditor = useFormBuilderStore((state) => state.setEditor);
+
     const editor = useEditor({
       editable: isEditable,
       immediatelyRender: true,
@@ -106,13 +109,15 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
       onUpdate: ({ editor }) => {
         onChange(editor.getHTML());
       },
-      onFocus: () => {
+      onFocus: ({ editor }) => {
         onFocus?.();
+        setEditor(editor);
       },
-      onBlur: () => {
+      onBlur: ({ editor }) => {
         onBlur?.();
       },
     }, [isEditable]);
+
 
     // Only update content when value prop changes and it's different from our local content
 
@@ -122,7 +127,6 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
 
     return (
       <>
-        <EditorToolbar editor={editor} isEditable={isEditable} />
         <EditorContent editor={editor} />
       </>
     );

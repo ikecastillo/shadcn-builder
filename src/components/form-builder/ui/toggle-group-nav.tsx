@@ -38,7 +38,7 @@ export function ToggleGroupNav({
         <ToggleGroupItem
           key={item.value}
           value={item.value}
-          className="h-auto p-1.5 flex-1 text-muted-foreground data-[state=on]:bg-white data-[state=on]:text-accent-foreground hover:bg-white hover:text-accent-foreground cursor-pointer"
+          className="h-auto p-1.5 flex-1 text-muted-foreground data-[state=on]:bg-white data-[state=on]:text-primary hover:bg-white hover:text-accent-foreground cursor-pointer"
         >
           {item.icon && <item.icon className="h-4 w-4" />}
           

@@ -54,7 +54,7 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
         )}
       />
   ) : (
-    <div className={cn("relative flex flex-col h-full", (selectedComponent?.id === component.id && mode === "editor") && "cursor-text")} key={component.id} data-item-id={component.id}>
+    <div className={cn("relative flex flex-col h-full", (selectedComponent?.id === component.id && mode === "editor") && "cursor-text bg-white")} key={component.id} data-item-id={component.id}>
       <FormWysiwygEditor
         value={component.content || ""}
         onChange={(content) => {
