@@ -3,7 +3,7 @@ import {
   generateTWClassesForAllViewports,
   escapeHtml,
 } from "@/lib/utils";
-import { DesignPropertiesViews, FormRow } from "@/types/form-builder.types";
+import { DesignPropertiesViews } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 import { HtmlGroup } from "../sidebar/groups/html-group";
 import { GridGroup } from "../sidebar/groups/grid-group";

@@ -36,9 +36,10 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import SocialLinks from "@/components/form-builder/sidebar/socialLinks";
 import { OpenJsonDialog } from "@/components/form-builder/dialogs/open-json-dialog";
 import { useForm } from "react-hook-form";
-import { getGridRows, updateColSpans } from "@/lib/utils";
+import { cn, getGridRows, updateColSpans } from "@/lib/utils";
 import { RenderEditorComponent } from "@/components/form-builder/helpers/render-editor-component";
 import { FormComponentModel } from "@/models/FormComponent";
+import { EditorToolbar } from "@/components/form-builder/form-components/wysiwyg/editor-toolbar";
 
 export default function FormBuilderPage() {
   const isMobile = useIsMobile();
@@ -60,7 +61,8 @@ export default function FormBuilderPage() {
     code: string;
     dependenciesImports: DependenciesImports;
   }>({ code: "", dependenciesImports: {} });
-  const [draggingDOMElement, setDraggingDOMElement] = useState<HTMLElement | null>(null);
+  const [draggingDOMElement, setDraggingDOMElement] =
+    useState<HTMLElement | null>(null);
   const form = useForm();
 
   // Memoize static values
@@ -85,7 +87,7 @@ export default function FormBuilderPage() {
   const moveComponent = useFormBuilderStore((state) => state.moveComponent);
   const addComponent = useFormBuilderStore((state) => state.addComponent);
   const gridRows = getGridRows(components, viewport);
-
+  const editor = useFormBuilderStore((state) => state.editor);
   const handleGenerateCode = async () => {
     const generatedCode = await generateFormCode(components);
     setGeneratedCode(generatedCode);
@@ -99,12 +101,8 @@ export default function FormBuilderPage() {
     },
   });
 
-
   // Memoize sensors array
-  const sensors = useMemo(
-    () => [pointerSensor],
-    [pointerSensor]
-  );
+  const sensors = useMemo(() => [pointerSensor], [pointerSensor]);
 
   // Memoize drag end handler
   const handleDragEnd = (event: any) => {
@@ -223,7 +221,9 @@ export default function FormBuilderPage() {
   const handleDragStart = useCallback(
     (event: DragStartEvent) => {
       selectComponent(null);
-      const element = document.querySelector(`[data-item-id="${event.active.data.current?.component.id}"]`);
+      const element = document.querySelector(
+        `[data-item-id="${event.active.data.current?.component.id}"]`
+      );
       if (element) {
         setDraggingDOMElement(element as HTMLElement);
       }
@@ -233,7 +233,7 @@ export default function FormBuilderPage() {
 
   return (
     <div>
-      <div className="fixed top-0 w-full flex flex-row gap-2 justify-between bg-white border-b z-10">
+      <div className="fixed top-0 w-full flex flex-row gap-2 justify-between bg-white border-b z-30">
         <div className="flex flex-row gap-2 items-center justify-center md:justify-start p-2 px-4 border-r w-full md:w-[300px]">
           <BlocksIcon className="h-6 w-6" strokeWidth={2} />
           <h2 className="text-lg font-semibold">
@@ -243,24 +243,35 @@ export default function FormBuilderPage() {
             </sup>
           </h2>
         </div>
-        <div className="p-2 flex-1 grid-cols-2 xl:grid-cols-3 hidden md:grid">
-          <div className="hidden xl:block col-span-1">
+        <div className="p-2 flex-1 grid grid-cols-7 2xl:grid-cols-3">
+          <div
+            className={cn("hidden 2xl:block col-span-1", editor && "2xl:hidden")}
+          >
             {process.env.NODE_ENV === "development" && <OpenJsonDialog />}
           </div>
-          <div className="col-span-1 flex xl:justify-center">
-            <div className=" text-center flex flex-row items-center justify-center gap-1 border rounded-md h-9 px-4">
-              <div
-                className="max-w-80 overflow-y-hidden whitespace-nowrap text-sm outline-none scrollbar-hide"
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => updateFormTitle(e.target.innerText)}
-              >
-                {formTitle}
+          <div className="col-span-5 2xl:col-span-1 2xl:col-start-2 flex 2xl:justify-center">
+            {editor ? (
+              <EditorToolbar editor={editor} isEditable={true} />
+            ) : (
+              <div className="text-center flex flex-row items-center justify-center gap-1 border rounded-md h-9 px-4">
+                <div
+                  className="max-w-80 overflow-y-hidden whitespace-nowrap text-sm outline-none scrollbar-hide"
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updateFormTitle(e.target.innerText)}
+                >
+                  {formTitle}
+                </div>
+                <span className="text-muted-foreground text-xs">.tsx</span>
               </div>
-              <span className="text-muted-foreground text-xs">.tsx</span>
-            </div>
+            )}
           </div>
-          <div className="col-span-1 hidden md:flex justify-end gap-4 ">
+          <div
+            className={cn(
+              "col-span-2 2xl:col-span-1 hidden md:flex justify-end gap-4",
+              editor && ""
+            )}
+          >
             {process.env.NODE_ENV === "development" && (
               <Button
                 variant="ghost"
@@ -335,7 +346,12 @@ export default function FormBuilderPage() {
               <DragOverlay>
                 {draggingDOMElement && (
                   <div className="bg-white p-2 rounded-md shadow opacity-80">
-                    <div dangerouslySetInnerHTML={{ __html: draggingDOMElement.innerHTML }} className="max-h-52 overflow-hidden" />
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: draggingDOMElement.innerHTML,
+                      }}
+                      className="max-h-52 overflow-hidden"
+                    />
                   </div>
                 )}
               </DragOverlay>

@@ -1,4 +1,5 @@
 import { FormComponentModel } from "@/models/FormComponent";
+import { Editor } from "@tiptap/react";
 import * as Icons from "lucide-react";
 import { HTMLAttributes, HTMLInputTypeAttribute } from 'react';
 
@@ -33,21 +34,18 @@ export type ComponentViews = {
   reactCode: ReactCode;
 };
 
-export interface FormRow {
-  id: number;
-  components: FormComponentModel[];
-}
-
 export interface FormBuilderStore {
   mode: 'editor' | 'preview';
   viewport: Viewports;
   showJson: boolean;
   formTitle: string;
+  editor: Editor | null;
   enableDragging: boolean;
   updateMode: (mode: 'editor' | 'preview') => void;
   updateViewport: (viewport: Viewports) => void;
   toggleJsonPreview: () => void;
   updateFormTitle: (title: string) => void;
+  setEditor: (editor: Editor | null) => void;
   components: FormComponentModel[];
   selectedComponent: FormComponentModel | null;
   updateEnableDragging: (enableDragging: boolean) => void;

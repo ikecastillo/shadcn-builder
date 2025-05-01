@@ -128,8 +128,9 @@ export const RowColumn = ({
         colStartClasses,
         mode === "editor" && "group/component hover:outline-1 hover:outline-offset-6 hover:outline-primary cursor-pointer",
         columnIsDragging && "cursor-grabbing",
+        selectedComponent && "opacity-30",
         selectedComponent?.id === component.id &&
-          "outline-1 outline-offset-6 outline-primary",
+          "outline-1 outline-offset-6 outline-primary z-20 opacity-100",
       )}
       key={component.id}
       data-component-id={component.id}
