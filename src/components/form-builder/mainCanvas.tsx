@@ -43,7 +43,7 @@ export function MainCanvas() {
   const components = useFormBuilderStore((state) => state.components);
 
   return (
-    <div className="flex gap-4 flex-col 3xl:flex-row">
+    <div className="flex gap-4 h-full flex-col 3xl:flex-row">
       <div
         className={`h-full w-full`}
         onClick={() => {
