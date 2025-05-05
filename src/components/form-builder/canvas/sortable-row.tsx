@@ -82,6 +82,13 @@ export const RowColumn = ({
     [component]
   );
 
+  const visibilityClasses = useMemo(
+    () => generateTWClassesForAllViewports(component, "visible"),
+    [component]
+  );
+
+  const isHidden = component.getField("properties.style.visible", viewport) === "no";
+
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       if (mode === "editor" && !columnIsDragging) {
@@ -123,12 +130,14 @@ export const RowColumn = ({
     <div
       ref={setNodeRef}
       className={cn(
-        "relative group ",
+        "relative group",
         colSpanClasses,
         colStartClasses,
+        mode === "preview" && visibilityClasses,
         mode === "editor" && "group/component hover:outline-1 hover:outline-offset-6 hover:outline-primary cursor-pointer",
         columnIsDragging && "cursor-grabbing",
         selectedComponent && "opacity-30",
+        isHidden && "opacity-50",
         selectedComponent?.id === component.id &&
           "outline-1 outline-offset-6 outline-primary z-20 opacity-100",
       )}

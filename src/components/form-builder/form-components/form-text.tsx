@@ -19,9 +19,7 @@ export function Text(component: FormComponentModel) {
       key={component.id}
       className={cn(
         colSpanClasses,
-        colStartClasses,
-        component.getTWClasses("textAlign")
-      )}
+        colStartClasses      )}
       dangerouslySetInnerHTML={{ __html: component.content || "" }}
     />
   );
@@ -37,7 +35,8 @@ export function getReactCode(component: FormComponentModel): ReactCode {
     code: `
     <div
       key="${component.id}"
-      className="${escapeHtml(component.getTWClasses("textAlign"))}">
+      id="${component.getField("attributes.id")}"
+      className="${component.getField("attributes.class")}">
       ${component.content || ""}
     </div>
     `,
@@ -50,7 +49,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
 export const TextDesignProperties: DesignPropertiesViews = {
   base: null,
   grid: <GridGroup />,
-  html: <HtmlGroup />,
+  html: <HtmlGroup whitelist={["id", "class"]} />,
   label: null,
   input: null,
   options: null,

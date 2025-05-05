@@ -51,7 +51,7 @@ export const InputDesignProperties: DesignPropertiesViews = {
   base: null,
   grid: <GridGroup />,
   html: <HtmlGroup />,
-  label: <LabelGroup />,
+  label: <LabelGroup whitelist={["label", "labelPosition", "labelAlign", "showLabel"]} />,
   input: <InputGroup />,
   options: null,
   button: null,

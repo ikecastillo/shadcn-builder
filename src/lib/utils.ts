@@ -24,15 +24,15 @@ const styleMap: Partial<Record<keyof FormComponentStyles, Record<Viewports, Reco
   },
   visible: {
     sm: {
-      yes: "flex",
+      yes: "block",
       no: "hidden",
     },
     md: {
-      yes: "@3xl:flex",
+      yes: "@3xl:block",
       no: "@3xl:hidden",
     },
     lg: {
-      yes: "@5xl:flex",
+      yes: "@5xl:block",
       no: "@5xl:hidden",
     },
   },

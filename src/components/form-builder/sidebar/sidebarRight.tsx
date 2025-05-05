@@ -10,18 +10,23 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { getComponentViews } from "@/config/available-components";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 interface PropertySectionProps {
   title: string;
   children: ReactNode;
-  isOpen: boolean;
+  index: number;
 }
 
-function PropertySection({ title, children, isOpen }: PropertySectionProps) {
-  const [isOpenState, setIsOpenState] = useState(isOpen);
+function PropertySection({ title, children, index }: PropertySectionProps) {
+  const [isOpenState, setIsOpenState] = useState(false);
+
+  useEffect(() => {
+    setIsOpenState(index < 3);
+  }, [index]);
+
   return (
-    <Collapsible className="border-b" defaultOpen={isOpenState}>
+    <Collapsible className="border-b" open={isOpenState}>
       <CollapsibleTrigger
         className="flex items-center justify-between w-full p-4 cursor-pointer"
         onClick={() => setIsOpenState(!isOpenState)}
@@ -41,17 +46,16 @@ function PropertySection({ title, children, isOpen }: PropertySectionProps) {
 }
 
 const PROPERTY_SECTIONS = [
-  { key: "options", title: "Options", isOpen: true },
-  { key: "input", title: "Input", isOpen: true },
-  { key: "label", title: "Label", isOpen: true },
-  { key: "grid", title: "Grid layout", isOpen: false },
-  { key: "html", title: "HTML", isOpen: false },
-  { key: "validation", title: "Validation", isOpen: false },
+  { key: "options", title: "Data Options" },
+  { key: "input", title: "Input" },
+  { key: "label", title: "Label & Description" },
+  { key: "grid", title: "Appearance" },
+  { key: "html", title: "HTML Attributes" },
+  { key: "validation", title: "Validation" },
 ] as const;
 
 export function SidebarRight() {
   const { selectedComponent } = useFormBuilderStore();
-
   let sidebarContent;
 
   if (!selectedComponent) {
@@ -74,14 +78,20 @@ export function SidebarRight() {
         </div>
       );
     } else {
+      const filteredPropertySections = PROPERTY_SECTIONS.filter((section) => {
+        return componentViews.renderDesignProperties[section.key] !== null;
+      });
+
       sidebarContent = (
         <div>
-          {PROPERTY_SECTIONS.map(({ key, title, isOpen }) => {
+          {filteredPropertySections.map(({ key, title }, index) => {
             const content = componentViews.renderDesignProperties[key];
-            if (!content) return null;
-
             return (
-              <PropertySection key={key} title={title} isOpen={isOpen}>
+              <PropertySection 
+                key={key} 
+                title={title} 
+                index={index}
+              >
                 {content}
               </PropertySection>
             );

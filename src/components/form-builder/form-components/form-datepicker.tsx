@@ -96,7 +96,7 @@ export const DatePickerDesignProperties: DesignPropertiesViews = {
   base: null,
   grid: <GridGroup />,
   html: <HtmlGroup />,
-  label: <LabelGroup />,
+  label: <LabelGroup whitelist={["label", "labelPosition", "labelAlign", "showLabel"]} />,
   input: <InputGroup whitelist={["placeholder", "description"]} />,
   options: null,
   button: null,

@@ -69,7 +69,7 @@ export const RadioDesignProperties: DesignPropertiesViews = {
   base: null,
   grid: <GridGroup />,
   html: <HtmlGroup />,
-  label: <LabelGroup />,
+  label: <LabelGroup whitelist={["label", "labelPosition", "labelAlign", "showLabel"]} />,
   input: <InputGroup whitelist={["placeholder", "description", "value"]} />,
   options: <OptionsGroup />,
   button: null,

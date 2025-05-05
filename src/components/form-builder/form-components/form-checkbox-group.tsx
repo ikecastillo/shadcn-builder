@@ -69,7 +69,7 @@ export const CheckboxGroupDesignProperties: DesignPropertiesViews = {
   base: null,
   grid: <GridGroup />,
   html: <HtmlGroup />,
-  label: <LabelGroup whitelist={["label", "label_description"]} />,
+  label: <LabelGroup whitelist={["label"]} />,
   input: <InputGroup whitelist={["description", "asCard"]} />,
   options: <OptionsGroup />,
   button: null,

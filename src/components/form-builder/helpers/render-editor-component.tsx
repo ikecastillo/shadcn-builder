@@ -44,6 +44,8 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
               >
                 {component.getField("properties.style.showLabel", viewport) ===
                   "yes" && component.getField("label", viewport)}
+                {component.getField("properties.style.visible", viewport) ===
+                  "no" && <span className="text-xs text-muted-foreground">Hidden</span>}
               </FormLabel>
             </div>
             <FormControl>{componentViews?.render}</FormControl>
