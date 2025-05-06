@@ -60,6 +60,7 @@ export function LabelGroup({ whitelist = ["label", "label_description", "labelPo
         </Label>
         <div className="flex flex-row items-center gap-2">
           <ToggleGroupNav
+            name="showLabel"
             items={[
               { value: "yes", label: "yes" },
               { value: "no", label: "no" },
@@ -132,6 +133,7 @@ export function LabelGroup({ whitelist = ["label", "label_description", "labelPo
           <Label className="text-xs text-gray-400 pl-2">Label Alignment</Label>
         <div className="flex flex-row items-center gap-2">
           <ToggleGroupNav
+            name="labelAlign"
             items={alignmentItems}
             defaultValue={defaultValueLabelAlign}
             onValueChange={(value) =>

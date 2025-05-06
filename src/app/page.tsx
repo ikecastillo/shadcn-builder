@@ -283,6 +283,7 @@ export default function FormBuilderPage() {
               </Button>
             )}
             <ToggleGroupNav
+              name="viewport"
               items={viewportItems}
               defaultValue={viewport}
               onValueChange={(value) =>
@@ -290,6 +291,7 @@ export default function FormBuilderPage() {
               }
             />
             <ToggleGroupNav
+              name="mode"
               items={modeItems}
               defaultValue={mode}
               onValueChange={(value) => {
@@ -308,6 +310,7 @@ export default function FormBuilderPage() {
             className="w-full cursor-pointer"
             onClick={handleGenerateCode}
             disabled={components.length === 0}
+            id="export-code-button"
           >
             Generate Code
           </Button>

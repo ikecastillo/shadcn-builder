@@ -110,6 +110,7 @@ export function InputGroup({
           </Label>
           <div className="flex flex-row items-center gap-2">
             <ToggleGroupNav
+              name="asCard"
               items={[
                 { value: "yes", label: "yes" },
                 { value: "no", label: "no" },
