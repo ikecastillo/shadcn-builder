@@ -313,6 +313,44 @@ export const escapeHtml = (text: string, whitelist?: EscapeHtmlWhitelist[]): str
   
 };
 
+export const replaceBrTags = (text: string): string => {
+  return text.replace(/<br\s*\/?>/g, '<br />');
+};
+
+export const replaceClassWithClassName = (text: string): string => {
+  return text.replace(/class="([^"]+)"/g, (match, p1) => {
+    return `className="${p1}"`;
+  });
+};
+
+export const convertStyleToStyleObject = (style: string): Record<string, string> => {
+  if (!style) return {};
+
+  // Split the style string by semicolons and filter out empty strings
+  const stylePairs = style.split(';').filter(Boolean);
+
+  return stylePairs.reduce((acc, pair) => {
+    // Split each pair by colon and trim whitespace
+    const [property, value] = pair.split(':').map(str => str.trim());
+    
+    if (property && value) {
+      // Convert CSS property to camelCase (e.g., text-align -> textAlign)
+      const camelCaseProperty = property.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+      acc[camelCaseProperty] = value;
+    }
+    
+    return acc;
+  }, {} as Record<string, string>);
+};
+
+export const replaceStyleStringWithObject = (style: string): string => {
+  return style.replace(/style="([^"]+)"/g, (match, p1) => {
+    return `style={${JSON.stringify(convertStyleToStyleObject(p1))}}`;
+  });
+
+}
+
+
 export const getGridRows = (
   items: FormComponentModel[],
   viewport: Viewports

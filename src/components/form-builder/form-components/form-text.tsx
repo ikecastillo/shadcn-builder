@@ -1,7 +1,9 @@
 import {
   cn,
   generateTWClassesForAllViewports,
-  escapeHtml,
+  replaceBrTags,
+  replaceClassWithClassName,
+  replaceStyleStringWithObject,
 } from "@/lib/utils";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
@@ -31,13 +33,24 @@ type ReactCode = {
 };
 
 export function getReactCode(component: FormComponentModel): ReactCode {
+
+  let content = replaceStyleStringWithObject(component.content || "");
+  content = replaceBrTags(content);
+  content = replaceClassWithClassName(content);
+  const colSpanClasses = generateTWClassesForAllViewports(component, "colSpan");
+  const colStartClasses = generateTWClassesForAllViewports(
+    component,
+    "colStart"
+  );
+  const customClasses = component.getField("attributes.class") || "";
+
   return {
     code: `
     <div
       key="${component.id}"
       id="${component.getField("attributes.id")}"
-      className="${component.getField("attributes.class")}">
-      ${component.content || ""}
+      className="${customClasses} ${colSpanClasses} ${colStartClasses}">
+      ${content}
     </div>
     `,
     dependencies: {
