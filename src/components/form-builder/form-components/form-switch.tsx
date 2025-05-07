@@ -7,8 +7,9 @@ import { GridGroup } from "../sidebar/groups/grid-group";
 import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { cn, generateTWClassesForAllViewports, escapeHtml } from "@/lib/utils";
+import { ControllerRenderProps } from "react-hook-form";
 
-export function FormSwitch(component: FormComponentModel) {
+export function FormSwitch(component: FormComponentModel, field: ControllerRenderProps) {
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
 
   return (
@@ -24,7 +25,7 @@ export function FormSwitch(component: FormComponentModel) {
           {component.getField("label_description")}
         </p>
       </div>
-      <Switch id={component.getField("attributes.id")} />
+      <Switch id={component.getField("attributes.id")} {...field} />
     </div>
   );
 }

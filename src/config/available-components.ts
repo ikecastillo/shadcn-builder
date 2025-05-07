@@ -39,6 +39,9 @@ import {
   getReactCodeText,
   getReactCodeCheckboxGroup,
   } from "@/components/form-builder/form-components";
+import { ZodSchema } from "zod";
+import { ControllerRenderProps, FieldName, UseFormReturn } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 
 const typographyComponents: FormComponentModel[] = [
   new FormComponentModel({
@@ -266,10 +269,10 @@ export function getCoponentSidebarOptions(component: FormComponentModel) {
   return componentView.renderDesignProperties;
 }
 
-export function renderComponent(component: FormComponentModel): React.ReactNode | undefined {
+export function renderComponent(component: FormComponentModel, field: ControllerRenderProps): React.ReactNode | undefined {
 
   const componentView = views[component.type as keyof typeof views];
   if (!componentView) return undefined;
 
-  return componentView.render(component)
+  return componentView.render(component, field)
 }

@@ -78,7 +78,7 @@ export type FormComponentOverrides = {
 };
 
 export interface FormComponentValidationTypes {
-  required?: boolean;
+  required?: "yes" | "no";
   min?: number;
   max?: number;
   minLength?: number;

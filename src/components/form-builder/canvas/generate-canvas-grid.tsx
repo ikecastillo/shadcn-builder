@@ -2,11 +2,14 @@
 
 import { RowColumn } from "@/components/form-builder/canvas/sortable-row";
 import { Form } from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useForm } from "react-hook-form";
 import { memo } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
+import { z } from "zod";
+import { getZodSchemaForComponents, getZodDefaultValues } from "@/components/form-builder/helpers/zod";
 // Memoize the empty state component
 const EmptyState = memo(() => {
   const { setNodeRef, isOver } = useDroppable({
@@ -36,7 +39,14 @@ export default function GenerateCanvasGrid() {
   const components = useFormBuilderStore((state) => state.components);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
   const mode = useFormBuilderStore((state) => state.mode);
-  const form = useForm();
+
+  const formSchema = getZodSchemaForComponents(components);
+  const defaultValues = getZodDefaultValues(components);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: defaultValues,
+  });
 
   if (components.length === 0) {
     return <EmptyState />;
@@ -46,21 +56,32 @@ export default function GenerateCanvasGrid() {
     selectComponent(null);
   };
 
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
+
+  
+
   return (
-    <div
-      className={`grid grid-cols-12 gap-4`}
-      onClick={mode === "editor" ? handleClick : undefined}
-    >
-      <Form {...form}>
-        {components.map((component, index) => (
-          <RowColumn
-            key={component.id}
-            component={component}
-            index={index}
-            form={form}
-          />
-        ))}
-      </Form>
-    </div>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 @container"
+      >
+        <div
+          className={`grid grid-cols-12 gap-4`}
+          onClick={mode === "editor" ? handleClick : undefined}
+        >
+          {components.map((component, index) => (
+            <RowColumn
+              key={component.id}
+              component={component}
+              index={index}
+              form={form}
+            />
+          ))}
+        </div>
+      </form>
+    </Form>
   );
 }

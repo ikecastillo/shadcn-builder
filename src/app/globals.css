@@ -45,6 +45,7 @@
   --accent: oklch(.97 0 0);
   --accent-foreground: oklch(.205 0 0);
   --destructive: oklch(.577 .245 27.325);
+  --destructive-foreground: oklch(.577 .245 27.325);
   --border: oklch(.922 0 0);
   --input: oklch(.922 0 0);
   --ring: oklch(.708 0 0);
@@ -155,4 +156,16 @@
   display: none;
 }
 
+/*
+  ---break---
+*/
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 

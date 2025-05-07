@@ -7,19 +7,21 @@ import { InputGroup } from "../sidebar/groups/input-group";
 import { GridGroup } from "../sidebar/groups/grid-group";
 import { cn, escapeHtml } from "@/lib/utils";
 import { ValidationGroup } from "../sidebar/groups/validation-group";
+import { ControllerRenderProps } from "react-hook-form";
 
 
-export function FormInput(component: FormComponentModel) {
+export function FormInput(component: FormComponentModel, field: ControllerRenderProps) {
 
   return (
     <Input
       key={component.id}
       placeholder={component.getField("attributes.placeholder")}
       type={component.getField("attributes.type")}
-      id={component.getField("attributes.id")}
-      name={component.getField("attributes.name")}
       className={cn(component.getField("attributes.class"))}
       defaultValue={component.value}
+      {...field}
+      name={component.getField("attributes.name")}
+      id={component.getField("attributes.id")}
     />
   );
 }

@@ -6,18 +6,19 @@ import { HtmlGroup } from "../sidebar/groups/html-group";
 import { GridGroup } from "../sidebar/groups/grid-group";
 import { LabelGroup } from "../sidebar/groups/label-group";
 import { cn, generateTWClassesForAllViewports, escapeHtml } from "@/lib/utils";
+import { ControllerRenderProps } from "react-hook-form";
 
-export function FormTextarea(component: FormComponentModel) {
+export function FormTextarea(component: FormComponentModel, field: ControllerRenderProps) {
   const colSpanClasses = generateTWClassesForAllViewports(component, "colSpan");
   
   return (
     <div key={component.id} className={cn(colSpanClasses)}>
       <Textarea
         id={component.getField("attributes.id")}
-        name={component.getField("attributes.name")}
         placeholder={component.getField("attributes.placeholder")}
         className={component.getField("attributes.class")}
         defaultValue={component.value}
+        {...field}
       />
     </div>
   );
