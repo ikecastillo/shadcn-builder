@@ -1,4 +1,4 @@
-import { ComponentViews } from "@/types/form-builder.types";
+import { ReactCode } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 import {
   // Form Components
@@ -239,24 +239,37 @@ const formViews = {
   date: { render: FormDatePicker, renderDesignProperties: DatePickerDesignProperties, reactCode: getReactCodeDatePicker },
 };
 
-export function getComponentViews(component: FormComponentModel): ComponentViews | undefined {
-  const views = {
-    ...typographyViews,
-    ...formViews,
-    number: formViews.input,
-    email: formViews.input,
-    password: formViews.input,
-    tel: formViews.input,
-    url: formViews.input,
-    file: formViews.input,
-  };
+const views = {
+  ...typographyViews,
+  ...formViews,
+  number: formViews.input,
+  email: formViews.input,
+  password: formViews.input,
+  tel: formViews.input,
+  url: formViews.input,
+  file: formViews.input,
+};
+
+export function getComponentReactCode(component: FormComponentModel): ReactCode | undefined {
 
   const componentView = views[component.type as keyof typeof views];
   if (!componentView) return undefined;
 
-  return {
-    render:  componentView.render(component),
-    renderDesignProperties: componentView.renderDesignProperties,
-    reactCode: componentView.reactCode(component),
-  };
+  return componentView.reactCode(component);
+}
+
+export function getCoponentSidebarOptions(component: FormComponentModel) {
+
+  const componentView = views[component.type as keyof typeof views];
+  if (!componentView) return undefined;
+
+  return componentView.renderDesignProperties;
+}
+
+export function renderComponent(component: FormComponentModel): React.ReactNode | undefined {
+
+  const componentView = views[component.type as keyof typeof views];
+  if (!componentView) return undefined;
+
+  return componentView.render(component)
 }

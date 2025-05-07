@@ -28,12 +28,6 @@ export type ReactCode = {
   dependencies: Record<string, string[]>;
 };
 
-export type ComponentViews = {
-  render: React.ReactNode;
-  renderDesignProperties: DesignPropertiesViews;
-  reactCode: ReactCode;
-};
-
 export interface FormBuilderStore {
   mode: 'editor' | 'preview';
   viewport: Viewports;

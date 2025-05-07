@@ -1,5 +1,5 @@
 import { FormComponentModel } from "@/models/FormComponent";
-import { getComponentViews } from "@/config/available-components";
+import { getComponentReactCode, getComponentViews } from "@/config/available-components";
 import { cn, generateTWClassesForAllViewports } from "@/lib/utils";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { z } from "zod";
@@ -23,8 +23,7 @@ const dependenciesImports: DependenciesImports = {
 };
 
 const generateComponentCode = (component: FormComponentModel): string => {
-  const componentViews = getComponentViews(component);
-  const reactCode = componentViews?.reactCode;
+  const reactCode = getComponentReactCode(component);
 
   if (reactCode?.dependencies) {
     Object.entries(reactCode.dependencies).forEach(([key, values]) => {

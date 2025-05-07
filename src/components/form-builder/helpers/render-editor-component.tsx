@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { cn } from "@/lib/utils";
-import { getComponentViews } from "@/config/available-components";
+import { renderComponent } from "@/config/available-components";
 import { FormComponentModel } from "@/models/FormComponent";
 import { FormWysiwygEditor } from "../form-components/wysiwyg/form-wysiwyg-editor";
 
@@ -25,7 +25,7 @@ export interface FormComponentProps {
 export function RenderEditorComponent({ form, component }: FormComponentProps) {
   const { selectedComponent, viewport, updateComponent, updateEnableDragging } = useFormBuilderStore();
   const mode = useFormBuilderStore((state) => state.mode);
-  const componentViews = getComponentViews(component);
+  const renderedComponent = renderComponent(component);
 
   return component.category === "form" ? (
     <FormField
@@ -48,7 +48,7 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
                   "no" && <span className="text-xs text-muted-foreground">Hidden</span>}
               </FormLabel>
             </div>
-            <FormControl>{componentViews?.render}</FormControl>
+            <FormControl>{renderedComponent}</FormControl>
             {component.description && (
               <FormDescription>{component.description}</FormDescription>
             )}

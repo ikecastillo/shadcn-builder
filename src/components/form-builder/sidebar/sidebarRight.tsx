@@ -9,7 +9,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { getComponentViews } from "@/config/available-components";
+import { getComponentViews, getCoponentOptions, getCoponentSidebarOptions } from "@/config/available-components";
 import { ReactNode, useEffect, useState } from "react";
 
 interface PropertySectionProps {
@@ -56,6 +56,9 @@ const PROPERTY_SECTIONS = [
 
 export function SidebarRight() {
   const { selectedComponent } = useFormBuilderStore();
+  const mode = useFormBuilderStore((state) => state.mode);
+
+
   let sidebarContent;
 
   if (!selectedComponent) {
@@ -67,9 +70,9 @@ export function SidebarRight() {
       </div>
     );
   } else {
-    const componentViews = getComponentViews(selectedComponent);
+    const componentSidebarOptions = getCoponentSidebarOptions(selectedComponent);
 
-    if (!componentViews) {
+    if (!componentSidebarOptions) {
       sidebarContent = (
         <div className="p-4">
           <p className="text-sm text-muted-foreground">
@@ -79,13 +82,13 @@ export function SidebarRight() {
       );
     } else {
       const filteredPropertySections = PROPERTY_SECTIONS.filter((section) => {
-        return componentViews.renderDesignProperties[section.key] !== null;
+        return componentSidebarOptions[section.key] !== null;
       });
 
       sidebarContent = (
         <div>
           {filteredPropertySections.map(({ key, title }, index) => {
-            const content = componentViews.renderDesignProperties[key];
+            const content = componentSidebarOptions[key];
             return (
               <PropertySection 
                 key={key} 

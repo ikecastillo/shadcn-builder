@@ -21,6 +21,9 @@ import { FormComponentModel } from "@/models/FormComponent"
 
 export function FormDatePicker(component: FormComponentModel) {
 
+  const [date, setDate] = React.useState<Date>()
+
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -28,19 +31,22 @@ export function FormDatePicker(component: FormComponentModel) {
           variant={"outline"}
           className={cn(
             "justify-start text-left font-normal w-full",
+            !date && "text-muted-foreground",
             component.getField("attributes.class")
           )}
           id={component.getField("attributes.id")}
           name={component.getField("attributes.name")}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          <span className="text-muted-foreground">{component.getField("attributes.placeholder")}</span>
+          {date ? format(date, "PPP") : <span className="text-muted-foreground">{component.getField("attributes.placeholder")}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           initialFocus
+          selected={date}
+          onSelect={setDate}
         />
       </PopoverContent>
     </Popover>
