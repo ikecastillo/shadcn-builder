@@ -5,7 +5,7 @@ import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useForm } from "react-hook-form";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
@@ -48,6 +48,13 @@ export default function GenerateCanvasGrid() {
     defaultValues: defaultValues,
   });
 
+
+  useEffect(() => {
+    if (mode === "editor") {
+      form.clearErrors();
+    }
+  }, [mode, form]);
+
   if (components.length === 0) {
     return <EmptyState />;
   }
@@ -59,6 +66,7 @@ export default function GenerateCanvasGrid() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
+
 
   
 
