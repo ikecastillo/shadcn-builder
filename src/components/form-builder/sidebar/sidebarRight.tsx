@@ -9,7 +9,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { getComponentViews, getCoponentOptions, getCoponentSidebarOptions } from "@/config/available-components";
+import { getCoponentSidebarOptions } from "@/config/available-components";
 import { ReactNode, useEffect, useState } from "react";
 
 interface PropertySectionProps {

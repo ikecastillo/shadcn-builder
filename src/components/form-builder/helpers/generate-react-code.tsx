@@ -1,5 +1,5 @@
 import { FormComponentModel } from "@/models/FormComponent";
-import { getComponentReactCode, getComponentViews } from "@/config/available-components";
+import { getComponentReactCode } from "@/config/available-components";
 import { cn, generateTWClassesForAllViewports } from "@/lib/utils";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { z } from "zod";
