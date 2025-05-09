@@ -167,12 +167,12 @@ const createStringSchemaAsString = (
 
 export const getZodDefaultValues = (
   components: FormComponentModel[]
-): Record<string, string> => {
-  const defaultValues: Record<string, string> = {};
+): Record<string, string | number | undefined> => {
+  const defaultValues: Record<string, string | number | undefined> = {};
 
   components.forEach((component) => {
     const componentId = component.getField("attributes.id");
-    const defaultValue = component.getField("value") || "";
+    const defaultValue = component.getField("value") || undefined;
     defaultValues[componentId] = defaultValue;
   });
 
@@ -183,7 +183,7 @@ export const getZodDefaultValues = (
 export const getZodDefaultValuesAsString = (components: FormComponentModel[]) => {
   const defaultValues = getZodDefaultValues(components);
   return Object.entries(defaultValues).map(([key, value]) => {
-    return `"${key}": "${value}"`;
+    return `"${key}": ${typeof value === "string" ? `"${value}"` : value}`;
   }).join(",\n");
 };
 
