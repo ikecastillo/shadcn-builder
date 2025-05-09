@@ -7,8 +7,9 @@ import { HtmlGroup } from "../sidebar/groups/html-group";
 import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { cn, generateTWClassesForAllViewports, escapeHtml } from "@/lib/utils";
+import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form";
 
-export function FormCheckbox(component: FormComponentModel) {
+export function FormCheckbox(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
 
   return (
@@ -16,7 +17,11 @@ export function FormCheckbox(component: FormComponentModel) {
       key={component.id}
       className={cn(asCardClasses, "flex items-start space-x-2")}
     >
-      <Checkbox id={component.getField("attributes.id")} />
+      <Checkbox
+        id={component.getField("attributes.id")}
+        className={cn(component.getField("attributes.class"))}
+        {...field}
+      />
       <div className="grid gap-1.5 leading-none">
         <Label htmlFor={component.getField("attributes.id")}>
           {component.getField("label")}

@@ -5,14 +5,17 @@ import { GridGroup } from "../sidebar/groups/grid-group";
 import { HtmlGroup } from "../sidebar/groups/html-group";
 import { ButtonGroup } from "../sidebar/groups/button-group";
 import { cn, escapeHtml } from "@/lib/utils";
+import { UseFormReturn, FieldValues, ControllerRenderProps } from "react-hook-form";
 
-export function FormButton(component: FormComponentModel) {
+export function FormButton(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (
     <Button
       key={component.id}
       id={component.getField("attributes.id")}
       name={component.getField("attributes.name")}
       className={cn("w-full", component.getField("attributes.class"))}
+      type={component.getField("attributes.type")}
+      variant={component.getField("properties.variant")}
     >
       {component.getField("content")}
     </Button>
@@ -32,6 +35,8 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       id="${escapeHtml(component.getField("attributes.id"))}"
       name="${escapeHtml(component.getField("attributes.name"))}"
       className="${escapeHtml(cn("w-full", component.getField("attributes.class")))}"
+      type="${component.getField("attributes.type")}"
+      variant="${component.getField("properties.variant")}"
     >
       ${escapeHtml(component.getField("content"))}
     </Button>

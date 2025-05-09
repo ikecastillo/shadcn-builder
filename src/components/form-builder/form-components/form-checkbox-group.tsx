@@ -8,8 +8,9 @@ import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { OptionsGroup } from "../sidebar/groups/options-group";
 import { cn, escapeHtml } from "@/lib/utils";
+import { UseFormReturn, FieldValues, ControllerRenderProps } from "react-hook-form";
 
-export function FormCheckboxGroup(component: FormComponentModel) {
+export function FormCheckboxGroup(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (
     <div
       key={component.id}

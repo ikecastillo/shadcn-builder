@@ -7,18 +7,22 @@ import { InputGroup } from "../sidebar/groups/input-group";
 import { GridGroup } from "../sidebar/groups/grid-group";
 import { cn, escapeHtml } from "@/lib/utils";
 import { ValidationGroup } from "../sidebar/groups/validation-group";
+import { ControllerRenderProps } from "react-hook-form";
+import { UseFormReturn, FieldValues } from "react-hook-form";
+import { useEffect } from "react";
+import { useState } from "react";
+
+export function FormInput(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
 
 
-export function FormInput(component: FormComponentModel) {
 
   return (
     <Input
       key={component.id}
       placeholder={component.getField("attributes.placeholder")}
       type={component.getField("attributes.type")}
-      id={component.getField("attributes.id")}
-      name={component.getField("attributes.name")}
       className={cn(component.getField("attributes.class"))}
+      {...field}
       defaultValue={component.value}
     />
   );

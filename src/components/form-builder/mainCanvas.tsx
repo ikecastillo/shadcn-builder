@@ -59,7 +59,7 @@ export function MainCanvas() {
             "mx-auto scrollbar-hide mt-6"
           )}
         >
-          <CardContent className="@container">
+          <CardContent>
             <GenerateCanvasGrid />
           </CardContent>
         </Card>

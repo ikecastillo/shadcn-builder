@@ -35,6 +35,7 @@ export function GridGroup() {
     viewport
   ) || "yes";
 
+
   const handleChangeColSpan = (field: string, value: any) => {
     updateComponent(selectedComponent.id, field, value);
   };
@@ -46,6 +47,8 @@ export function GridGroup() {
   const handleChangeVisible = (field: string, value: any) => {
     updateComponent(selectedComponent.id, field, value);
   };
+
+
 
   return (
     <>
@@ -83,7 +86,7 @@ export function GridGroup() {
               handleChangeColSpan("properties.style.colSpan", value)
             }
           >
-            <SelectTrigger>
+            <SelectTrigger className="w-full">
               <SelectValue placeholder="Select column span" />
             </SelectTrigger>
             <SelectContent>
@@ -111,7 +114,7 @@ export function GridGroup() {
               handleChangeColStart("properties.style.colStart", value)
             }
           >
-            <SelectTrigger>
+            <SelectTrigger className="w-full">
               <SelectValue placeholder="Select column start" />
             </SelectTrigger>
             <SelectContent>

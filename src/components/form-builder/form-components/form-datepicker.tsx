@@ -18,8 +18,9 @@ import { HtmlGroup } from "../sidebar/groups/html-group"
 import { LabelGroup } from "../sidebar/groups/label-group"
 import { InputGroup } from "../sidebar/groups/input-group"    
 import { FormComponentModel } from "@/models/FormComponent"
+import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form"
 
-export function FormDatePicker(component: FormComponentModel) {
+export function FormDatePicker(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
 
   const [date, setDate] = React.useState<Date>()
 
@@ -35,7 +36,7 @@ export function FormDatePicker(component: FormComponentModel) {
             component.getField("attributes.class")
           )}
           id={component.getField("attributes.id")}
-          name={component.getField("attributes.name")}
+          {...field}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, "PPP") : <span className="text-muted-foreground">{component.getField("attributes.placeholder")}</span>}

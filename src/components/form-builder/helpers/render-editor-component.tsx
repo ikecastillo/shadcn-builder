@@ -10,6 +10,7 @@ import {
   FormControl,
   FormDescription,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { cn } from "@/lib/utils";
@@ -23,40 +24,55 @@ export interface FormComponentProps {
 }
 
 export function RenderEditorComponent({ form, component }: FormComponentProps) {
-  const { selectedComponent, viewport, updateComponent, updateEnableDragging } = useFormBuilderStore();
+  const { selectedComponent, viewport, updateComponent, updateEnableDragging } =
+    useFormBuilderStore();
   const mode = useFormBuilderStore((state) => state.mode);
-  const renderedComponent = renderComponent(component);
 
   return component.category === "form" ? (
     <FormField
       key={component.id}
       control={form.control}
       name={component.id}
-        render={({ field }) => (
-          <FormItem className={cn(mode === "editor" && "group/component")} data-item-id={component.id}>
-            <div className="flex items-center select-none">
-              <FormLabel
+      render={({ field }) => {
+        const renderedComponent = renderComponent(component, form, field);
+        return (
+          <FormItem
+            className={cn(mode === "editor" && "group/component")}
+            data-item-id={component.id}
+          >
+             <FormLabel
                 className={cn(
                   "shrink-0 flex items-center gap-2 ",
                   mode === "editor" && "cursor-pointer"
                 )}
-                htmlFor={component.id}
               >
                 {component.getField("properties.style.showLabel", viewport) ===
                   "yes" && component.getField("label", viewport)}
                 {component.getField("properties.style.visible", viewport) ===
-                  "no" && <span className="text-xs text-muted-foreground">Hidden</span>}
+                  "no" && (
+                  <span className="text-xs text-muted-foreground">Hidden</span>
+                )}
               </FormLabel>
-            </div>
             <FormControl>{renderedComponent}</FormControl>
             {component.description && (
               <FormDescription>{component.description}</FormDescription>
             )}
+            <FormMessage />
           </FormItem>
-        )}
-      />
+        );
+      }}
+    />
   ) : (
-    <div className={cn("relative flex flex-col h-full", (selectedComponent?.id === component.id && mode === "editor") && "cursor-text bg-white")} key={component.id} data-item-id={component.id}>
+    <div
+      className={cn(
+        "relative flex flex-col h-full",
+        selectedComponent?.id === component.id &&
+          mode === "editor" &&
+          "cursor-text bg-white"
+      )}
+      key={component.id}
+      data-item-id={component.id}
+    >
       <FormWysiwygEditor
         value={component.content || ""}
         onChange={(content) => {

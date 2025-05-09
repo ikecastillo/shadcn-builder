@@ -96,7 +96,7 @@ const ToolbarDropdownMenu = memo(
             <Icon name="ChevronDown" className="w-2 h-2 text-primary" />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent portalProps={{ container: menuRef?.current }}>
+        <DropdownMenuContent>
             {options.map((option) => {
               return (
                 <div key={option.id}>

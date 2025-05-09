@@ -8,15 +8,15 @@ import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { OptionsGroup } from "../sidebar/groups/options-group";
 import { cn, escapeHtml } from "@/lib/utils";
+import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form";
 
-export function FormRadio(component: FormComponentModel) {
+export function FormRadio(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (
     <RadioGroup
       key={component.id}
       id={component.getField("attributes.id")}
-      name={component.getField("attributes.name")}
       className={cn(component.getField("attributes.class"))}
-      value={component.value as string}
+      {...field}
     >
       {component.options?.map((option) => (
         <div key={option.value} className="flex items-center space-x-2">

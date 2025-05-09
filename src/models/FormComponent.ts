@@ -20,6 +20,7 @@ export const DEFAULT_PROPERTIES: FormComponentProperties = {
     colSpan: "12",
     colStart: "auto",
   },
+  variant: "default",
 };
 
 export class FormComponentModel {
@@ -54,7 +55,8 @@ export class FormComponentModel {
       style: {
         ...DEFAULT_PROPERTIES.style,
         ...(input.properties?.style || {})
-      }
+      },
+      variant: input.properties?.variant || DEFAULT_PROPERTIES.variant,
     };
     this.content = input.content;
     this.description = input.description;
