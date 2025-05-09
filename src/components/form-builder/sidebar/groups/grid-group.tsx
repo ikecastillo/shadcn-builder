@@ -35,6 +35,7 @@ export function GridGroup() {
     viewport
   ) || "yes";
 
+
   const handleChangeColSpan = (field: string, value: any) => {
     updateComponent(selectedComponent.id, field, value);
   };
@@ -46,6 +47,8 @@ export function GridGroup() {
   const handleChangeVisible = (field: string, value: any) => {
     updateComponent(selectedComponent.id, field, value);
   };
+
+
 
   return (
     <>

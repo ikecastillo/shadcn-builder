@@ -2,7 +2,7 @@ import { FormComponentModel } from "@/models/FormComponent";
 import { FormComponentValidationTypes } from "@/types/FormComponent.types";
 import { z } from "zod";
 
-const shouldForceRequired = (
+export const shouldForceRequired = (
   validations: FormComponentValidationTypes
 ): boolean => {
   if (!validations) return false;
@@ -10,60 +10,159 @@ const shouldForceRequired = (
   // If required is explicitly set to "no", check for min/max validations
   if (validations.required === "no") {
     return (
-      validations.min !== undefined ||
-      validations.max !== undefined ||
-      validations.minLength !== undefined ||
-      validations.maxLength !== undefined
+      validations.min !== undefined &&
+      validations.min !== 0 &&
+      validations.min !== "" &&
+      validations.max !== undefined &&
+      validations.max !== 0 &&
+      validations.max !== "" &&
+      validations.minLength !== undefined &&
+      validations.minLength !== 0 &&
+      validations.maxLength !== undefined &&
+      validations.maxLength !== 0
     );
   }
 
   return validations.required === "yes";
 };
 
-export const getZodSchemaForComponents = (components: FormComponentModel[]) => {
-  const schema: Record<string, z.ZodSchema> = {};
+const createNumberSchema = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): z.ZodType => {
+  if (!isRequired) {
+    return z.coerce.number().optional();
+  }
+
+  let schema = z.coerce.number({
+    invalid_type_error: "This field must be a number",
+  }).min(1, { message: "This field is required" });
+
+  if (validations.min !== undefined && validations.min !== "") {
+    schema = schema.min(Number(validations.min), {
+      message: `Must be at least ${validations.min}`,
+    });
+  }
+
+  if (validations.max !== undefined && validations.max !== "") {
+    schema = schema.max(Number(validations.max), {
+      message: `Must be at most ${validations.max}`,
+    });
+  }
+
+  return schema;
+};
+
+const createStringSchema = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): z.ZodType => {
+
+  if (!isRequired) {
+    return z.string().optional();
+  }
+
+  let schema = z.string();
+  
+  if (isRequired) {
+    schema = schema.min(1, { message: "This field is required" });
+  }
+
+  // Validate min and max length
+  if (validations.minLength !== undefined && validations.minLength !== "") {
+    schema = schema.min(Number(validations.minLength), {
+      message: `Must be at least ${validations.minLength} characters`,
+    });
+  }
+  
+  if (validations.maxLength !== undefined && validations.maxLength !== "") {
+    schema = schema.max(Number(validations.maxLength), {
+      message: `Must be at most ${validations.maxLength} characters`,
+    });
+  }
+
+  return schema;
+};
+
+
+const createSchemaForComponent = (
+  component: FormComponentModel,
+  validations: FormComponentValidationTypes,
+  isRequired: boolean,
+  asString?: boolean
+): z.ZodType | string => {
+  if (component.type === "number") {
+    return asString ? createNumberSchemaAsString(validations, isRequired) : createNumberSchema(validations, isRequired);
+  }
+  
+  return asString ? createStringSchemaAsString(validations, isRequired) : createStringSchema(validations, isRequired);
+};
+
+export const getZodSchemaForComponents = (components: FormComponentModel[], asString: boolean = false) => {
+  const schema: Record<string, z.ZodSchema | string> = {};
 
   components.forEach((component) => {
     const validations = component.getField("validations");
     const isRequired = shouldForceRequired(validations);
     const componentId = component.getField("attributes.id");
-
-    if (!validations) {
-      if (component.type === "number") {
-        schema[componentId] = z.coerce.number();
-      } else {
-        schema[componentId] = z.string().optional();
-      }
-    } else {
-      if (component.type === "number") {
-        if (isRequired) {
-          schema[componentId] = z.coerce
-            .number()
-            .min(1, { message: "This field is required" });
-        }
-        if (validations.min) {
-          schema[componentId] = z.coerce.number().min(validations.min, {
-            message: `Must be at least ${validations.min}`,
-          });
-        }
-        if (validations.max) {
-          schema[componentId] = z.coerce.number().max(validations.max, {
-            message: `Must be at most ${validations.max}`,
-          });
-        }
-      } else {
-        if (isRequired) {
-          schema[componentId] = z.string().min(1, { message: "This field is required" });
-        } else {
-          schema[componentId] = z.string().optional();
-        }
-      }
-    }
+  
+    schema[componentId] = createSchemaForComponent(component, validations, isRequired, asString);
   });
 
-  const formSchema = z.object(schema);
+  if (asString) {
+    const stringSchema = Object.entries(schema).map(([key, value]) => {
+      return `"${key}": ${value}`;
+    }).join(",\n");
 
-  return formSchema;
+    return `z.object({${stringSchema}})`;
+  }
+
+  return z.object(schema as Record<string, z.ZodType>);
+};
+
+const createNumberSchemaAsString = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): string => {
+  
+  if (!isRequired) {
+    return `z.string().optional()`;
+  }
+
+  let schema = `z.coerce.number({
+    invalid_type_error: "This field must be a number",
+  }).min(1, { message: "This field is required" })`;
+
+  if (validations.min !== undefined && validations.min !== "") {
+    schema += `.min(${validations.min}, { message: "Must be at least ${validations.min}" })`;
+  }
+
+  if (validations.max !== undefined && validations.max !== "") {
+    schema += `.max(${validations.max}, { message: "Must be at most ${validations.max}" })`;
+  }
+
+  return schema;
+};
+
+const createStringSchemaAsString = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): string => {
+  if (!isRequired) {
+    return `z.string().optional()`;
+  }
+
+  let schema = `z.string().min(1, { message: "This field is required" })`;
+  
+  if (validations.minLength !== undefined && validations.minLength !== "") {
+    schema += `.min(${validations.minLength}, { message: "Must be at least ${validations.minLength} characters" })`;
+  }
+
+  if (validations.maxLength !== undefined && validations.maxLength !== "") {
+    schema += `.max(${validations.maxLength}, { message: "Must be at most ${validations.maxLength} characters" })`;
+  }
+
+  return schema;
 };
 
 export const getZodDefaultValues = (
@@ -79,3 +178,12 @@ export const getZodDefaultValues = (
 
   return defaultValues;
 };
+
+
+export const getZodDefaultValuesAsString = (components: FormComponentModel[]) => {
+  const defaultValues = getZodDefaultValues(components);
+  return Object.entries(defaultValues).map(([key, value]) => {
+    return `"${key}": "${value}"`;
+  }).join(",\n");
+};
+

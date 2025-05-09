@@ -7,8 +7,9 @@ import { GridGroup } from "../sidebar/groups/grid-group";
 import { LabelGroup } from "../sidebar/groups/label-group";
 import { cn, generateTWClassesForAllViewports, escapeHtml } from "@/lib/utils";
 import { ControllerRenderProps } from "react-hook-form";
+import { UseFormReturn, FieldValues } from "react-hook-form";
 
-export function FormTextarea(component: FormComponentModel, field: ControllerRenderProps) {
+export function FormTextarea(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   const colSpanClasses = generateTWClassesForAllViewports(component, "colSpan");
   
   return (

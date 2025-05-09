@@ -34,7 +34,7 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
       control={form.control}
       name={component.id}
       render={({ field }) => {
-        const renderedComponent = renderComponent(component, field);
+        const renderedComponent = renderComponent(component, form, field);
         return (
           <FormItem
             className={cn(mode === "editor" && "group/component")}

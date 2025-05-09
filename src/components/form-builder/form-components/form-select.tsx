@@ -15,8 +15,9 @@ import { InputGroup } from "../sidebar/groups/input-group";
 import { cn, escapeHtml } from "@/lib/utils";
 import { OptionsGroup } from "../sidebar/groups/options-group";
 import { ControllerRenderProps } from "react-hook-form";
+import { UseFormReturn, FieldValues } from "react-hook-form";
 
-export function FormSelect(component: FormComponentModel, field: ControllerRenderProps) {
+export function FormSelect(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (
     <Select key={component.id} {...field}>
       <SelectTrigger

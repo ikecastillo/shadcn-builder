@@ -49,6 +49,7 @@ const PROPERTY_SECTIONS = [
   { key: "options", title: "Data Options" },
   { key: "input", title: "Input" },
   { key: "label", title: "Label & Description" },
+  { key: "button", title: "Button" },
   { key: "grid", title: "Appearance" },
   { key: "html", title: "HTML Attributes" },
   { key: "validation", title: "Validation" },

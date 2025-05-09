@@ -8,8 +8,9 @@ import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { cn, generateTWClassesForAllViewports, escapeHtml } from "@/lib/utils";
 import { ControllerRenderProps } from "react-hook-form";
+import { UseFormReturn, FieldValues } from "react-hook-form";
 
-export function FormSwitch(component: FormComponentModel, field: ControllerRenderProps) {
+export function FormSwitch(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
 
   return (

@@ -18,9 +18,9 @@ import { HtmlGroup } from "../sidebar/groups/html-group"
 import { LabelGroup } from "../sidebar/groups/label-group"
 import { InputGroup } from "../sidebar/groups/input-group"    
 import { FormComponentModel } from "@/models/FormComponent"
-import { ControllerRenderProps } from "react-hook-form"
+import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form"
 
-export function FormDatePicker(component: FormComponentModel, field: ControllerRenderProps) {
+export function FormDatePicker(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
 
   const [date, setDate] = React.useState<Date>()
 

@@ -22,6 +22,7 @@ export interface FormComponentModelInput {
 
 export type FormComponentProperties = {
   style?: FormComponentStyles;
+  variant?: "default" | "outline" | "ghost" | "link" | "secondary" | "destructive";
 };
 
 export interface FormComponentStyles {
@@ -79,10 +80,10 @@ export type FormComponentOverrides = {
 
 export interface FormComponentValidationTypes {
   required?: "yes" | "no";
-  min?: number;
-  max?: number;
-  minLength?: number;
-  maxLength?: number;
+  min?: number | string;
+  max?: number | string;
+  minLength?: number | string;
+  maxLength?: number | string;
 }
 
 

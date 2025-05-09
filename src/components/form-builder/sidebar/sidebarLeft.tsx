@@ -64,7 +64,7 @@ export function SidebarLeft() {
     {
       label: "Buttons",
       components: AVAILABLE_COMPONENTS.filter((comp) =>
-        ["button"].includes(comp.type)
+        ["button", "submit-button", "reset-button"].includes(comp.type)
       ),
     },
   ];

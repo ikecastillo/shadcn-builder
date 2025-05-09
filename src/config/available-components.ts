@@ -202,32 +202,43 @@ const formComponents: FormComponentModel[] = [
   }),
   new FormComponentModel({
     id: "button",
-    label: "Submit",
-    label_info: "Submit form",
-    content: "Submit",
+    label: "Button",
+    label_info: "Button",
+    content: "Button",
     type: "button",
     category: "form",
     icon: "SquareMousePointer",
-    properties: { style: { showLabel: "no" } },
+    properties: { style: { showLabel: "no" }, variant: "outline" },
     attributes: { type: "button" }
   }),
   new FormComponentModel({
-    id: "reset-button",
-    label: "Reset Button",
-    label_info: "Reset form input values",
-    content: "Clear Form",
-    type: "button",
+    id: "submit-button",
+    label: "Submit",
+    label_info: "Button to submit form",
+    content: "Submit",
+    type: "submit-button",
     category: "form",
     icon: "SquareMousePointer",
     properties: { style: { showLabel: "no" } },
-    attributes: { type: "button" }
+    attributes: { type: "submit" }
+  }),
+  new FormComponentModel({
+    id: "reset-button",
+    label: "Reset",
+    label_info: "Button to reset form input values",
+    content: "Reset",
+    type: "reset-button",
+    category: "form",
+    icon: "SquareMousePointer",
+    properties: { style: { showLabel: "no" }, variant: "outline" },
+    attributes: { type: "reset" }
   }),
 ];
 
 export const AVAILABLE_COMPONENTS: FormComponentModel[] = [...typographyComponents, ...formComponents];
 
 const typographyViews = {
-  text: { render: (component: FormComponentModel) => Text(component), renderDesignProperties: TextDesignProperties, reactCode: getReactCodeText },
+  text: { render: (component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) => Text(component, form, field), renderDesignProperties: TextDesignProperties, reactCode: getReactCodeText },
 };
 
 const formViews = {
@@ -239,6 +250,8 @@ const formViews = {
   radio: { render: FormRadio, renderDesignProperties: RadioDesignProperties, reactCode: getReactCodeRadio },
   switch: { render: FormSwitch, renderDesignProperties: SwitchDesignProperties, reactCode: getReactCodeSwitch },
   button: { render: FormButton, renderDesignProperties: ButtonDesignProperties, reactCode: getReactCodeButton },
+  "submit-button": { render: FormButton, renderDesignProperties: ButtonDesignProperties, reactCode: getReactCodeButton },
+  "reset-button": { render: FormButton, renderDesignProperties: ButtonDesignProperties, reactCode: getReactCodeButton },
   date: { render: FormDatePicker, renderDesignProperties: DatePickerDesignProperties, reactCode: getReactCodeDatePicker },
 };
 
@@ -269,10 +282,10 @@ export function getCoponentSidebarOptions(component: FormComponentModel) {
   return componentView.renderDesignProperties;
 }
 
-export function renderComponent(component: FormComponentModel, field: ControllerRenderProps): React.ReactNode | undefined {
+export function renderComponent(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps): React.ReactNode | undefined {
 
   const componentView = views[component.type as keyof typeof views];
   if (!componentView) return undefined;
 
-  return componentView.render(component, field)
+  return componentView.render(component, form, field)
 }

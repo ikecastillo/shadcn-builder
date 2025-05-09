@@ -8,9 +8,13 @@ import { GridGroup } from "../sidebar/groups/grid-group";
 import { cn, escapeHtml } from "@/lib/utils";
 import { ValidationGroup } from "../sidebar/groups/validation-group";
 import { ControllerRenderProps } from "react-hook-form";
+import { UseFormReturn, FieldValues } from "react-hook-form";
+import { useEffect } from "react";
+import { useState } from "react";
+
+export function FormInput(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
 
 
-export function FormInput(component: FormComponentModel, field: ControllerRenderProps) {
 
   return (
     <Input
@@ -18,10 +22,8 @@ export function FormInput(component: FormComponentModel, field: ControllerRender
       placeholder={component.getField("attributes.placeholder")}
       type={component.getField("attributes.type")}
       className={cn(component.getField("attributes.class"))}
-      defaultValue={component.value}
       {...field}
-      name={component.getField("attributes.name")}
-      id={component.getField("attributes.id")}
+      defaultValue={component.value}
     />
   );
 }

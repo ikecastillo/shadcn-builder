@@ -8,9 +8,9 @@ import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { OptionsGroup } from "../sidebar/groups/options-group";
 import { cn, escapeHtml } from "@/lib/utils";
-import { ControllerRenderProps } from "react-hook-form";
+import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form";
 
-export function FormRadio(component: FormComponentModel, field: ControllerRenderProps) {
+export function FormRadio(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (
     <RadioGroup
       key={component.id}

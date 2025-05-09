@@ -9,7 +9,9 @@ import { DesignPropertiesViews } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 import { HtmlGroup } from "../sidebar/groups/html-group";
 import { GridGroup } from "../sidebar/groups/grid-group";
-export function Text(component: FormComponentModel) {
+import { UseFormReturn, FieldValues, ControllerRenderProps } from "react-hook-form";
+
+export function Text(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   const colSpanClasses = generateTWClassesForAllViewports(component, "colSpan");
   const colStartClasses = generateTWClassesForAllViewports(
     component,
