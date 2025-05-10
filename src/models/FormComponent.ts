@@ -6,6 +6,7 @@ import {
   FormComponentModelInput,
   FormComponentStyles,
   FormComponentValidationTypes,
+  FormComponentTypes,
 } from "@/types/FormComponent.types";
 import * as Icons from "lucide-react";
 
@@ -28,7 +29,7 @@ export class FormComponentModel {
   label: string;
   label_info: string;
   label_description?: string;
-  type: string;
+  type: FormComponentTypes;
   value?: string | number;
   content?: string;
   description?: string;

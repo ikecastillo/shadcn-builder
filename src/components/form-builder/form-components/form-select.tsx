@@ -16,13 +16,14 @@ import { cn, escapeHtml } from "@/lib/utils";
 import { OptionsGroup } from "../sidebar/groups/options-group";
 import { ControllerRenderProps } from "react-hook-form";
 import { UseFormReturn, FieldValues } from "react-hook-form";
+import { ValidationGroup } from "../sidebar/groups/validation-group";
 
 export function FormSelect(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (
     <Select key={component.id} {...field}>
       <SelectTrigger
         id={component.getField("attributes.id")}
-        name={component.getField("attributes.name")}
+        {...field}
         className={cn(component.getField("attributes.class"), "w-full")}
       >
         <SelectValue placeholder={component.getField("attributes.placeholder")} />
@@ -80,5 +81,5 @@ export const SelectDesignProperties: DesignPropertiesViews = {
   input: <InputGroup whitelist={["placeholder", "description", "value"]} />,
   options: <OptionsGroup />,
   button: null,
-  validation: null,
+  validation: <ValidationGroup />,
 };

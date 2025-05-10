@@ -9,6 +9,8 @@ import { InputGroup } from "../sidebar/groups/input-group";
 import { cn, generateTWClassesForAllViewports, escapeHtml } from "@/lib/utils";
 import { ControllerRenderProps } from "react-hook-form";
 import { UseFormReturn, FieldValues } from "react-hook-form";
+import { ValidationGroup } from "../sidebar/groups/validation-group";
+import { FormLabel } from "@/components/ui/form";
 
 export function FormSwitch(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
@@ -16,12 +18,12 @@ export function FormSwitch(component: FormComponentModel, form: UseFormReturn<Fi
   return (
     <div
       key={component.id}
-      className={cn(asCardClasses, "flex justify-between items-center space-x-2")}
+      className={cn(asCardClasses, "flex justify-between items-center space-x-2 w-full")}
     >
       <div className="grid gap-1.5 leading-none">
-        <Label htmlFor={component.getField("attributes.id")}>
+        <FormLabel htmlFor={component.getField("attributes.id")}>
           {component.getField("label")}
-        </Label>
+        </FormLabel>
         <p className="text-sm text-muted-foreground">
           {component.getField("label_description")}
         </p>
@@ -42,12 +44,12 @@ export function getReactCode(component: FormComponentModel): ReactCode {
     code: `
     <div
       key="${component.id}"
-      className="${escapeHtml(cn(asCardClasses, "flex justify-between items-center space-x-2"))}"
+      className="${escapeHtml(cn(asCardClasses, "flex justify-between items-center space-x-2 w-full"))}"
     >
       <div className="grid gap-1.5 leading-none">
-        <Label htmlFor="${escapeHtml(component.getField("attributes.id"))}">
+        <FormLabel htmlFor="${escapeHtml(component.getField("attributes.id"))}">
           ${escapeHtml(component.getField("label"))}
-        </Label>
+        </FormLabel>
         <p className="text-sm text-muted-foreground">
           ${escapeHtml(component.getField("label_description"))}
         </p>
@@ -57,7 +59,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
     `,
     dependencies: {
       "@/components/ui/switch": ["Switch"],
-      "@/components/ui/label": ["Label"],
+      "@/components/ui/form": ["FormLabel"],
 
     },
   };
@@ -71,5 +73,5 @@ export const SwitchDesignProperties: DesignPropertiesViews = {
   input: <InputGroup whitelist={["description", "asCard"]} />,
   options: null,
   button: null,
-  validation: null,
+  validation: <ValidationGroup />,
 };

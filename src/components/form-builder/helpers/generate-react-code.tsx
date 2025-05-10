@@ -96,7 +96,7 @@ const generateFormCode = async (
                 colSpanClasses,
                 colStartClasses,
                 visibilityClasses,
-                "flex flex-col",
+                "flex flex-col self-end",
                 labelPositionClasses,
                 labelAlignClasses
               )}"

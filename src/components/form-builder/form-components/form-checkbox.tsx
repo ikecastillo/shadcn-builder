@@ -8,6 +8,8 @@ import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { cn, generateTWClassesForAllViewports, escapeHtml } from "@/lib/utils";
 import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form";
+import { ValidationGroup } from "../sidebar/groups/validation-group";
+import { FormLabel } from "@/components/ui/form";
 
 export function FormCheckbox(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
@@ -23,9 +25,9 @@ export function FormCheckbox(component: FormComponentModel, form: UseFormReturn<
         {...field}
       />
       <div className="grid gap-1.5 leading-none">
-        <Label htmlFor={component.getField("attributes.id")}>
+        <FormLabel htmlFor={component.getField("attributes.id")}>
           {component.getField("label")}
-        </Label>
+        </FormLabel>
         <p className="text-sm text-muted-foreground">
           {component.getField("label_description")}
         </p>
@@ -49,9 +51,9 @@ export function getReactCode(component: FormComponentModel): ReactCode {
     >
       <Checkbox id="${escapeHtml(component.getField("attributes.id"))}" {...field} />
       <div className="grid gap-1.5 leading-none">
-        <Label htmlFor="${escapeHtml(component.getField("attributes.id"))}">
+        <FormLabel htmlFor="${escapeHtml(component.getField("attributes.id"))}">
           ${escapeHtml(component.getField("label"))}
-        </Label>
+        </FormLabel>
         <p className="text-sm text-muted-foreground">
           ${escapeHtml(component.getField("label_description"))}
         </p>
@@ -60,7 +62,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
     `,
     dependencies: {
       "@/components/ui/checkbox": ["Checkbox"],
-      "@/components/ui/label": ["Label"],
+      "@/components/ui/form": ["FormLabel"],
 
     },
   };
@@ -74,5 +76,5 @@ export const CheckboxDesignProperties: DesignPropertiesViews = {
   input: <InputGroup whitelist={["description", "asCard"]} />,
   options: null,
   button: null,
-  validation: null,
+  validation: <ValidationGroup />,
 };

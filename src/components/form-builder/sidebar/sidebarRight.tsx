@@ -106,7 +106,7 @@ export function SidebarRight() {
   }
 
   return (
-    <Sidebar side="right" className="border-l top-13">
+    <Sidebar side="right" className="border-l top-13 pb-16">
       <SidebarContent>{sidebarContent}</SidebarContent>
     </Sidebar>
   );

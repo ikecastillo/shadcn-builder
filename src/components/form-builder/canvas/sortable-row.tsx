@@ -130,7 +130,7 @@ export const RowColumn = ({
     <div
       ref={setNodeRef}
       className={cn(
-        "relative group",
+        "relative group self-end",
         colSpanClasses,
         colStartClasses,
         mode === "preview" && visibilityClasses,

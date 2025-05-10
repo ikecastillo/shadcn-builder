@@ -3,13 +3,28 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ToggleGroupNav } from "../../ui/toggle-group-nav";
 import { useEffect, useCallback } from "react";
+import { FormComponentTypes } from "@/types/FormComponent.types";
+
+type InputTypeValidationMap = {
+  [key in FormComponentTypes]: string[];
+};
+
+const inputTypeValidationMap: Partial<InputTypeValidationMap> = {
+  number: ["min", "max"],
+  input: ["minLength", "maxLength"],
+  textarea: ["minLength", "maxLength"],
+  email: ["minLength", "maxLength"],
+  password: ["minLength", "maxLength"],
+  tel: ["minLength", "maxLength"],
+};
+
 
 
 export function ValidationGroup() {
   const { updateComponent, selectedComponent, viewport } =
     useFormBuilderStore();
 
-
+    
   const validations = selectedComponent?.getField("validations");
 
   const required = validations?.required || "no";
@@ -18,21 +33,40 @@ export function ValidationGroup() {
   const min = validations?.min || undefined;
   const max = validations?.max || undefined;
 
-  const handleChange = useCallback((field: string, value: any) => {
-    if (selectedComponent) {
-      updateComponent(selectedComponent.id, field, value, true);
-    }
-  }, [selectedComponent, updateComponent]);
-
-  const showMinMax = selectedComponent?.type === "number";
-  const showMinLengthMaxLength = selectedComponent?.type === "input";
+  const handleChange = useCallback(
+    (field: string, value: any) => {
+      if (selectedComponent) {
+        updateComponent(selectedComponent.id, field, value, true);
+      }
+    },
+    [selectedComponent, updateComponent]
+  );
+  
+  const inputsValidations = selectedComponent && inputTypeValidationMap[selectedComponent.type] 
+  const showMinMax = inputsValidations && (inputsValidations.includes("min") || inputsValidations.includes("max"))
+  const showMinLengthMaxLength = inputsValidations && (inputsValidations.includes("minLength") || inputsValidations.includes("maxLength"))
 
   // Force required to "yes" if any min/max validations are present
   useEffect(() => {
-    if (selectedComponent && required === "no" && (min !== undefined || max !== undefined || minLength !== undefined || maxLength !== undefined)) {
+    if (
+      selectedComponent &&
+      required === "no" &&
+      (min !== undefined ||
+        max !== undefined ||
+        minLength !== undefined ||
+        maxLength !== undefined)
+    ) {
       handleChange("validations.required", "yes");
     }
-  }, [min, max, minLength, maxLength, required, selectedComponent, handleChange]);
+  }, [
+    min,
+    max,
+    minLength,
+    maxLength,
+    required,
+    selectedComponent,
+    handleChange,
+  ]);
 
   if (!selectedComponent) return null;
 

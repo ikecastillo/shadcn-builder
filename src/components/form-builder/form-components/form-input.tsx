@@ -14,8 +14,6 @@ import { useState } from "react";
 
 export function FormInput(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
 
-
-
   return (
     <Input
       key={component.id}

@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { FieldValues, UseFormReturn } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { cn, generateTWClassesForAllViewports } from "@/lib/utils";
 import { renderComponent } from "@/config/available-components";
 import { FormComponentModel } from "@/models/FormComponent";
 import { FormWysiwygEditor } from "../form-components/wysiwyg/form-wysiwyg-editor";
@@ -28,6 +28,16 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
     useFormBuilderStore();
   const mode = useFormBuilderStore((state) => state.mode);
 
+  const labelPositionClasses = generateTWClassesForAllViewports(
+    component,
+    "labelPosition"
+  );
+
+  const labelAlignClasses = generateTWClassesForAllViewports(
+    component,
+    "labelAlign"
+  );
+
   return component.category === "form" ? (
     <FormField
       key={component.id}
@@ -37,7 +47,7 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
         const renderedComponent = renderComponent(component, form, field);
         return (
           <FormItem
-            className={cn(mode === "editor" && "group/component")}
+            className={cn(mode === "editor" && "group/component", "flex flex-col", labelPositionClasses, labelAlignClasses)}
             data-item-id={component.id}
           >
              <FormLabel

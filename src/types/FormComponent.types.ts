@@ -2,12 +2,31 @@ import * as Icons from "lucide-react";
 import { Viewports } from "./form-builder.types";
 import { HTMLAttributes, HTMLInputTypeAttribute } from "react";
 
+export type FormComponentTypes =
+  | "text"
+  | "input"
+  | "textarea"
+  | "number"
+  | "email"
+  | "password"
+  | "file"
+  | "tel"
+  | "url"
+  | "select"
+  | "checkbox"
+  | "checkbox-group"
+  | "radio"
+  | "date"
+  | "switch"
+  | "button"
+  | "submit-button"
+  | "reset-button";
 export interface FormComponentModelInput {
   id: string;
   label: string;
   label_info: string;
   label_description?: string;
-  type: string;
+  type: FormComponentTypes;
   category: "form" | "content";
   icon: keyof typeof Icons;
   properties?: FormComponentProperties;
@@ -22,7 +41,13 @@ export interface FormComponentModelInput {
 
 export type FormComponentProperties = {
   style?: FormComponentStyles;
-  variant?: "default" | "outline" | "ghost" | "link" | "secondary" | "destructive";
+  variant?:
+    | "default"
+    | "outline"
+    | "ghost"
+    | "link"
+    | "secondary"
+    | "destructive";
 };
 
 export interface FormComponentStyles {
@@ -85,6 +110,3 @@ export interface FormComponentValidationTypes {
   minLength?: number | string;
   maxLength?: number | string;
 }
-
-
-

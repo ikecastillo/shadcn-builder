@@ -8,6 +8,7 @@ import { LabelGroup } from "../sidebar/groups/label-group";
 import { cn, generateTWClassesForAllViewports, escapeHtml } from "@/lib/utils";
 import { ControllerRenderProps } from "react-hook-form";
 import { UseFormReturn, FieldValues } from "react-hook-form";
+import { ValidationGroup } from "../sidebar/groups/validation-group";
 
 export function FormTextarea(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   const colSpanClasses = generateTWClassesForAllViewports(component, "colSpan");
@@ -56,5 +57,5 @@ export const TextareaDesignProperties: DesignPropertiesViews = {
   input: <InputGroup />,
   options: null,
   button: null,
-  validation: null,
+  validation: <ValidationGroup />,
 };

@@ -9,6 +9,8 @@ import { InputGroup } from "../sidebar/groups/input-group";
 import { OptionsGroup } from "../sidebar/groups/options-group";
 import { cn, escapeHtml } from "@/lib/utils";
 import { UseFormReturn, FieldValues, ControllerRenderProps } from "react-hook-form";
+import { ValidationGroup } from "../sidebar/groups/validation-group";
+import { FormLabel } from "@/components/ui/form";
 
 export function FormCheckboxGroup(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (
@@ -23,9 +25,9 @@ export function FormCheckboxGroup(component: FormComponentModel, form: UseFormRe
             name={component.getField("attributes.name")}
             checked={option.checked}
           />
-          <Label htmlFor={`${component.getField("attributes.id")}-${option.value}`}>
+          <FormLabel htmlFor={`${component.getField("attributes.id")}-${option.value}`}>
             {option.label}
-          </Label>
+          </FormLabel>
         </div>
       ))}
     </div>
@@ -51,17 +53,16 @@ export function getReactCode(component: FormComponentModel): ReactCode {
             name="${escapeHtml(component.getField("attributes.name"))}"
             checked={${option.checked || false}}
           />
-          <Label htmlFor="${escapeHtml(component.getField("attributes.id"))}-${escapeHtml(option.value)}">
+          <FormLabel htmlFor="${escapeHtml(component.getField("attributes.id"))}-${escapeHtml(option.value)}">
             ${escapeHtml(option.label)}
-          </Label>
+          </FormLabel>
         </div>
       `).join("\n")}
     </div>
     `,
     dependencies: {
       "@/components/ui/checkbox": ["Checkbox"],
-      "@/components/ui/label": ["Label"],
-
+      "@/components/ui/form": ["FormLabel"],
     },
   };
 }
@@ -74,5 +75,5 @@ export const CheckboxGroupDesignProperties: DesignPropertiesViews = {
   input: <InputGroup whitelist={["description", "asCard"]} />,
   options: <OptionsGroup />,
   button: null,
-  validation: null,
+  validation: <ValidationGroup />,
 }; 

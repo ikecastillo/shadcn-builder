@@ -18,7 +18,7 @@ export type InputGroupProps = {
 };
 
 export function InputGroup({
-  whitelist = ["type", "placeholder", "description", "asCard", "value"],
+  whitelist = ["type", "placeholder", "description", "value"],
 }: InputGroupProps) {
   const { updateComponent, selectedComponent, viewport } = useFormBuilderStore();
 
