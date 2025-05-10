@@ -143,7 +143,7 @@ const createNumberSchemaAsString = (
 ): string => {
   
   if (!isRequired) {
-    return `z.string().optional()`;
+    return `z.coerce.number().optional()`;
   }
 
   let schema = `z.coerce.number({
@@ -202,7 +202,13 @@ export const getZodDefaultValues = (
 
   components.forEach((component) => {
     const componentId = component.getField("attributes.id");
-    const defaultValue = component.getField("value") || undefined;
+
+    let defaultValue = component.getField("value") || undefined;
+
+    if (component.type === "number") {
+      defaultValue = new Number(defaultValue);
+    }
+
     defaultValues[componentId] = defaultValue;
   });
 
