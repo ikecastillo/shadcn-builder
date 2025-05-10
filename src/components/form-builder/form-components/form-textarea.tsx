@@ -14,15 +14,14 @@ export function FormTextarea(component: FormComponentModel, form: UseFormReturn<
   const colSpanClasses = generateTWClassesForAllViewports(component, "colSpan");
   
   return (
-    <div key={component.id} className={cn(colSpanClasses)}>
-      <Textarea
-        id={component.getField("attributes.id")}
-        placeholder={component.getField("attributes.placeholder")}
-        className={component.getField("attributes.class")}
-        defaultValue={component.value}
-        {...field}
-      />
-    </div>
+    <Textarea
+    key={component.id}
+      id={component.getField("attributes.id")}
+      placeholder={component.getField("attributes.placeholder")}
+      className={component.getField("attributes.class")}
+      defaultValue={component.value}
+      {...field}
+    />
   );
 }
 
