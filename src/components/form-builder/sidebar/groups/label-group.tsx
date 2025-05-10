@@ -112,7 +112,7 @@ export function LabelGroup({ whitelist = ["label", "label_description", "labelPo
               handleChange("properties.style.labelPosition", value)
             }
           >
-            <SelectTrigger>
+            <SelectTrigger className="w-full">
               <SelectValue placeholder="Select position" />
             </SelectTrigger>
             <SelectContent>
