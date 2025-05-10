@@ -84,6 +84,19 @@ const createStringSchema = (
   return schema;
 };
 
+const createDateSchema = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): z.ZodType => {
+
+  if (!isRequired) {
+    return z.date().optional();
+  }
+
+  return z.date({
+    required_error: "This field is required.",
+  });
+};
 
 const createSchemaForComponent = (
   component: FormComponentModel,
@@ -93,6 +106,10 @@ const createSchemaForComponent = (
 ): z.ZodType | string => {
   if (component.type === "number") {
     return asString ? createNumberSchemaAsString(validations, isRequired) : createNumberSchema(validations, isRequired);
+  }
+
+  if (component.type === "date") {
+    return asString ? createDateSchemaAsString(validations, isRequired) : createDateSchema(validations, isRequired);
   }
   
   return asString ? createStringSchemaAsString(validations, isRequired) : createStringSchema(validations, isRequired);
@@ -142,6 +159,19 @@ const createNumberSchemaAsString = (
   }
 
   return schema;
+};
+
+const createDateSchemaAsString = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): string => {
+  if (!isRequired) {
+    return `z.date().optional()`;
+  }
+
+  return `z.date({
+    required_error: "This field is required.",
+  })`;
 };
 
 const createStringSchemaAsString = (

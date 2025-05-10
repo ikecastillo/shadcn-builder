@@ -19,11 +19,9 @@ import { LabelGroup } from "../sidebar/groups/label-group"
 import { InputGroup } from "../sidebar/groups/input-group"    
 import { FormComponentModel } from "@/models/FormComponent"
 import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form"
+import { ValidationGroup } from "../sidebar/groups/validation-group"
 
 export function FormDatePicker(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
-
-  const [date, setDate] = React.useState<Date>()
-
 
   return (
     <Popover>
@@ -32,22 +30,22 @@ export function FormDatePicker(component: FormComponentModel, form: UseFormRetur
           variant={"outline"}
           className={cn(
             "justify-start text-left font-normal w-full",
-            !date && "text-muted-foreground",
+            !field.value && "text-muted-foreground",
             component.getField("attributes.class")
           )}
           id={component.getField("attributes.id")}
           {...field}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span className="text-muted-foreground">{component.getField("attributes.placeholder")}</span>}
+          {field.value ? format(field.value, "PPP") : <span className="text-muted-foreground">{component.getField("attributes.placeholder")}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           initialFocus
-          selected={date}
-          onSelect={setDate}
+          selected={field.value}
+          onSelect={field.onChange}
         />
       </PopoverContent>
     </Popover>
@@ -74,15 +72,14 @@ export function getReactCode(component: FormComponentModel): ReactCode {
           name="${escapeHtml(component.getField("attributes.name"))}"
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          <span className="text-muted-foreground">
-            ${escapeHtml(component.getField("attributes.placeholder"))}
-          </span>
+          {field.value ? format(field.value, "PPP") : <span className="text-muted-foreground">${escapeHtml(component.getField("attributes.placeholder"))}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single" 
           initialFocus
+          onSelect={field.onChange}
         />
       </PopoverContent>
     </Popover>
@@ -107,5 +104,5 @@ export const DatePickerDesignProperties: DesignPropertiesViews = {
   input: <InputGroup whitelist={["placeholder", "description"]} />,
   options: null,
   button: null,
-  validation: null,
+  validation: <ValidationGroup />,
 };
