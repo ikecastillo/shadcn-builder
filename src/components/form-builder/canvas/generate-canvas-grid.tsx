@@ -13,41 +13,19 @@ import {
   getZodSchemaForComponents,
   getZodDefaultValues,
 } from "@/components/form-builder/helpers/zod";
-import { Button } from "@/components/ui/button";
 import { FormDataDialog } from "@/components/form-builder/dialogs/form-data-dialog";
-// Memoize the empty state component
-const EmptyState = memo(() => {
-  const { setNodeRef, isOver } = useDroppable({
-    id: "empty-state",
-    data: {
-      index: 0,
-    },
-  });
+import { FormComponentModel } from "@/models/FormComponent";
 
-  return (
-    <div
-      ref={setNodeRef}
-      className={cn(
-        "p-6 text-center text-sm text-muted-foreground bg-black/5 rounded-lg max-w-md mx-auto border-dashed border-2 border-slate-300",
-        isOver && "border-primary"
-      )}
-    >
-      Please add a component to the form
-    </div>
-  );
-});
 
-EmptyState.displayName = "EmptyState";
-
-export default function GenerateCanvasGrid() {
+export default function GenerateCanvasGrid({components}: {components: FormComponentModel[]}) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState<Record<string, any>>({});
   
   // Split store selectors to minimize re-renders
-  const components = useFormBuilderStore((state) => state.components);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
   const mode = useFormBuilderStore((state) => state.mode);
 
+  // Create a new form schema whenever components change
   const formSchema = getZodSchemaForComponents(components) as z.ZodType<Record<string, any>>;
   const defaultValues = getZodDefaultValues(components);
 
@@ -55,21 +33,6 @@ export default function GenerateCanvasGrid() {
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,
   });
-
-  useEffect(() => {
-    if (mode === "editor") {
-      form.clearErrors();
-    }
-  }, [mode, form]);
-
-  useEffect(() => {
-    const defaultValues22 = getZodDefaultValues(components);
-    form.reset(defaultValues22);
-  }, [components, form]);
-
-  if (components.length === 0) {
-    return <EmptyState />;
-  }
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     selectComponent(null);
@@ -83,8 +46,7 @@ export default function GenerateCanvasGrid() {
   function onReset() {
     form.clearErrors();
     form.reset(defaultValues);
-  }
-  
+  }  
 
   return (
     <>

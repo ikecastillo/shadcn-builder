@@ -98,44 +98,32 @@ const createDateSchema = (
   });
 };
 
-const createSchemaForComponent = (
-  component: FormComponentModel,
+const createCheckboxGroupSchema = (
   validations: FormComponentValidationTypes,
-  isRequired: boolean,
-  asString?: boolean
-): z.ZodType | string => {
-  if (component.type === "number") {
-    return asString ? createNumberSchemaAsString(validations, isRequired) : createNumberSchema(validations, isRequired);
+  isRequired: boolean
+): z.ZodType => {
+  if (!isRequired) {
+    return z.array(z.string()).optional();
   }
 
-  if (component.type === "date") {
-    return asString ? createDateSchemaAsString(validations, isRequired) : createDateSchema(validations, isRequired);
-  }
-  
-  return asString ? createStringSchemaAsString(validations, isRequired) : createStringSchema(validations, isRequired);
-};
-
-export const getZodSchemaForComponents = (components: FormComponentModel[], asString: boolean = false) => {
-  const schema: Record<string, z.ZodSchema | string> = {};
-
-  components.forEach((component) => {
-    const validations = component.getField("validations");
-    const isRequired = shouldForceRequired(validations);
-    const componentId = component.getField("attributes.id");
-  
-    schema[componentId] = createSchemaForComponent(component, validations, isRequired, asString);
+  return z.array(z.string()).refine((value) => value.some((item) => item), {
+    message: "You have to select at least one item.",
   });
+};
 
-  if (asString) {
-    const stringSchema = Object.entries(schema).map(([key, value]) => {
-      return `"${key}": ${value}`;
-    }).join(",\n");
-
-    return `z.object({${stringSchema}})`;
+const createCheckboxSchema = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): z.ZodType => {
+  if (!isRequired) {
+    return z.boolean().default(false).optional();
   }
 
-  return z.object(schema as Record<string, z.ZodType>);
+  return z.boolean({
+    required_error: "This field is required.",
+  })
 };
+
 
 const createNumberSchemaAsString = (
   validations: FormComponentValidationTypes,
@@ -195,18 +183,58 @@ const createStringSchemaAsString = (
   return schema;
 };
 
+const createCheckboxGroupSchemaAsString = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): string => {
+  if (!isRequired) {
+    return `z.array(z.string()).optional()`;
+  }
+
+  return `z.array(z.string()).refine((value) => value.some((item) => item), {
+    message: "You have to select at least one item.",
+  })`;
+};
+
+const createCheckboxSchemaAsString = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): string => {
+  if (!isRequired) {
+    return `z.boolean().default(false).optional()`;
+  }
+
+  return `z.boolean({
+    required_error: "This field is required.",
+  })`;
+};
+
 export const getZodDefaultValues = (
   components: FormComponentModel[]
 ): Record<string, string | number | undefined> => {
   const defaultValues: Record<string, string | number | undefined> = {};
 
   components.forEach((component) => {
+
+    if (component.type === "button" || component.type === "submit-button" || component.type === "reset-button") {
+      return;
+    }
+
     const componentId = component.getField("attributes.id");
 
-    let defaultValue = component.getField("value") || undefined;
+    let defaultValue = component.getField("value") || "";
+
+    if (component.type === "checkbox-group") {
+      const selectedOptions = component.options?.filter((option) => option.checked);
+      defaultValue = selectedOptions?.map((option) => option.value);
+    }
+
+    if (component.type === "checkbox") {
+      defaultValue = component.getField("value") || false;
+    }
 
     if (component.type === "number") {
-      defaultValue = new Number(defaultValue);
+      defaultValue = +defaultValue;
     }
 
     defaultValues[componentId] = defaultValue;
@@ -215,11 +243,74 @@ export const getZodDefaultValues = (
   return defaultValues;
 };
 
-
 export const getZodDefaultValuesAsString = (components: FormComponentModel[]) => {
   const defaultValues = getZodDefaultValues(components);
-  return Object.entries(defaultValues).map(([key, value]) => {
-    return `"${key}": ${typeof value === "string" ? `"${value}"` : value}`;
+  const defaultValuesString = Object.entries(defaultValues).map(([key, value]) => {
+
+    const defaultValue = `"${value}"`;
+  
+    if (typeof value === "number") {
+      return `"${key}": ${value}`;
+    }
+
+    if (typeof value === "boolean") {
+      return `"${key}": ${value}`;
+    }
+    
+    if (typeof value === "object") {
+      return `"${key}": ${JSON.stringify(value)}`;
+    }
+
+    return `"${key}": ${defaultValue}`;
   }).join(",\n");
+
+  return `${defaultValuesString}`;
+};
+
+const createSchemaForComponent = (
+  component: FormComponentModel,
+  validations: FormComponentValidationTypes,
+  isRequired: boolean,
+  asString?: boolean
+): z.ZodType | string => {
+  if (component.type === "number") {
+    return asString ? createNumberSchemaAsString(validations, isRequired) : createNumberSchema(validations, isRequired);
+  }
+
+  if (component.type === "date") {
+    return asString ? createDateSchemaAsString(validations, isRequired) : createDateSchema(validations, isRequired);
+  }
+
+  if (component.type === "checkbox-group") {
+    return asString ? createCheckboxGroupSchemaAsString(validations, isRequired) : createCheckboxGroupSchema(validations, isRequired);
+  }
+
+  if (component.type === "checkbox") {
+    return asString ? createCheckboxSchemaAsString(validations, isRequired) : createCheckboxSchema(validations, isRequired);
+  }
+  
+  return asString ? createStringSchemaAsString(validations, isRequired) : createStringSchema(validations, isRequired);
+};
+
+export const getZodSchemaForComponents = (components: FormComponentModel[], asString: boolean = false) => {
+  const schema: Record<string, z.ZodSchema | string> = {};
+
+  components.forEach((component) => {
+    const validations = component.getField("validations");
+    const isRequired = shouldForceRequired(validations);
+    const componentId = component.getField("attributes.id");
+  
+    schema[componentId] = createSchemaForComponent(component, validations, isRequired, asString);
+  });
+
+  if (asString) {
+    const stringSchema = Object.entries(schema).map(([key, value]) => {
+      return `"${key}": ${value}`;
+    }).join(",\n");
+
+    return `z.object({${stringSchema}})`;
+  }
+
+  return z.object(schema as Record<string, z.ZodType>);
 };
 

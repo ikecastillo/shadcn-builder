@@ -8,27 +8,58 @@ import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { OptionsGroup } from "../sidebar/groups/options-group";
 import { cn, escapeHtml } from "@/lib/utils";
-import { UseFormReturn, FieldValues, ControllerRenderProps } from "react-hook-form";
+import {
+  UseFormReturn,
+  FieldValues,
+  ControllerRenderProps,
+} from "react-hook-form";
 import { ValidationGroup } from "../sidebar/groups/validation-group";
-import { FormLabel } from "@/components/ui/form";
+import {
+  FormField,
+  FormLabel,
+  FormItem,
+  FormControl,
+} from "@/components/ui/form";
 
-export function FormCheckboxGroup(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
+export function FormCheckboxGroup(
+  component: FormComponentModel,
+  form: UseFormReturn<FieldValues, undefined>,
+  field: ControllerRenderProps
+) {
   return (
-    <div
-      key={component.id}
-      className={cn("flex flex-col gap-2")}
-    >
+    <div className={cn("flex flex-col gap-2")}>
       {component.options?.map((option) => (
-        <div key={option.value} className="flex items-center space-x-2">
-          <Checkbox
-            id={`${component.getField("attributes.id")}-${option.value}`}
-            name={component.getField("attributes.name")}
-            checked={option.checked}
-          />
-          <FormLabel htmlFor={`${component.getField("attributes.id")}-${option.value}`}>
-            {option.label}
-          </FormLabel>
-        </div>
+        <FormField
+          name={component.id}
+          key={option.value}
+          control={form.control}
+          render={({ field: OptionField }) => {
+            return (
+              <FormItem key={option.value} className="flex items-start gap-3">
+                <FormControl>
+                  <Checkbox
+                    checked={OptionField.value?.includes(option.value)}
+                    onCheckedChange={(checked) => {
+                      return checked
+                        ? OptionField.onChange([
+                            ...OptionField.value,
+                            option.value,
+                          ])
+                        : OptionField.onChange(
+                            OptionField.value?.filter(
+                              (value: string) => value !== option.value
+                            )
+                          );
+                    }}
+                  />
+                </FormControl>
+                <FormLabel className="text-sm leading-tight font-normal">
+                  {option.label}
+                </FormLabel>
+              </FormItem>
+            );
+          }}
+        />
       ))}
     </div>
   );
@@ -42,21 +73,40 @@ type ReactCode = {
 export function getReactCode(component: FormComponentModel): ReactCode {
   return {
     code: `
-    <div
-      key="${component.id}"
-      className="${escapeHtml(cn("flex flex-col space-y-2"))}"
-    >
-      ${component.options?.map((option) => `
-        <div key="${escapeHtml(option.value)}" className="flex items-center space-x-2">
-          <Checkbox
-            id="${escapeHtml(component.getField("attributes.id"))}-${escapeHtml(option.value)}"
-            name="${escapeHtml(component.getField("attributes.name"))}"
-            checked={${option.checked || false}}
-          />
-          <FormLabel htmlFor="${escapeHtml(component.getField("attributes.id"))}-${escapeHtml(option.value)}">
-            ${escapeHtml(option.label)}
-          </FormLabel>
-        </div>
+    <div className="flex flex-col gap-2">
+      ${component.options
+        ?.map(
+          (option) => `
+        <FormField
+          name="${component.id}"
+          control={form.control}
+          render={({ field: OptionField }) => {
+            return (
+              <FormItem key="${option.value}" className="flex items-start gap-3">
+                <FormControl>
+                  <Checkbox
+                    checked={OptionField.value?.includes("${option.value}")}
+                    onCheckedChange={(checked) => {
+                      return checked
+                        ? OptionField.onChange([
+                            ...OptionField.value,
+                            "${option.value}",
+                          ])
+                        : OptionField.onChange(
+                            OptionField.value?.filter(
+                              (value: string) => value !== "${option.value}"
+                            )
+                          );
+                    }}
+                  />
+                </FormControl>
+                <FormLabel className="text-sm leading-tight font-normal">
+                  ${option.label}
+                </FormLabel>
+              </FormItem>
+            );
+          }}
+        />
       `).join("\n")}
     </div>
     `,
@@ -76,4 +126,4 @@ export const CheckboxGroupDesignProperties: DesignPropertiesViews = {
   options: <OptionsGroup />,
   button: null,
   validation: <ValidationGroup />,
-}; 
+};

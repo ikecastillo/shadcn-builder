@@ -17,6 +17,7 @@ import { cn, generateTWClassesForAllViewports } from "@/lib/utils";
 import { renderComponent } from "@/config/available-components";
 import { FormComponentModel } from "@/models/FormComponent";
 import { FormWysiwygEditor } from "../form-components/wysiwyg/form-wysiwyg-editor";
+import { useState } from "react";
 
 export interface FormComponentProps {
   form: UseFormReturn<FieldValues, undefined>;
@@ -24,7 +25,7 @@ export interface FormComponentProps {
 }
 
 export function RenderEditorComponent({ form, component }: FormComponentProps) {
-  const { selectedComponent, viewport, updateComponent, updateEnableDragging } =
+  const { selectedComponent, viewport, updateComponent, updateEnableDragging, selectComponent } =
     useFormBuilderStore();
   const mode = useFormBuilderStore((state) => state.mode);
 
@@ -85,12 +86,17 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
     >
       <FormWysiwygEditor
         value={component.content || ""}
+        isEditable={selectedComponent?.id === component.id && mode === "editor"}
         onChange={(content) => {
           updateComponent(component.id, "content", content, true);
+          selectComponent(null);
         }}
-        isEditable={selectedComponent?.id === component.id && mode === "editor"}
-        onFocus={() => updateEnableDragging(false)}
-        onBlur={() => updateEnableDragging(true)}
+        onFocus={() => {
+          updateEnableDragging(false)
+        }}
+        onBlur={(editor) => {
+          updateEnableDragging(true)
+        }}
       />
     </div>
   );

@@ -57,6 +57,7 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
             components: state.components.filter(
               (component) => component.id !== componentId
             ),
+            selectedComponent: state.selectedComponent?.id === componentId ? null : state.selectedComponent,
           };
         });
       },
@@ -64,7 +65,8 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
         componentId: string,
         field: string,
         value: any,
-        isValidForAllViewports: boolean = false
+        isValidForAllViewports: boolean = false,
+        isDragging: boolean = false
       ) => {
         set((state) => {
           const updateNestedField = (
@@ -126,19 +128,21 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
               });
               return updatedComponent;
             }),
-            selectedComponent: updatedComponent,
+            selectedComponent: isDragging ? null : updatedComponent,
           };
         });
       },
       updateComponents: (components: FormComponentModel[]) =>
         set({ components }),
       selectComponent: (component: FormComponentModel | null) =>
-        set(() => ({
-          selectedComponent: component
-            ? new FormComponentModel(component)
-            : null,
-          editor: component === null || component.category === "form" ? null : get().editor,
-        })),
+        set(() => {
+          return {
+            selectedComponent: component
+              ? new FormComponentModel(component)
+              : null,
+            editor: component === null || component.category === "form" ? null : get().editor,
+          };
+        }),
       moveComponent: (oldIndex: number, newIndex: number) =>
         set((state) => {
           const components = [...state.components];
@@ -150,7 +154,7 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
           const [movedComponent] = components.splice(oldIndex, 1);
           components.splice(newIndex, 0, movedComponent);
 
-          return { components, selectedComponent: movedComponent };
+          return { components, selectedComponent: null };
         }),
     }),
     {

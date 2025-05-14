@@ -19,6 +19,7 @@ export function FormRadio(component: FormComponentModel, form: UseFormReturn<Fie
       id={component.getField("attributes.id")}
       className={cn(component.getField("attributes.class"))}
       {...field}
+      onValueChange={field.onChange}
     >
       {component.options?.map((option) => (
         <div key={option.value} className="flex items-center space-x-2">
@@ -48,6 +49,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       id="${escapeHtml(component.getField("attributes.id"))}"
       className="${escapeHtml(component.getField("attributes.class"))}"
       {...field}
+      onValueChange={field.onChange}
     > 
       ${component.options?.map((option) => `
         <div key="${escapeHtml(option.value)}" className="flex items-center space-x-2">

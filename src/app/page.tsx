@@ -179,7 +179,8 @@ export default function FormBuilderPage() {
             item.id,
             "properties.style.colSpan",
             `${item.span}`,
-            false
+            false,
+            true
           );
         });
 
@@ -190,7 +191,8 @@ export default function FormBuilderPage() {
             item.id,
             "properties.style.colSpan",
             `${item.span}`,
-            false
+            false,
+            true
           );
         });
       }

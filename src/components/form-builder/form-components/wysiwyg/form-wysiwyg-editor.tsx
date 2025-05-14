@@ -1,10 +1,15 @@
 import React, { useMemo, memo, useState, useEffect } from "react";
-import { useEditor, EditorContent, mergeAttributes } from "@tiptap/react";
+import {
+  useEditor,
+  EditorContent,
+  mergeAttributes,
+  Editor,
+} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Heading } from "@tiptap/extension-heading";
 import { Underline } from "@tiptap/extension-underline";
-import TextStyle from '@tiptap/extension-text-style'
-import TextAlign from '@tiptap/extension-text-align'
+import TextStyle from "@tiptap/extension-text-style";
+import TextAlign from "@tiptap/extension-text-align";
 
 import "./form-wysiwyg-editor.css";
 import { EditorToolbar } from "./editor-toolbar";
@@ -13,29 +18,28 @@ import { useFormBuilderStore } from "@/stores/form-builder-store";
 interface FormWysiwygEditorProps {
   isEditable?: boolean;
   value: string;
-  onChange: (content: string) => void;
+  onChange?: (content: string) => void;
   onFocus?: () => void;
-  onBlur?: () => void;
+  onBlur?: (editor: Editor) => void;
 }
 
 export const TextColorStyle = TextStyle.extend({
   parseHTML() {
     return [
       {
-        tag: 'span',
-        getAttrs: element => {
+        tag: "span",
+        getAttrs: (element) => {
           return {
             class: element.classList.toString(),
-          }
+          };
         },
       },
-    ]
+    ];
   },
 });
 
 export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
   ({ value, onChange, isEditable = false, onFocus, onBlur }) => {
-
     // Memoize editor extensions
     const extensions = useMemo(
       () => [
@@ -93,41 +97,52 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
         TextColorStyle,
         customClass,
         TextAlign.configure({
-          types: ['heading', 'paragraph', "textStyle"],
-        })
+          types: ["heading", "paragraph", "textStyle"],
+        }),
       ],
       []
     );
 
     const setEditor = useFormBuilderStore((state) => state.setEditor);
+    const editor = useFormBuilderStore((state) => state.editor);
+    const [contentChanged, setContentChanged] = useState(false);
 
-    const editor = useEditor({
-      editable: isEditable,
-      immediatelyRender: true,
-      extensions,
-      content: value,
-      onUpdate: ({ editor }) => {
-        onChange(editor.getHTML());
+    const initEditor = useEditor(
+      {
+        editable: isEditable,
+        immediatelyRender: true,
+        extensions,
+        content: value,
+        onUpdate: ({ editor }) => {
+          setContentChanged(true);
+        },
+        onFocus: ({ editor }) => {
+          onFocus?.();
+          setEditor(editor);
+        },
+        onBlur: ({ editor }) => {
+          onBlur?.(editor);
+        },
       },
-      onFocus: ({ editor }) => {
-        onFocus?.();
-        setEditor(editor);
-      },
-      onBlur: ({ editor }) => {
-        onBlur?.();
-      },
-    }, [isEditable]);
+      [isEditable]
+    );
 
+    useEffect(() => {
+      if (!editor && initEditor && contentChanged) {
+        onChange?.(initEditor.getHTML());
+        setContentChanged(false);
+      }
+    }, [editor, initEditor, onChange, contentChanged]);
 
     // Only update content when value prop changes and it's different from our local content
 
-    if (!editor) {
+    if (!initEditor) {
       return null;
     }
 
     return (
       <>
-        <EditorContent editor={editor} />
+        <EditorContent editor={initEditor} />
       </>
     );
   }

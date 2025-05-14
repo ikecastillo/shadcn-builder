@@ -45,7 +45,7 @@ export interface FormBuilderStore {
   updateEnableDragging: (enableDragging: boolean) => void;
   addComponent: (component: FormComponentModel) => void;
   removeComponent: (componentId: string) => void;
-  updateComponent: (componentId: string, field: string, value: any, isValidForAllViewports?: boolean) => void;
+  updateComponent: (componentId: string, field: string, value: any, isValidForAllViewports?: boolean, isDragging?: boolean) => void;
   updateComponents: (components: FormComponentModel[]) => void;
   selectComponent: (component: FormComponentModel | null) => void;
   moveComponent: (oldIndex: number, newIndex: number) => void;

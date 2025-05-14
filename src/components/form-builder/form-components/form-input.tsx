@@ -13,7 +13,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 export function FormInput(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
-
   return (
     <Input
       key={component.id}
@@ -21,7 +20,6 @@ export function FormInput(component: FormComponentModel, form: UseFormReturn<Fie
       type={component.getField("attributes.type")}
       className={cn(component.getField("attributes.class"))}
       {...field}
-      defaultValue={component.value}
     />
   );
 }

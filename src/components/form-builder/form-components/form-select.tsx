@@ -20,7 +20,7 @@ import { ValidationGroup } from "../sidebar/groups/validation-group";
 
 export function FormSelect(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (
-    <Select key={component.id} {...field}>
+    <Select key={component.id} {...field} onValueChange={field.onChange}>
       <SelectTrigger
         id={component.getField("attributes.id")}
         {...field}
@@ -52,8 +52,9 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       id="${escapeHtml(component.getField("attributes.id"))}"
       className="${escapeHtml(component.getField("attributes.class"))}"
       {...field}
+      onValueChange={field.onChange}
       >
-      <SelectTrigger>
+      <SelectTrigger className="w-full ${escapeHtml(component.getField("attributes.class"))}">
         <SelectValue placeholder="${escapeHtml(component.getField("attributes.placeholder"))}" />
       </SelectTrigger>
       <SelectContent>

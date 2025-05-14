@@ -19,7 +19,6 @@ export function FormTextarea(component: FormComponentModel, form: UseFormReturn<
       id={component.getField("attributes.id")}
       placeholder={component.getField("attributes.placeholder")}
       className={component.getField("attributes.class")}
-      defaultValue={component.value}
       {...field}
     />
   );

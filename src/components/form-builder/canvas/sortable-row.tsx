@@ -3,7 +3,12 @@
 import { UseFormReturn } from "react-hook-form";
 import { GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn, generateTWClassesForAllViewports, getGridRows, updateColSpans } from "@/lib/utils";
+import {
+  cn,
+  generateTWClassesForAllViewports,
+  getGridRows,
+  updateColSpans,
+} from "@/lib/utils";
 import { RenderEditorComponent } from "../helpers/render-editor-component";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { Over, useDraggable, useDroppable } from "@dnd-kit/core";
@@ -16,7 +21,6 @@ interface SortableRowProps {
   index: number;
   form: UseFormReturn<any>;
 }
-
 
 // Memoize the draggable button component
 const DraggableButton = memo(({ attributes, listeners }: any) => (
@@ -32,11 +36,7 @@ const DraggableButton = memo(({ attributes, listeners }: any) => (
 DraggableButton.displayName = "DraggableButton";
 
 // Memoize the row column component
-export const RowColumn = ({
-  component,
-  index,
-  form,
-}: SortableRowProps ) => {
+export const RowColumn = ({ component, index, form }: SortableRowProps) => {
   const {
     attributes: columnAttributes,
     listeners: columnListeners,
@@ -87,7 +87,8 @@ export const RowColumn = ({
     [component]
   );
 
-  const isHidden = component.getField("properties.style.visible", viewport) === "no";
+  const isHidden =
+    component.getField("properties.style.visible", viewport) === "no";
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
@@ -100,17 +101,11 @@ export const RowColumn = ({
   );
 
   const handleDelete = (id: string) => {
-
     const gridRows = getGridRows(components, viewport);
     let activeRowItems =
-        gridRows.find((row) =>
-          row.some((item) => item.id === id)
-        ) || [];
+      gridRows.find((row) => row.some((item) => item.id === id)) || [];
 
-
-    activeRowItems = activeRowItems.filter(
-      (item) => item.id !== id
-    );
+    activeRowItems = activeRowItems.filter((item) => item.id !== id);
 
     const updatedActiveItems = updateColSpans([...activeRowItems]);
 
@@ -134,12 +129,13 @@ export const RowColumn = ({
         colSpanClasses,
         colStartClasses,
         mode === "preview" && visibilityClasses,
-        mode === "editor" && "group/component hover:outline-1 hover:outline-offset-6 hover:outline-primary cursor-pointer",
+        mode === "editor" &&
+          "group/component hover:outline-1 hover:outline-offset-6 hover:outline-primary cursor-pointer",
         columnIsDragging && "cursor-grabbing",
         selectedComponent && "opacity-30",
         isHidden && "opacity-50",
         selectedComponent?.id === component.id &&
-          "outline-1 outline-offset-6 outline-primary z-20 opacity-100",
+          "outline-1 outline-offset-6 outline-primary z-20 opacity-100"
       )}
       key={component.id}
       data-component-id={component.id}
@@ -183,7 +179,8 @@ export const RowColumn = ({
       />
 
       {mode === "editor" && (
-        <span className={cn(
+        <span
+          className={cn(
             "absolute -top-6.5 -left-1.75 py-0.5 px-1 text-xs opacity-0 bg-primary text-white",
             component.id === selectedComponent?.id && "opacity-100"
           )}
@@ -193,6 +190,7 @@ export const RowColumn = ({
       )}
 
       <Button
+        type="button"
         variant="link"
         size="icon"
         className={cn(
