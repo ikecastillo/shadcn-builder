@@ -121,7 +121,9 @@ const createCheckboxSchema = (
 
   return z.boolean({
     required_error: "This field is required.",
-  })
+  }).refine((value) => value === true, {
+    message: "This field is required.",
+  });
 };
 
 
@@ -206,6 +208,8 @@ const createCheckboxSchemaAsString = (
 
   return `z.boolean({
     required_error: "This field is required.",
+  }).refine((value) => value === true, {
+    message: "This field is required.",
   })`;
 };
 
@@ -229,7 +233,7 @@ export const getZodDefaultValues = (
       defaultValue = selectedOptions?.map((option) => option.value);
     }
 
-    if (component.type === "checkbox") {
+    if (component.type === "checkbox" || component.type === "switch") {
       defaultValue = component.getField("value") || false;
     }
 
@@ -285,7 +289,7 @@ const createSchemaForComponent = (
     return asString ? createCheckboxGroupSchemaAsString(validations, isRequired) : createCheckboxGroupSchema(validations, isRequired);
   }
 
-  if (component.type === "checkbox") {
+  if (component.type === "checkbox" || component.type === "switch") {
     return asString ? createCheckboxSchemaAsString(validations, isRequired) : createCheckboxSchema(validations, isRequired);
   }
   

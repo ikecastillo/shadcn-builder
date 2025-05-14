@@ -99,7 +99,7 @@ export function MainCanvas() {
           )}
         >
           <CardContent>
-            <GridCanvas />{" "}
+            <GridCanvas />
           </CardContent>
         </Card>
       </div>

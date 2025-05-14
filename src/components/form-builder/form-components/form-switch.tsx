@@ -28,7 +28,7 @@ export function FormSwitch(component: FormComponentModel, form: UseFormReturn<Fi
           {component.getField("label_description")}
         </p>
       </div>
-      <Switch id={component.getField("attributes.id")} {...field} />
+      <Switch id={component.getField("attributes.id")} {...field} onCheckedChange={field.onChange} />
     </div>
   );
 }
@@ -54,7 +54,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
           ${escapeHtml(component.getField("label_description"))}
         </p>
       </div>
-      <Switch id="${escapeHtml(component.getField("attributes.id"))}" {...field} />
+      <Switch id="${escapeHtml(component.getField("attributes.id"))}" {...field} onCheckedChange={field.onChange} />
     </div>
     `,
     dependencies: {
