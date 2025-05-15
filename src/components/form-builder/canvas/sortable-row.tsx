@@ -140,8 +140,8 @@ export const RowColumn = ({ component, index, form }: SortableRowProps) => {
       key={component.id}
       data-component-id={component.id}
       onClick={handleClick}
-      {...(enableDragging ? columnAttributes : {})}
-      {...(enableDragging ? columnListeners : {})}
+      {...(enableDragging && mode === "editor" ? columnAttributes : {})}
+      {...(enableDragging && mode === "editor" ? columnListeners : {})}
     >
       {component.category === "form" && (
         <div

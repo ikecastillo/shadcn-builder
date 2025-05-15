@@ -109,4 +109,14 @@ export interface FormComponentValidationTypes {
   max?: number | string;
   minLength?: number | string;
   maxLength?: number | string;
+  contains?: string;
+  notContains?: string;
+  greater?: number | string;
+  lower?: number | string;
+  equals?: number | string;
+  notEquals?: number | string;
+  greaterEqual?: number | string;
+  lowerEqual?: number | string;
+  email?: boolean;
+  url?: boolean;
 }

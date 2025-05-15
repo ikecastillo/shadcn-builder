@@ -34,19 +34,63 @@ const createNumberSchema = (
     return z.coerce.number().optional();
   }
 
-  let schema = z.coerce.number({
-    invalid_type_error: "This field must be a number",
-  }).min(1, { message: "This field is required" });
+  let schema: z.ZodNumber = z.coerce
+    .number({
+      invalid_type_error: "This field must be a number",
+    })
+    .min(1, { message: "This field is required" });
 
-  if (validations.min !== undefined && validations.min !== "") {
+  if (!validations) {
+    return schema;
+  }
+
+  if (validations.min && validations.min !== "") {
     schema = schema.min(Number(validations.min), {
       message: `Must be at least ${validations.min}`,
     });
   }
 
-  if (validations.max !== undefined && validations.max !== "") {
+  if (validations.max && validations.max !== "") {
     schema = schema.max(Number(validations.max), {
       message: `Must be at most ${validations.max}`,
+    });
+  }
+
+  if (validations.greater && validations.greater !== "") {
+    schema = schema.gt(Number(validations.greater), {
+      message: `Must be greater than ${validations.greater}`,
+    });
+  }
+
+  if (validations.lower && validations.lower !== "") {
+    schema = schema.lt(Number(validations.lower), {
+      message: `Must be less than ${validations.lower}`,
+    });
+  }
+
+  if (validations.equals && validations.equals !== "") {
+    const equalsValue = Number(validations.equals);
+    schema = schema
+      .gte(equalsValue, { message: `Must equal ${equalsValue}` })
+      .lte(equalsValue, { message: `Must equal ${equalsValue}` });
+  }
+
+  if (validations.notEquals && validations.notEquals !== "") {
+    const notEqualsValue = Number(validations.notEquals);
+    return schema.refine((val) => val !== notEqualsValue, {
+      message: `Must not equal ${notEqualsValue}`,
+    });
+  }
+
+  if (validations.greaterEqual && validations.greaterEqual !== "") {
+    schema = schema.gte(Number(validations.greaterEqual), {
+      message: `Must be greater than or equal to ${validations.greaterEqual}`,
+    });
+  }
+
+  if (validations.lowerEqual && validations.lowerEqual !== "") {
+    schema = schema.lte(Number(validations.lowerEqual), {
+      message: `Must be less than or equal to ${validations.lowerEqual}`,
     });
   }
 
@@ -57,28 +101,72 @@ const createStringSchema = (
   validations: FormComponentValidationTypes,
   isRequired: boolean
 ): z.ZodType => {
+  let schema: z.ZodString = z.string();
 
-  if (!isRequired) {
-    return z.string().optional();
-  }
-
-  let schema = z.string();
-  
   if (isRequired) {
     schema = schema.min(1, { message: "This field is required" });
   }
 
+  if (!validations) {
+    return schema;
+  }
+
   // Validate min and max length
-  if (validations.minLength !== undefined && validations.minLength !== "") {
-    schema = schema.min(Number(validations.minLength), {
-      message: `Must be at least ${validations.minLength} characters`,
+  if (validations.minLength && validations.minLength !== "") {
+    const minLength = Number(validations.minLength);
+    schema = schema.min(minLength, {
+      message: `Must be at least ${minLength} characters`,
     });
   }
   
-  if (validations.maxLength !== undefined && validations.maxLength !== "") {
-    schema = schema.max(Number(validations.maxLength), {
-      message: `Must be at most ${validations.maxLength} characters`,
+  if (validations.maxLength && validations.maxLength !== "") {
+    const maxLength = Number(validations.maxLength);
+    schema = schema.max(maxLength, {
+      message: `Must be at most ${maxLength} characters`,
     });
+  }
+
+  // Validate contains
+  if (validations.contains && validations.contains !== "") {
+    const containsValue = validations.contains as string;
+    schema = schema.includes(containsValue, {
+      message: `Must contain "${containsValue}"`,
+    });
+  }
+
+  // Validate not contains
+  if (validations.notContains && validations.notContains !== "") {
+    const notContainsValue = validations.notContains as string;
+    return schema.refine(
+      (val) => !val.includes(notContainsValue),
+      { message: `Must not contain "${notContainsValue}"` }
+    );
+  }
+
+  // Validate equals
+  if (validations.equals && validations.equals !== "") {
+    const equalsValue = validations.equals as string;
+    return schema.refine((val) => val === equalsValue, {
+      message: `Must equal "${equalsValue}"`,
+    });
+  }
+
+  // Validate not equals
+  if (validations.notEquals && validations.notEquals !== "") {
+    const notEqualsValue = validations.notEquals as string;
+    return schema.refine((val) => val !== notEqualsValue, {
+      message: `Must not equal "${notEqualsValue}"`,
+    });
+  }
+
+  // Validate email
+  if (validations.email) {
+    schema = schema.email({ message: "Invalid email address" });
+  }
+
+  // Validate URL
+  if (validations.url) {
+    schema = schema.url({ message: "Invalid URL" });
   }
 
   return schema;
@@ -88,7 +176,6 @@ const createDateSchema = (
   validations: FormComponentValidationTypes,
   isRequired: boolean
 ): z.ZodType => {
-
   if (!isRequired) {
     return z.date().optional();
   }
@@ -119,19 +206,51 @@ const createCheckboxSchema = (
     return z.boolean().default(false).optional();
   }
 
-  return z.boolean({
-    required_error: "This field is required.",
-  }).refine((value) => value === true, {
-    message: "This field is required.",
-  });
+  return z
+    .boolean({
+      required_error: "This field is required.",
+    })
+    .refine((value) => value === true, {
+      message: "This field is required.",
+    });
 };
 
+const createEmailSchema = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): z.ZodType => {
+  let schema: z.ZodString = z.string();
+
+  if (isRequired) {
+    schema = schema.email({ message: "Invalid email address" }).min(1, { message: "This field is required" });
+  }
+
+  if (!validations) {
+    return schema;
+  }
+
+  // Validate contains
+  if (validations.contains && validations.contains !== "") {
+    schema = schema.includes(validations.contains as string, {
+      message: `Must contain "${validations.contains}"`,
+    });
+  }
+
+  // Validate not contains
+  if (validations.notContains && validations.notContains !== "") {
+    return schema.refine(
+      (val) => !val.includes(validations.notContains as string),
+      { message: `Must not contain "${validations.notContains}"` }
+    );
+  }
+
+  return schema;
+};
 
 const createNumberSchemaAsString = (
   validations: FormComponentValidationTypes,
   isRequired: boolean
 ): string => {
-  
   if (!isRequired) {
     return `z.coerce.number().optional()`;
   }
@@ -140,12 +259,42 @@ const createNumberSchemaAsString = (
     invalid_type_error: "This field must be a number",
   }).min(1, { message: "This field is required" })`;
 
-  if (validations.min !== undefined && validations.min !== "") {
+  if (!validations) {
+    return schema;
+  }
+
+  if (validations.min && validations.min !== "") {
     schema += `.min(${validations.min}, { message: "Must be at least ${validations.min}" })`;
   }
 
-  if (validations.max !== undefined && validations.max !== "") {
+  if (validations.max && validations.max !== "") {
     schema += `.max(${validations.max}, { message: "Must be at most ${validations.max}" })`;
+  }
+
+  if (validations.greater && validations.greater !== "") {
+    schema += `.gt(${validations.greater}, { message: "Must be greater than ${validations.greater}" })`;
+  }
+
+  if (validations.lower && validations.lower !== "") {
+    schema += `.lt(${validations.lower}, { message: "Must be less than ${validations.lower}" })`;
+  }
+
+  if (validations.equals && validations.equals !== "") {
+    const equalsValue = Number(validations.equals);
+    schema += `.gte(${equalsValue}, { message: "Must equal ${equalsValue}" }).lte(${equalsValue}, { message: "Must equal ${equalsValue}" })`;
+  }
+
+  if (validations.notEquals && validations.notEquals !== "") {
+    const notEqualsValue = Number(validations.notEquals);
+    schema += `.refine((val) => val !== ${notEqualsValue}, { message: "Must not equal ${notEqualsValue}" })`;
+  }
+
+  if (validations.greaterEqual && validations.greaterEqual !== "") {
+    schema += `.gte(${validations.greaterEqual}, { message: "Must be greater than or equal to ${validations.greaterEqual}" })`;
+  }
+
+  if (validations.lowerEqual && validations.lowerEqual !== "") {
+    schema += `.lte(${validations.lowerEqual}, { message: "Must be less than or equal to ${validations.lowerEqual}" })`;
   }
 
   return schema;
@@ -168,18 +317,64 @@ const createStringSchemaAsString = (
   validations: FormComponentValidationTypes,
   isRequired: boolean
 ): string => {
-  if (!isRequired) {
-    return `z.string().optional()`;
+
+  let schema = `z.string()`;
+
+  if (isRequired) {
+    schema += `.min(1, { message: "This field is required" })`;
   }
 
-  let schema = `z.string().min(1, { message: "This field is required" })`;
+  if (!validations) {
+    return schema;
+  }
   
-  if (validations.minLength !== undefined && validations.minLength !== "") {
-    schema += `.min(${validations.minLength}, { message: "Must be at least ${validations.minLength} characters" })`;
+  if (!validations) {
+    return schema;
   }
 
-  if (validations.maxLength !== undefined && validations.maxLength !== "") {
-    schema += `.max(${validations.maxLength}, { message: "Must be at most ${validations.maxLength} characters" })`;
+  // Validate min and max length
+  if (validations.minLength && validations.minLength !== "") {
+    const minLength = Number(validations.minLength);
+    schema += `.min(${minLength}, { message: "Must be at least ${minLength} characters" })`;
+  }
+
+  if (validations.maxLength && validations.maxLength !== "") {
+    const maxLength = Number(validations.maxLength);
+    schema += `.max(${maxLength}, { message: "Must be at most ${maxLength} characters" })`;
+  }
+
+  // Validate contains
+  if (validations.contains && validations.contains !== "") {
+    const containsValue = validations.contains as string;
+    schema += `.includes("${containsValue}", { message: "Must contain \\"${containsValue}\\"" })`;
+  }
+
+  // Validate not contains
+  if (validations.notContains && validations.notContains !== "") {
+    const notContainsValue = validations.notContains as string;
+    schema += `.refine((val) => !val.includes("${notContainsValue}"), { message: "Must not contain \\"${notContainsValue}\\"" })`;
+  }
+
+  // Validate equals
+  if (validations.equals && validations.equals !== "") {
+    const equalsValue = validations.equals as string;
+    schema += `.refine((val) => val === "${equalsValue}", { message: "Must equal \\"${equalsValue}\\"" })`;
+  }
+
+  // Validate not equals
+  if (validations.notEquals && validations.notEquals !== "") {
+    const notEqualsValue = validations.notEquals as string;
+    schema += `.refine((val) => val !== "${notEqualsValue}", { message: "Must not equal \\"${notEqualsValue}\\"" })`;
+  }
+
+  // Validate email
+  if (validations.email) {
+    schema += `.email({ message: "Invalid email address" })`;
+  }
+
+  // Validate URL
+  if (validations.url) {
+    schema += `.url({ message: "Invalid URL" })`;
   }
 
   return schema;
@@ -213,14 +408,68 @@ const createCheckboxSchemaAsString = (
   })`;
 };
 
+const createEmailSchemaAsString = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): string => {
+  let schema = `z.string()`;
+
+  if (isRequired) {
+    schema += `.email({ message: "Invalid email address" }).min(1, { message: "This field is required" })`;
+  }
+
+  if (!validations) {
+    return schema;
+  }
+
+  if (validations.contains && validations.contains !== "") {
+    schema += `.includes("${validations.contains}", { message: "Must contain \\"${validations.contains}\\"" })`;
+  }
+
+  if (validations.notContains && validations.notContains !== "") {
+    schema += `.refine((val) => !val.includes("${validations.notContains}"), { message: "Must not contain \\"${validations.notContains}\\"" })`;
+  }
+
+  return schema;
+};
+
+const createUrlSchemaAsString = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): string => {
+  if (!isRequired) {
+    return `z.string().url().optional()`;
+  }
+
+  return `z.string().url({ message: "Invalid URL" }).min(1, { message: "This field is required" })`;
+};
+
+const createUrlSchema = (
+  validations: FormComponentValidationTypes,
+  isRequired: boolean
+): z.ZodType => {
+  let schema: z.ZodString = z.string();
+
+  if (isRequired) {
+    schema = schema.url({ message: "Invalid URL" }).min(1, { message: "This field is required" });
+  }
+
+  return schema;
+};
+
+
+
 export const getZodDefaultValues = (
   components: FormComponentModel[]
 ): Record<string, string | number | undefined> => {
   const defaultValues: Record<string, string | number | undefined> = {};
 
   components.forEach((component) => {
-
-    if (component.type === "button" || component.type === "submit-button" || component.type === "reset-button") {
+    if (
+      component.type === "button" ||
+      component.type === "submit-button" ||
+      component.type === "reset-button"
+    ) {
       return;
     }
 
@@ -229,7 +478,9 @@ export const getZodDefaultValues = (
     let defaultValue = component.getField("value") || "";
 
     if (component.type === "checkbox-group") {
-      const selectedOptions = component.options?.filter((option) => option.checked);
+      const selectedOptions = component.options?.filter(
+        (option) => option.checked
+      );
       defaultValue = selectedOptions?.map((option) => option.value);
     }
 
@@ -247,26 +498,29 @@ export const getZodDefaultValues = (
   return defaultValues;
 };
 
-export const getZodDefaultValuesAsString = (components: FormComponentModel[]) => {
+export const getZodDefaultValuesAsString = (
+  components: FormComponentModel[]
+) => {
   const defaultValues = getZodDefaultValues(components);
-  const defaultValuesString = Object.entries(defaultValues).map(([key, value]) => {
+  const defaultValuesString = Object.entries(defaultValues)
+    .map(([key, value]) => {
+      const defaultValue = `"${value}"`;
 
-    const defaultValue = `"${value}"`;
-  
-    if (typeof value === "number") {
-      return `"${key}": ${value}`;
-    }
+      if (typeof value === "number") {
+        return `"${key}": ${value}`;
+      }
 
-    if (typeof value === "boolean") {
-      return `"${key}": ${value}`;
-    }
-    
-    if (typeof value === "object") {
-      return `"${key}": ${JSON.stringify(value)}`;
-    }
+      if (typeof value === "boolean") {
+        return `"${key}": ${value}`;
+      }
 
-    return `"${key}": ${defaultValue}`;
-  }).join(",\n");
+      if (typeof value === "object") {
+        return `"${key}": ${JSON.stringify(value)}`;
+      }
+
+      return `"${key}": ${defaultValue}`;
+    })
+    .join(",\n");
 
   return `${defaultValuesString}`;
 };
@@ -278,43 +532,78 @@ const createSchemaForComponent = (
   asString?: boolean
 ): z.ZodType | string => {
   if (component.type === "number") {
-    return asString ? createNumberSchemaAsString(validations, isRequired) : createNumberSchema(validations, isRequired);
+    return asString
+      ? createNumberSchemaAsString(validations, isRequired)
+      : createNumberSchema(validations, isRequired);
   }
 
   if (component.type === "date") {
-    return asString ? createDateSchemaAsString(validations, isRequired) : createDateSchema(validations, isRequired);
+    return asString
+      ? createDateSchemaAsString(validations, isRequired)
+      : createDateSchema(validations, isRequired);
   }
 
   if (component.type === "checkbox-group") {
-    return asString ? createCheckboxGroupSchemaAsString(validations, isRequired) : createCheckboxGroupSchema(validations, isRequired);
+    return asString
+      ? createCheckboxGroupSchemaAsString(validations, isRequired)
+      : createCheckboxGroupSchema(validations, isRequired);
   }
 
   if (component.type === "checkbox" || component.type === "switch") {
-    return asString ? createCheckboxSchemaAsString(validations, isRequired) : createCheckboxSchema(validations, isRequired);
+    return asString
+      ? createCheckboxSchemaAsString(validations, isRequired)
+      : createCheckboxSchema(validations, isRequired);
   }
-  
-  return asString ? createStringSchemaAsString(validations, isRequired) : createStringSchema(validations, isRequired);
+
+  if (component.type === "email") {
+    return asString
+      ? createEmailSchemaAsString(validations, isRequired)
+      : createEmailSchema(validations, isRequired);
+  }
+
+  if (component.type === "url") {
+    return asString
+      ? createUrlSchemaAsString(validations, isRequired)
+      : createUrlSchema(validations, isRequired);
+  }
+
+  return asString
+    ? createStringSchemaAsString(validations, isRequired)
+    : createStringSchema(validations, isRequired);
 };
 
-export const getZodSchemaForComponents = (components: FormComponentModel[], asString: boolean = false) => {
+export const getZodSchemaForComponents = (
+  components: FormComponentModel[],
+  asString: boolean = false
+) => {
   const schema: Record<string, z.ZodSchema | string> = {};
 
   components.forEach((component) => {
     const validations = component.getField("validations");
     const isRequired = shouldForceRequired(validations);
     const componentId = component.getField("attributes.id");
-  
-    schema[componentId] = createSchemaForComponent(component, validations, isRequired, asString);
+
+    if (component.type === "button" || component.type === "submit-button" || component.type === "reset-button") {
+      return;
+    }
+
+    schema[componentId] = createSchemaForComponent(
+      component,
+      validations,
+      isRequired,
+      asString
+    );
   });
 
   if (asString) {
-    const stringSchema = Object.entries(schema).map(([key, value]) => {
-      return `"${key}": ${value}`;
-    }).join(",\n");
+    const stringSchema = Object.entries(schema)
+      .map(([key, value]) => {
+        return `"${key}": ${value}`;
+      })
+      .join(",\n");
 
     return `z.object({${stringSchema}})`;
   }
 
   return z.object(schema as Record<string, z.ZodType>);
 };
-

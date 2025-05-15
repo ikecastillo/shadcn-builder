@@ -5,9 +5,7 @@ import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useForm } from "react-hook-form";
-import { memo, useEffect, useState } from "react";
-import { useDroppable } from "@dnd-kit/core";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import {
   getZodSchemaForComponents,
