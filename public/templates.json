@@ -1,0 +1,583 @@
+{
+  "notifications": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Notifications</span><br><span class=\"text-sm text-muted-foreground\">Configure how you receive notifications.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "radio-0",
+        "label": "Notify me about...",
+        "label_info": "Group of radio buttons",
+        "type": "radio",
+        "value": "all",
+        "options": [
+          { "value": "all", "label": "All new messages" },
+          { "value": "direct", "label": " Direct messages and mentions" },
+          { "label": "Nothing", "value": "none", "checked": false }
+        ],
+        "category": "form",
+        "icon": "CircleDotIcon",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "radio-0" }
+      },
+      {
+        "id": "text-1",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Email Notifications</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-1" }
+      },
+      {
+        "id": "switch-0",
+        "label": "Communication emails",
+        "label_info": "Toggle switch",
+        "label_description": "Receive emails about your account activity.",
+        "type": "switch",
+        "value": true,
+        "description": "",
+        "category": "form",
+        "icon": "ToggleLeftIcon",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "switch-0" }
+      },
+      {
+        "id": "switch-1",
+        "label": "Marketing emails",
+        "label_info": "Toggle switch",
+        "label_description": "Receive emails about new products, features, and more.",
+        "type": "switch",
+        "category": "form",
+        "icon": "ToggleLeftIcon",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "switch-1" }
+      },
+      {
+        "id": "switch-2",
+        "label": "Social Emails",
+        "label_info": "Toggle switch",
+        "label_description": "Receive emails for friend requests, follows, and more.",
+        "type": "switch",
+        "category": "form",
+        "icon": "ToggleLeftIcon",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "switch-2" }
+      },
+      {
+        "id": "switch-3",
+        "label": "Security Emails",
+        "label_info": "Toggle switch",
+        "label_description": "Receive emails about your account activity and security.",
+        "type": "switch",
+        "value": true,
+        "category": "form",
+        "icon": "ToggleLeftIcon",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "switch-3" }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "Use different settings for my mobile devices",
+        "label_info": "Checkbox input",
+        "label_description": "You can manage your mobile notifications in the mobile settings page.",
+        "type": "checkbox",
+        "value": false,
+        "category": "form",
+        "icon": "CheckSquareIcon",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "checkbox-0" },
+        "overrides": {
+          "md": { "value": true, "properties": { "style": { "asCard": "no" } } }
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Update Nottifications",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "type": "submit", "id": "submit-button-0" },
+        "overrides": { "md": { "properties": { "style": { "colSpan": "3" } } } }
+      }
+    ],
+    "formTitle": "Notifications"
+  },
+  "upgrade_plan":   {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Upgrade your subscription</span><br><span class=\"text-sm text-muted-foreground\">You are currently on the free plan. Upgrade to the pro plan to get access to all features.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "text-0"
+        }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John"
+        },
+        "overrides": {
+          "md": {
+            "properties": {
+              "style": {
+                "colSpan": "6"
+              }
+            }
+          }
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "MailIcon",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "joh.doe@acme.com"
+        },
+        "overrides": {
+          "md": {
+            "properties": {
+              "style": {
+                "colSpan": "6"
+              }
+            }
+          }
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-input-1",
+        "label": "Card Number",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-1",
+          "placeholder": "1234 1234 1234 1234"
+        },
+        "overrides": {
+          "md": {
+            "properties": {
+              "style": {
+                "colSpan": "8"
+              }
+            }
+          }
+        },
+        "validations": {
+          "minLength": "16",
+          "maxLength": "19"
+        }
+      },
+      {
+        "id": "text-input-2",
+        "label": "Text",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-2",
+          "placeholder": "MM/YY"
+        },
+        "overrides": {
+          "md": {
+            "properties": {
+              "style": {
+                "colSpan": "2"
+              }
+            }
+          }
+        },
+        "validations": {
+          "minLength": "5",
+          "maxLength": "5",
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-input-3",
+        "label": "Text",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-3",
+          "placeholder": "CVC"
+        },
+        "overrides": {
+          "md": {
+            "properties": {
+              "style": {
+                "colSpan": "2"
+              }
+            }
+          }
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "3",
+          "maxLength": "3"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Notes",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeftIcon",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Enter some notes here..."
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "I agree to the terms and conditions",
+        "label_info": "Checkbox input",
+        "label_description": "",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquareIcon",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "checkbox-0"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "checkbox-1",
+        "label": "Allow us to send you emails",
+        "label_info": "Checkbox input",
+        "label_description": "",
+        "type": "checkbox",
+        "value": true,
+        "category": "form",
+        "icon": "CheckSquareIcon",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "checkbox-1"
+        }
+      },
+      {
+        "id": "button-0",
+        "label": "Button",
+        "label_info": "Button",
+        "type": "button",
+        "content": "Cancel",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "outline"
+        },
+        "attributes": {
+          "type": "button",
+          "id": "button-0"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Upgrade Plan",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Upgrade Plan"
+  }
+}

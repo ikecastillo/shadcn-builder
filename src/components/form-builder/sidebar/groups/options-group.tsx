@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { PlusIcon, TrashIcon } from "lucide-react";
+import { PlusIcon, Trash2, TrashIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -28,7 +28,8 @@ export function OptionsGroup() {
     }
   };
 
-  const showCheckbox = selectedComponent.type !== 'radio' && selectedComponent.type !== 'select';
+  const showCheckbox =
+    selectedComponent.type !== "radio" && selectedComponent.type !== "select";
 
   return (
     <>
@@ -87,9 +88,7 @@ export function OptionsGroup() {
             }
             placeholder="Option label"
           />
-          <Button
-            variant="ghost"
-            size="icon"
+          <div
             onClick={() =>
               handleChange(
                 "options",
@@ -99,9 +98,10 @@ export function OptionsGroup() {
                 true
               )
             }
+            className="cursor-pointer "
           >
-            <TrashIcon className="h-4 w-4" />
-          </Button>
+            <Trash2 className="w-4 h-4 text-muted-foreground hover:text-destructive" />
+          </div>
         </div>
       ))}
       <Button

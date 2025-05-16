@@ -28,7 +28,7 @@ export function FormSwitch(component: FormComponentModel, form: UseFormReturn<Fi
           {component.getField("label_description")}
         </p>
       </div>
-      <Switch id={component.getField("attributes.id")} {...field} onCheckedChange={field.onChange} />
+      <Switch id={component.getField("attributes.id")} {...field} checked={field.value} onCheckedChange={field.onChange} />
     </div>
   );
 }
@@ -54,7 +54,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
           ${escapeHtml(component.getField("label_description"))}
         </p>
       </div>
-      <Switch id="${escapeHtml(component.getField("attributes.id"))}" {...field} onCheckedChange={field.onChange} />
+      <Switch id="${escapeHtml(component.getField("attributes.id"))}" {...field} checked={field.value} onCheckedChange={field.onChange} />
     </div>
     `,
     dependencies: {
@@ -70,7 +70,7 @@ export const SwitchDesignProperties: DesignPropertiesViews = {
   grid: <GridGroup />,
   html: <HtmlGroup />,
   label: <LabelGroup whitelist={["label", "label_description", "labelPosition"]} />,
-  input: <InputGroup whitelist={["description", "asCard"]} />,
+  input: <InputGroup whitelist={["description", "asCard", "checked"]} />,
   options: null,
   button: null,
   validation: <ValidationGroup />,

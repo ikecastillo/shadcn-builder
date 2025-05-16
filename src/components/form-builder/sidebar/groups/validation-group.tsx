@@ -196,7 +196,7 @@ export function ValidationGroup() {
                       onClick={() => handleRemove(idx)}
                       className="cursor-pointer "
                     >
-                      <Trash2 className="w-4 h-4 text-muted-foreground hover:text-red-500" />
+                      <Trash2 className="w-4 h-4 text-muted-foreground hover:text-destructive" />
                     </div>
                   </div>
                 </div>
