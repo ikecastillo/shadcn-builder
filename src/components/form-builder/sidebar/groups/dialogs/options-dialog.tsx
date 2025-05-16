@@ -1,5 +1,6 @@
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -85,11 +86,11 @@ export function OptionsDialog({
           Manage Options
         </Button>
       </DialogTrigger>
-      <DialogContent className={cn("sm:max-w-2xl", showLabelDescription && "sm:max-w-4xl")}>
-        <DialogHeader>
+      <DialogContent className={cn("sm:max-w-2xl px-0", showLabelDescription && "sm:max-w-4xl")}>
+        <DialogHeader className="px-6">
           <DialogTitle>Manage Options</DialogTitle>
         </DialogHeader>
-        <div className="flex flex-col gap-4 py-4">
+        <div className="flex flex-col gap-4 pt-4 px-6">
           <div className="grid grid-cols-12 text-sm text-gray-400 gap-4">
             {showCheckbox && <span className="col-span-1"></span>}
             <span className={cn("col-span-6", showLabelDescription && "col-span-4", showCheckbox && "col-span-3")}>Label</span>
@@ -141,10 +142,9 @@ export function OptionsDialog({
               />
             </div>
           ))}
-          <hr className="w-full" />
           <Button
-            variant="outline"
-            className="w-fit"
+            variant="ghost"
+            className="w-full cursor-pointer"
             onClick={handleAddOption}
           >
             <PlusIcon className=" h-4 w-4" />
@@ -152,7 +152,7 @@ export function OptionsDialog({
           </Button>
 
         </div>
-        <DialogFooter>
+        <DialogFooter className="sm:justify-end border-t border-gray-200 pt-4 px-6">
           <Button onClick={onSaveOptions} variant="default">
             <SaveIcon className="h-4 w-4" /> Save Options
           </Button>
