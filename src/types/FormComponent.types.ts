@@ -35,7 +35,7 @@ export interface FormComponentModelInput {
   value?: string | number;
   attributes?: FormComponentAttributes;
   overrides?: FormComponentOverrides;
-  options?: { label: string; labelDescription: string; value: string; checked?: boolean }[];
+  options?: { label: string; labelDescription?: string; value: string; checked?: boolean }[];
   validations?: FormComponentValidationTypes;
 }
 

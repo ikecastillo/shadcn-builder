@@ -29,7 +29,7 @@ export function OptionsGroup() {
 
   return (
     <OptionsDialog
-      options={selectedComponent.options ?? []}
+      component={selectedComponent}
       onOptionsChange={(options) => handleChange("options", options, true)}
       showCheckbox={showCheckbox}
     />

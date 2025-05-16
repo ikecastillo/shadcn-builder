@@ -135,8 +135,8 @@ const formComponents: FormComponentModel[] = [
     category: "form",
     icon: "ListIcon",
     options: [
-      { value: "option1", label: "Option 1" },
-      { value: "option2", label: "Option 2" },
+      { value: "option1", label: "Option 1", labelDescription: "Option 1 Description" },
+      { value: "option2", label: "Option 2", labelDescription: "Option 2 Description" },
     ],
   }),
   new FormComponentModel({
@@ -161,8 +161,8 @@ const formComponents: FormComponentModel[] = [
     category: "form",
     icon: "ListChecksIcon",
     options: [
-      { value: "option1", label: "Option 1", checked: true },
-      { value: "option2", label: "Option 2" },
+      { value: "option1", label: "Option 1", labelDescription: "Option 1 Description", checked: true },
+      { value: "option2", label: "Option 2", labelDescription: "Option 2 Description" },
     ],
   }),
   new FormComponentModel({
@@ -173,8 +173,8 @@ const formComponents: FormComponentModel[] = [
     category: "form",
     icon: "CircleDotIcon",
     options: [
-      { value: "option1", label: "Option 1" },
-      { value: "option2", label: "Option 2" },
+      { value: "option1", label: "Option 1", labelDescription: "Option 1 Description" },
+      { value: "option2", label: "Option 2", labelDescription: "Option 2 Description" },
     ],
   }),
   new FormComponentModel({

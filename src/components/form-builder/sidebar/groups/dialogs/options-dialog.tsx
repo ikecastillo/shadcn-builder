@@ -19,37 +19,32 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FormComponentModelInput } from "@/types/FormComponent.types";
-
-interface Option {
-  label: string;
-  labelDescription: string;
-  value: string;
-  checked: boolean;
-}
+import { FormComponentModel } from "@/models/FormComponent";
+import { cn } from "@/lib/utils";
 
 interface OptionsDialogProps {
-  options: FormComponentModelInput["options"];
+  component: FormComponentModel;
   onOptionsChange: (options: FormComponentModelInput["options"]) => void;
   showCheckbox?: boolean;
 }
 
 export function OptionsDialog({
-  options = [],
+  component,
   onOptionsChange,
   showCheckbox = false,
 }: OptionsDialogProps) {
   const [open, setOpen] = useState(false);
   const [loadedOptions, setLoadedOptions] = useState<FormComponentModelInput["options"]>([]);
   
+  const showLabelDescription = component.type === "radio" || component.type === "checkbox-group";
 
   useEffect(() => {
-    setLoadedOptions(options);
-    console.log("options", options);
-  }, [options]);
+    setLoadedOptions(component.options);
+  }, [component]);
 
   const handleOptionChange = (
     index: number,
-    field: keyof Option,
+    field: string,
     value: any
   ) => {
     const newOptions = loadedOptions ? [
@@ -90,19 +85,19 @@ export function OptionsDialog({
           Manage Options
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-3xl">
+      <DialogContent className={cn("sm:max-w-2xl", showLabelDescription && "sm:max-w-4xl")}>
         <DialogHeader>
           <DialogTitle>Manage Options</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4 py-4">
           <div className="grid grid-cols-12 text-sm text-gray-400 gap-4">
             {showCheckbox && <span className="col-span-1"></span>}
-            <span className={`col-span-${showCheckbox ? 3 : 4}`}>Label</span>
-            <span className="col-span-4">Label Description</span>
-            <span className="col-span-3">Value</span>
+            <span className={cn("col-span-6", showLabelDescription && "col-span-4", showCheckbox && "col-span-3")}>Label</span>
+            {showLabelDescription && <span className="col-span-4">Label Description</span>}
+            <span className={cn("col-span-5", showLabelDescription && "col-span-3")}>Value</span>
             <span className="col-span-1"></span>
           </div>
-          {options.map((option, index) => (
+          { loadedOptions && loadedOptions.map((option, index) => (
             <div key={index} className="grid grid-cols-12 gap-4 items-center justify-items-center">
               {showCheckbox && (
                 <Checkbox
@@ -120,23 +115,25 @@ export function OptionsDialog({
                   handleOptionChange(index, "label", e.target.value)
                 }
                 placeholder="Option label"
-                className={`col-span-${showCheckbox ? 3 : 4}`}
+                className={cn("col-span-6", showLabelDescription && "col-span-4", showCheckbox && "col-span-3")}
               />
+              {showLabelDescription && (
               <Input
                 defaultValue={option.labelDescription}
                 onChange={(e) =>
                   handleOptionChange(index, "labelDescription", e.target.value)
                 }
                 placeholder="Label description"
-                className="col-span-4"
-              />
+                  className="col-span-4"
+                />
+              )}
               <Input
                 defaultValue={option.value}
                 onChange={(e) =>
                   handleOptionChange(index, "value", e.target.value)
                 }
                 placeholder="Option value"
-                className="col-span-3"
+                className={cn("col-span-5", showLabelDescription && "col-span-3")}
               />
               <Trash2
                 onClick={() => handleDeleteOption(index)}
