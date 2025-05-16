@@ -25,8 +25,13 @@ export interface FormComponentProps {
 }
 
 export function RenderEditorComponent({ form, component }: FormComponentProps) {
-  const { selectedComponent, viewport, updateComponent, updateEnableDragging, selectComponent } =
-    useFormBuilderStore();
+  const {
+    selectedComponent,
+    viewport,
+    updateComponent,
+    updateEnableDragging,
+    selectComponent,
+  } = useFormBuilderStore();
   const mode = useFormBuilderStore((state) => state.mode);
 
   const labelPositionClasses = generateTWClassesForAllViewports(
@@ -39,6 +44,9 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
     "labelAlign"
   );
 
+  const showLabel = component.getField("properties.style.showLabel", viewport) === "yes";
+  const visible = component.getField("properties.style.visible", viewport) === "yes";
+
   return component.category === "form" ? (
     <FormField
       key={component.id}
@@ -48,22 +56,26 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
         const renderedComponent = renderComponent(component, form, field);
         return (
           <FormItem
-            className={cn(mode === "editor" && "group/component", "flex flex-col", labelPositionClasses, labelAlignClasses)}
+            className={cn(
+              mode === "editor" && "group/component",
+              "flex flex-col",
+              labelPositionClasses,
+              labelAlignClasses
+            )}
             data-item-id={component.id}
           >
-             <FormLabel
-                className={cn(
-                  "shrink-0 flex items-center gap-2 ",
-                  mode === "editor" && "cursor-pointer"
-                )}
-              >
-                {component.getField("properties.style.showLabel", viewport) ===
-                  "yes" && component.getField("label", viewport)}
-                {component.getField("properties.style.visible", viewport) ===
-                  "no" && (
-                  <span className="text-xs text-muted-foreground">Hidden</span>
-                )}
-              </FormLabel>
+            <FormLabel
+              className={cn(
+                "shrink-0 flex items-center gap-2 ",
+                mode === "editor" && "cursor-pointer",
+                !showLabel && visible && "hidden"
+              )}
+            >
+              {showLabel && component.getField("label", viewport)}
+              {!visible && (
+                <span className="text-xs text-muted-foreground">Hidden</span>
+              )}
+            </FormLabel>
             <FormControl>{renderedComponent}</FormControl>
             {component.description && (
               <FormDescription>{component.description}</FormDescription>
@@ -92,10 +104,10 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
           selectComponent(null);
         }}
         onFocus={() => {
-          updateEnableDragging(false)
+          updateEnableDragging(false);
         }}
         onBlur={(editor) => {
-          updateEnableDragging(true)
+          updateEnableDragging(true);
         }}
       />
     </div>

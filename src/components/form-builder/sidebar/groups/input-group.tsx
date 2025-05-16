@@ -11,14 +11,14 @@ import {
 import { ViewportOverrideIndicator } from "@/components/form-builder/helpers/ViewportOverrideIndicator";
 import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
 
-type propertiesWhitelist = "type" | "placeholder" | "description" | "asCard" | "value";
+type propertiesWhitelist = "type" | "placeholder" | "description" | "asCard" | "value" | "checked";
 
 export type InputGroupProps = {
   whitelist?: propertiesWhitelist[];
 };
 
 export function InputGroup({
-  whitelist = ["type", "placeholder", "description", "value"],
+  whitelist = ["type", "placeholder", "description", "value", "checked"],
 }: InputGroupProps) {
   const { updateComponent, selectedComponent, viewport } = useFormBuilderStore();
 
@@ -30,6 +30,8 @@ export function InputGroup({
     selectedComponent.getField("attributes.placeholder") ?? "";
   const defaultInputDescription =
     selectedComponent.getField("description") || "";
+  const defaultValueChecked =
+    selectedComponent.getField("value") ?? false;
 
   const defaultValueAsCard = selectedComponent.getField(
     "properties.style.asCard",
@@ -57,7 +59,7 @@ export function InputGroup({
                 value={currentValue}
                 onValueChange={(value) => handleChange("value", value, true)}
               >
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a value" />
                 </SelectTrigger>
                 <SelectContent>
@@ -74,6 +76,27 @@ export function InputGroup({
                 onChange={(e) => handleChange("value", e.target.value, true)}
               />
             )}
+          </div>
+        </div>
+      )}
+      {whitelist.includes("checked") && (
+        <div className="grid grid-cols-2 gap-2 items-center">
+         <Label htmlFor="checked" className="text-xs text-gray-400">
+            Checked
+          </Label>
+          <div className="flex flex-row items-center gap-2">
+            <ToggleGroupNav
+              name="asCard"
+              items={[
+                { value: "true", label: "yes" },
+                { value: "false", label: "no" },
+              ]}
+              defaultValue={defaultValueChecked ? "true" : "false"}
+              onValueChange={(value) =>
+                handleChange("value", value === "true", true)
+              }
+              className="w-full"
+            />
           </div>
         </div>
       )}
