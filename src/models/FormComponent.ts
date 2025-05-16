@@ -33,7 +33,7 @@ export class FormComponentModel {
   value?: string | number;
   content?: string;
   description?: string;
-  options?: { label: string; value: string; checked?: boolean }[];
+  options?: FormComponentModelInput["options"];
   required?: boolean;
   category: "form" | "content";
   icon: keyof typeof Icons;

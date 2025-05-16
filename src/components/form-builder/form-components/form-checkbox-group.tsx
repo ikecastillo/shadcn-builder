@@ -26,6 +26,8 @@ export function FormCheckboxGroup(
   form: UseFormReturn<FieldValues, undefined>,
   field: ControllerRenderProps
 ) {
+  const oneOptionHasLabelDescription = component.options?.some((option) => option.labelDescription);
+
   return (
     <div className={cn("flex flex-col gap-2")}>
       {component.options?.map((option) => (
@@ -35,7 +37,7 @@ export function FormCheckboxGroup(
           control={form.control}
           render={({ field: OptionField }) => {
             return (
-              <FormItem key={option.value} className="flex items-start gap-3">
+              <FormItem key={option.value} className="flex items-start gap-2">
                 <FormControl>
                   <Checkbox
                     checked={OptionField.value?.includes(option.value)}
@@ -53,9 +55,16 @@ export function FormCheckboxGroup(
                     }}
                   />
                 </FormControl>
-                <FormLabel className="text-sm leading-tight font-normal">
-                  {option.label}
-                </FormLabel>
+                <div className="grid gap-2 leading-none">
+                  <FormLabel className={cn("text-sm leading-tight font-normal", oneOptionHasLabelDescription && "font-medium")}>
+                    {option.label}
+                  </FormLabel>
+                  {option.labelDescription && (
+                    <p className="text-sm text-muted-foreground">
+                      {option.labelDescription}
+                    </p>
+                  )}
+                </div>
               </FormItem>
             );
           }}
@@ -71,6 +80,8 @@ type ReactCode = {
 };
 
 export function getReactCode(component: FormComponentModel): ReactCode {
+  const oneOptionHasLabelDescription = component.options?.some((option) => option.labelDescription);
+
   return {
     code: `
     <div className="flex flex-col gap-2">
@@ -100,9 +111,12 @@ export function getReactCode(component: FormComponentModel): ReactCode {
                     }}
                   />
                 </FormControl>
-                <FormLabel className="text-sm leading-tight font-normal">
-                  ${option.label}
-                </FormLabel>
+                <div className="grid gap-2 leading-none">
+                  <FormLabel className="${oneOptionHasLabelDescription ? "font-medium" : "font-normal"}">
+                    ${option.label}
+                  </FormLabel>
+                  ${option.labelDescription ? `<p className="text-sm text-muted-foreground">${escapeHtml(option.labelDescription)}</p>` : ""}
+                </div>
               </FormItem>
             );
           }}

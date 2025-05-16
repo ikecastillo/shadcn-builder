@@ -1,13 +1,9 @@
-import { Input } from "@/components/ui/input";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { PlusIcon, Trash2, TrashIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { OptionsDialog } from "./dialogs/options-dialog";
+
 
 export function OptionsGroup() {
-  const { updateComponent, selectedComponent, viewport } =
-    useFormBuilderStore();
+  const { updateComponent, selectedComponent } = useFormBuilderStore();
 
   if (!selectedComponent) {
     return null;
@@ -32,100 +28,10 @@ export function OptionsGroup() {
     selectedComponent.type !== "radio" && selectedComponent.type !== "select";
 
   return (
-    <>
-      {selectedComponent.options && selectedComponent.options.length !== 0 && (
-        <div className="grid grid-cols-2 text-sm text-gray-400">
-          <span className={showCheckbox ? "ml-9" : ""}>value</span>
-          <span>label</span>
-        </div>
-      )}
-      {selectedComponent.options?.map((option: any, index: number) => (
-        <div key={index} className="flex items-center space-x-2">
-          {showCheckbox && (
-            <Checkbox
-              id={`option-${index}-checked`}
-              checked={option.checked}
-              onCheckedChange={(checked) =>
-                handleChange(
-                  "options",
-                  [
-                    ...(selectedComponent.options ?? []).slice(0, index),
-                    { ...option, checked },
-                    ...(selectedComponent.options ?? []).slice(index + 1),
-                  ],
-                  true
-                )
-              }
-            />
-          )}
-          <Input
-            value={option.value}
-            onChange={(e) =>
-              handleChange(
-                "options",
-                [
-                  ...(selectedComponent.options ?? []).slice(0, index),
-                  { ...option, value: e.target.value },
-                  ...(selectedComponent.options ?? []).slice(index + 1),
-                ],
-                true
-              )
-            }
-            placeholder="Option value"
-          />
-          <Input
-            value={option.label}
-            onChange={(e) =>
-              handleChange(
-                "options",
-                [
-                  ...(selectedComponent.options ?? []).slice(0, index),
-                  { ...option, label: e.target.value },
-                  ...(selectedComponent.options ?? []).slice(index + 1),
-                ],
-                true
-              )
-            }
-            placeholder="Option label"
-          />
-          <div
-            onClick={() =>
-              handleChange(
-                "options",
-                selectedComponent.options?.filter(
-                  (_: any, i: number) => i !== index
-                ),
-                true
-              )
-            }
-            className="cursor-pointer "
-          >
-            <Trash2 className="w-4 h-4 text-muted-foreground hover:text-destructive" />
-          </div>
-        </div>
-      ))}
-      <Button
-        variant="outline"
-        size="sm"
-        className="w-full"
-        onClick={() =>
-          handleChange(
-            "options",
-            [
-              ...(selectedComponent.options ?? []),
-              {
-                label: "Demo-" + (selectedComponent.options?.length ?? 0),
-                value: "demo-" + (selectedComponent.options?.length ?? 0),
-                checked: false,
-              },
-            ],
-            true
-          )
-        }
-      >
-        <PlusIcon className="mr-2 h-4 w-4" />
-        Add Option
-      </Button>
-    </>
+    <OptionsDialog
+      options={selectedComponent.options ?? []}
+      onOptionsChange={(options) => handleChange("options", options, true)}
+      showCheckbox={showCheckbox}
+    />
   );
 }

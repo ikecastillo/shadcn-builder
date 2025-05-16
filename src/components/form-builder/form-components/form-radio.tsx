@@ -8,11 +8,22 @@ import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { OptionsGroup } from "../sidebar/groups/options-group";
 import { cn, escapeHtml } from "@/lib/utils";
-import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form";
+import {
+  ControllerRenderProps,
+  FieldValues,
+  UseFormReturn,
+} from "react-hook-form";
 import { ValidationGroup } from "../sidebar/groups/validation-group";
 import { FormLabel } from "@/components/ui/form";
 
-export function FormRadio(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
+export function FormRadio(
+  component: FormComponentModel,
+  form: UseFormReturn<FieldValues, undefined>,
+  field: ControllerRenderProps
+) {
+
+  const oneOptionHasLabelDescription = component.options?.some((option) => option.labelDescription);
+
   return (
     <RadioGroup
       key={component.id}
@@ -22,14 +33,24 @@ export function FormRadio(component: FormComponentModel, form: UseFormReturn<Fie
       onValueChange={field.onChange}
     >
       {component.options?.map((option) => (
-        <div key={option.value} className="flex items-center space-x-2">
+        <div key={option.value} className="flex items-start space-x-2">
           <RadioGroupItem
             value={option.value}
             id={`${component.getField("attributes.id")}-${option.value}`}
           />
-          <FormLabel htmlFor={`${component.getField("attributes.id")}-${option.value}`} className="font-normal">
-            {option.label}
-          </FormLabel>
+          <div className="grid gap-2 leading-none">
+            <FormLabel
+              htmlFor={`${component.getField("attributes.id")}-${option.value}`}
+              className={cn("font-normal", oneOptionHasLabelDescription && "font-medium")}
+            >
+              {option.label}
+            </FormLabel>
+            {option.labelDescription && (
+              <p className="text-sm text-muted-foreground">
+                {option.labelDescription}
+              </p>
+            )}
+          </div>
         </div>
       ))}
     </RadioGroup>
@@ -42,6 +63,8 @@ type ReactCode = {
 };
 
 export function getReactCode(component: FormComponentModel): ReactCode {
+  const oneOptionHasLabelDescription = component.options?.some((option) => option.labelDescription);
+
   return {
     code: `
     <RadioGroup
@@ -51,20 +74,26 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       {...field}
       onValueChange={field.onChange}
     > 
-      ${component.options?.map((option) => `
+      ${component.options
+        ?.map(
+          (option) => `
         <div key="${escapeHtml(option.value)}" className="flex items-center space-x-2">
           <RadioGroupItem value="${escapeHtml(option.value)}" id="${escapeHtml(component.getField("attributes.id"))}-${escapeHtml(option.value)}" />
-          <FormLabel htmlFor="${escapeHtml(component.getField("attributes.id"))}-${escapeHtml(option.value)}">
-            ${escapeHtml(option.label)}
-          </FormLabel>  
+          <div className="grid gap-2 leading-none">
+            <FormLabel htmlFor="${escapeHtml(component.getField("attributes.id"))}-${escapeHtml(option.value)}" className="${oneOptionHasLabelDescription ? "font-medium" : "font-normal"}">
+              ${escapeHtml(option.label)}
+            </FormLabel>  
+            ${option.labelDescription ? `<p className="text-sm text-muted-foreground">${escapeHtml(option.labelDescription)}</p>` : ""}
+          </div>
         </div>
-      `).join("\n")}
+      `
+        )
+        .join("\n")}
     </RadioGroup>
     `,
     dependencies: {
-      "@/components/ui/radio-group": ["RadioGroup", "RadioGroupItem"],  
+      "@/components/ui/radio-group": ["RadioGroup", "RadioGroupItem"],
       "@/components/ui/form": ["FormLabel"],
-
     },
   };
 }
@@ -73,7 +102,11 @@ export const RadioDesignProperties: DesignPropertiesViews = {
   base: null,
   grid: <GridGroup />,
   html: <HtmlGroup />,
-  label: <LabelGroup whitelist={["label", "labelPosition", "labelAlign", "showLabel"]} />,
+  label: (
+    <LabelGroup
+      whitelist={["label", "labelPosition", "labelAlign", "showLabel"]}
+    />
+  ),
   input: <InputGroup whitelist={["placeholder", "description", "value"]} />,
   options: <OptionsGroup />,
   button: null,
