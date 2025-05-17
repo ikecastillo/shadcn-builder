@@ -15,9 +15,10 @@ export function FormCheckbox(component: FormComponentModel, form: UseFormReturn<
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
 
   return (
-    <div
+    <FormLabel
       key={component.id}
-      className={cn(asCardClasses, "flex items-start space-x-2")}
+      className={cn(asCardClasses, "w-full flex items-start space-x-2 has-[[data-state=checked]]:border-primary")}
+      htmlFor={component.getField("attributes.id")}
     >
       <Checkbox
         id={component.getField("attributes.id")}
@@ -27,14 +28,14 @@ export function FormCheckbox(component: FormComponentModel, form: UseFormReturn<
         onCheckedChange={field.onChange}
       />
       <div className="grid gap-1.5 leading-none">
-        <FormLabel htmlFor={component.getField("attributes.id")}>
+        <FormLabel>
           {component.getField("label")}
         </FormLabel>
         <p className="text-sm text-muted-foreground">
           {component.getField("label_description")}
         </p>
       </div>
-    </div>
+    </FormLabel>
   );
 }
 
@@ -47,20 +48,21 @@ export function getReactCode(component: FormComponentModel): ReactCode {
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
   return {
     code: `
-    <div
+    <FormLabel
       key="${component.id}"
-      className="${escapeHtml(cn(asCardClasses, "flex items-start space-x-2"))}"
+      className="${escapeHtml(cn(asCardClasses, "w-full flex items-start space-x-2 has-[[data-state=checked]]:border-primary"))}"
+      htmlFor="${escapeHtml(component.getField("attributes.id"))}"
     >
       <Checkbox id="${escapeHtml(component.getField("attributes.id"))}" className="${escapeHtml(component.getField("attributes.class"))}" {...field} checked={field.value} onCheckedChange={field.onChange} />
       <div className="grid gap-1.5 leading-none">
-        <FormLabel htmlFor="${escapeHtml(component.getField("attributes.id"))}">
+        <FormLabel>
           ${escapeHtml(component.getField("label"))}
         </FormLabel>
         <p className="text-sm text-muted-foreground">
           ${escapeHtml(component.getField("label_description"))}
         </p>
       </div>
-    </div>
+    </FormLabel>
     `,
     dependencies: {
       "@/components/ui/checkbox": ["Checkbox"],

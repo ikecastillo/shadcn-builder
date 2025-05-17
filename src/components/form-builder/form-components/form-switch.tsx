@@ -16,12 +16,13 @@ export function FormSwitch(component: FormComponentModel, form: UseFormReturn<Fi
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
 
   return (
-    <div
+    <FormLabel
       key={component.id}
-      className={cn(asCardClasses, "flex justify-between items-center space-x-2 w-full")}
+      className={cn(asCardClasses, "flex justify-between items-center space-x-2 w-full has-[[data-state=checked]]:border-primary")}
+      htmlFor={component.getField("attributes.id")}
     >
       <div className="grid gap-1.5 leading-none">
-        <FormLabel htmlFor={component.getField("attributes.id")}>
+        <FormLabel>
           {component.getField("label")}
         </FormLabel>
         <p className="text-sm text-muted-foreground">
@@ -29,7 +30,7 @@ export function FormSwitch(component: FormComponentModel, form: UseFormReturn<Fi
         </p>
       </div>
       <Switch id={component.getField("attributes.id")} {...field} checked={field.value} onCheckedChange={field.onChange} />
-    </div>
+    </FormLabel>
   );
 }
 
@@ -42,12 +43,13 @@ export function getReactCode(component: FormComponentModel): ReactCode {
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
   return {
     code: `
-    <div
+    <FormLabel
       key="${component.id}"
-      className="${escapeHtml(cn(asCardClasses, "flex justify-between items-center space-x-2 w-full"))}"
+      className="${escapeHtml(cn(asCardClasses, "w-full flex justify-between items-center space-x-2 has-[[data-state=checked]]:border-primary"))}"
+      htmlFor="${escapeHtml(component.getField("attributes.id"))}"
     >
       <div className="grid gap-1.5 leading-none">
-        <FormLabel htmlFor="${escapeHtml(component.getField("attributes.id"))}">
+        <FormLabel>
           ${escapeHtml(component.getField("label"))}
         </FormLabel>
         <p className="text-sm text-muted-foreground">
@@ -55,7 +57,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
         </p>
       </div>
       <Switch id="${escapeHtml(component.getField("attributes.id"))}" {...field} checked={field.value} onCheckedChange={field.onChange} />
-    </div>
+    </FormLabel>
     `,
     dependencies: {
       "@/components/ui/switch": ["Switch"],
@@ -69,7 +71,7 @@ export const SwitchDesignProperties: DesignPropertiesViews = {
   base: null,
   grid: <GridGroup />,
   html: <HtmlGroup />,
-  label: <LabelGroup whitelist={["label", "label_description", "labelPosition"]} />,
+  label: <LabelGroup whitelist={["label", "label_description"]} />,
   input: <InputGroup whitelist={["description", "asCard", "checked"]} />,
   options: null,
   button: null,

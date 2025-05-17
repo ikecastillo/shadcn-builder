@@ -17,6 +17,7 @@ import {
   Save,
   SaveIcon,
   ListPlusIcon,
+  CheckIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FormComponentModelInput } from "@/types/FormComponent.types";
@@ -78,8 +79,35 @@ export function OptionsDialog({
     setOpen(false);
   };
 
+  useEffect(() => {
+    if (!open) {
+      setLoadedOptions(component.options);
+    }
+  }, [open, component.options]);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+      <div className="flex flex-col gap-2 relative">
+        {component.options && component.options.length > 0 ? (
+          <>
+            <div className={cn("absolute inset-x-0 bottom-0 h-12 bg-gradient-from-transparent bg-gradient-to-t from-white to-transparent hidden", component.options.length > 4 && "block")} />
+            <div className="grid grid-cols-2 gap-2 items-center text-sm text-gray-400">
+              <span className="font-medium">Label</span>
+            <span className="font-medium">Value</span>
+          </div>
+          </>
+        ) : (
+          <div className="grid grid-cols-2 gap-2 items-center text-sm text-gray-400">
+            <span className="font-medium">No options</span>
+          </div>
+        )}
+        {component.options && component.options.map((option, index) => index < 5 && (
+          <div key={index} className="grid grid-cols-2 gap-2 items-center">
+            <span className="text-sm whitespace-nowrap overflow-hidden text-ellipsis">{option.label}</span>
+            <span className="text-sm whitespace-nowrap overflow-hidden text-ellipsis">{option.value}</span>
+          </div>
+        ))}
+      </div>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm" className="w-full">
           <ListPlusIcon className="mr-2 h-4 w-4" />
