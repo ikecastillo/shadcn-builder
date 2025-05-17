@@ -1,27 +1,17 @@
 "use client";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Pre } from "@/components/ui/pre";
 import { Copy, Check } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as prettier from "prettier/standalone";
 import * as parserTypescript from "prettier/parser-typescript";
-import { DependenciesImports } from "../helpers/generate-react-code";
+import {
+  DependenciesImports,
+  generateFormCode,
+} from "../helpers/generate-react-code";
 import * as prettierPluginEstree from "prettier/plugins/estree";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-
-interface GenerateCodeDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  generatedCode: { code: string; dependenciesImports: DependenciesImports };
-}
 
 const getShadcnInstallInstructions = (
   dependencies: DependenciesImports
@@ -35,11 +25,21 @@ const getShadcnInstallInstructions = (
   return `npx shadcn@latest add ${shadcnComponents.join(" ")}`;
 };
 
-export function GenerateCodeDialog({
-  open,
-  onOpenChange,
-  generatedCode,
-}: GenerateCodeDialogProps) {
+export function MainExport() {
+  const components = useFormBuilderStore((state) => state.components);
+  const [generatedCode, setGeneratedCode] = useState<{
+    code: string;
+    dependenciesImports: DependenciesImports;
+  }>({ code: "", dependenciesImports: {} });
+
+  useEffect(() => {
+    const generateCode = async () => {
+      const code = await generateFormCode(components);
+      setGeneratedCode(code);
+    };
+    generateCode();
+  }, [components]);
+
   const [formattedCode, setFormattedCode] = useState(generatedCode.code);
   const [copied, setCopied] = useState(false);
   const formTitle = useFormBuilderStore
@@ -80,85 +80,87 @@ export function GenerateCodeDialog({
   );
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="md:max-w-4xl h-[95vh] xl:h-[80vh] max-h-[1024px]">
-        <DialogHeader>
-          <DialogTitle>Generated Form Code</DialogTitle>
-        </DialogHeader>
-        <div className="min-h-[500px] w-full overflow-y-auto flex flex-col gap-4">
-          <div>
-            <h2 className="text-lg font-semibold mb-0">
-              1. Required shadcn/ui components:
-            </h2>
-            <h3 className="text-sm text-muted-foreground">
-              Run the following commands to add the required components:
-            </h3>
-          </div>
-          <div className="relative overflow-x-auto rounded-md min-h-20">
-            <Pre language="bash" code={installationInstructions} />
-            <Button
-              variant="ghost"
-              size="sm"
-              className="absolute top-2 right-2 text-muted-foreground"
-              onClick={() => handleCopy(installationInstructions)}
-            >
-              {copied ? (
-                <Check className="h-4 w-4" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
-            </Button>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold mb-0">2. React Code</h2>
-            <h3 className="text-sm text-muted-foreground">
-              Copy and paste the following code into your project or{" "}
-              <a
-                href="#"
-                onClick={handleDownload}
-                className="underline font-bold"
-              >
-                download the file
-              </a>
-              .
-            </h3>
-          </div>
-          <div className="relative">
-            <Pre language="typescript" code={formattedCode} className="min-h-20 max-h-[400px]" />
-            <Button
-              variant="ghost"
-              size="sm"
-              className="absolute top-2 right-2 text-muted-foreground"
-              onClick={() => handleCopy(formattedCode)}
-            >
-              {copied ? (
-                <Check className="h-4 w-4" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
-            </Button>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold mb-0">3. Usage</h2>
-            <h3 className="text-sm text-muted-foreground">
-              Import the form component and use it in your project.
-            </h3>
-          </div>
-          <div className="relative overflow-auto rounded-md min-h-20">
-            <Pre
-              language="typescript"
-              code={`import ${formTitle} from "./${formTitle}";
-<${formTitle} />`}
-            />
-          </div>
+    <div className="flex flex-col justify-between gap-4 py-4 h-full max-w-4xl mx-auto ">
+      <div className="relative">
+        <h2 className="text-lg font-semibold mb-0">
+          1. Required shadcn/ui components:
+        </h2>
+        <h3 className="text-sm text-muted-foreground">
+          Run the following commands to add the required components:
+        </h3>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="absolute top-2 right-2 text-muted-foreground"
+          onClick={() => handleCopy(installationInstructions)}
+        >
+          {copied ? (
+            <Check className="h-4 w-4" />
+          ) : (
+            <Copy className="h-4 w-4" />
+          )}
+        </Button>
+        <div className="relative overflow-x-auto rounded-md min-h-20 mt-4">
+          <Pre language="bash" code={installationInstructions} />
         </div>
+      </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Close
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      <div className="relative">
+        <h2 className="text-lg font-semibold mb-0">2. React Code</h2>
+        <h3 className="text-sm text-muted-foreground">
+          Copy and paste the following code into your project or{" "}
+          <a href="#" onClick={handleDownload} className="underline font-bold">
+            download the file
+          </a>
+          .
+        </h3>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          className="absolute top-2 right-2 text-muted-foreground"
+          onClick={() => handleCopy(formattedCode)}
+        >
+          {copied ? (
+            <Check className="h-4 w-4" />
+          ) : (
+            <Copy className="h-4 w-4" />
+          )}
+        </Button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto relative">
+        <Pre language="typescript" code={formattedCode} className="" />
+      </div>
+
+      <div className="relative">
+        <h2 className="text-lg font-semibold mb-0">3. Usage</h2>
+        <h3 className="text-sm text-muted-foreground">
+          Import the form component and use it in your project.
+        </h3>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="absolute top-2 right-2 text-muted-foreground"
+          onClick={() =>
+            handleCopy(`import ${formTitle} from "./${formTitle}";
+<${formTitle} />`)
+          }
+        >
+          {copied ? (
+            <Check className="h-4 w-4" />
+          ) : (
+            <Copy className="h-4 w-4" />
+          )}
+        </Button>
+        <div className="relative overflow-auto rounded-md min-h-20 mt-4">
+          <Pre
+            language="typescript"
+            code={`import ${formTitle} from "./${formTitle}";
+<${formTitle} />`}
+          />
+        </div>
+      </div>
+    </div>
   );
 }

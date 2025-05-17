@@ -29,13 +29,13 @@ export type ReactCode = {
 };
 
 export interface FormBuilderStore {
-  mode: 'editor' | 'preview';
+  mode: 'editor' | 'preview' | 'export';
   viewport: Viewports;
   showJson: boolean;
   formTitle: string;
   editor: Editor | null;
   enableDragging: boolean;
-  updateMode: (mode: 'editor' | 'preview') => void;
+  updateMode: (mode: 'editor' | 'preview' | 'export') => void;
   updateViewport: (viewport: Viewports) => void;
   toggleJsonPreview: () => void;
   updateFormTitle: (title: string) => void;

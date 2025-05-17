@@ -23,8 +23,8 @@ import {
   PlayIcon,
   XIcon,
   ExternalLink,
+  Loader2,
 } from "lucide-react";
-import { PencilRulerIcon } from "lucide-react";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { Button } from "@/components/ui/button";
 import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
@@ -33,15 +33,13 @@ import {
   DependenciesImports,
   generateFormCode,
 } from "@/components/form-builder/helpers/generate-react-code";
-import { GenerateCodeDialog } from "@/components/form-builder/dialogs/generate-code-dialog";
+import { MainExport } from "@/components/form-builder/dialogs/generate-code-dialog";
 import { MobileNotification } from "@/components/form-builder/ui/mobile-notification";
 import { useIsMobile } from "@/hooks/use-mobile";
 import SocialLinks from "@/components/form-builder/sidebar/socialLinks";
 import { OpenJsonDialog } from "@/components/form-builder/dialogs/open-json-dialog";
 import { useForm } from "react-hook-form";
 import { cn, getGridRows, updateColSpans } from "@/lib/utils";
-import { RenderEditorComponent } from "@/components/form-builder/helpers/render-editor-component";
-import { FormComponentModel } from "@/models/FormComponent";
 import { EditorToolbar } from "@/components/form-builder/form-components/wysiwyg/editor-toolbar";
 
 export default function FormBuilderPage() {
@@ -59,11 +57,14 @@ export default function FormBuilderPage() {
   );
   const components = useFormBuilderStore((state) => state.components);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
-  const [showCodeDialog, setShowCodeDialog] = useState(false);
+
   const [generatedCode, setGeneratedCode] = useState<{
     code: string;
     dependenciesImports: DependenciesImports;
   }>({ code: "", dependenciesImports: {} });
+
+  const [isGeneratingCode, setIsGeneratingCode] = useState(false);
+
   const [draggingDOMElement, setDraggingDOMElement] =
     useState<HTMLElement | null>(null);
   const form = useForm();
@@ -78,24 +79,11 @@ export default function FormBuilderPage() {
     []
   );
 
-  const modeItems = useMemo(
-    () => [
-      { value: "editor", icon: PencilRulerIcon },
-      { value: "preview", icon: EyeIcon },
-    ],
-    []
-  );
-
   const updateComponent = useFormBuilderStore((state) => state.updateComponent);
   const moveComponent = useFormBuilderStore((state) => state.moveComponent);
   const addComponent = useFormBuilderStore((state) => state.addComponent);
   const gridRows = getGridRows(components, viewport);
   const editor = useFormBuilderStore((state) => state.editor);
-  const handleGenerateCode = async () => {
-    const generatedCode = await generateFormCode(components);
-    setGeneratedCode(generatedCode);
-    setShowCodeDialog(true);
-  };
 
   // Create sensors outside of callback
   const pointerSensor = useSensor(PointerSensor, {
@@ -238,7 +226,11 @@ export default function FormBuilderPage() {
 
   return (
     <div>
-      <div className={cn("fixed top-0 w-full flex flex-row gap-2 justify-between bg-white border-b z-30")}>
+      <div
+        className={cn(
+          "fixed top-0 w-full flex flex-row gap-2 justify-between bg-white border-b z-30"
+        )}
+      >
         <div className="flex flex-row gap-2 items-center justify-center md:justify-start p-2 px-4 border-r w-full md:w-[300px]">
           <BlocksIcon className="h-6 w-6" strokeWidth={2} />
           <h2 className="text-lg font-semibold">
@@ -295,14 +287,16 @@ export default function FormBuilderPage() {
                 <CodeIcon className="h-4 w-4" />
               </Button>
             )}
-            <ToggleGroupNav
-              name="viewport"
-              items={viewportItems}
-              defaultValue={viewport}
-              onValueChange={(value) =>
-                updateViewport(value as "sm" | "md" | "lg")
-              }
-            />
+            {mode !== "export" && (
+              <ToggleGroupNav
+                name="viewport"
+                items={viewportItems}
+                defaultValue={viewport}
+                onValueChange={(value) =>
+                  updateViewport(value as "sm" | "md" | "lg")
+                }
+              />
+            )}
           </div>
         </div>
         <div className="hidden md:flex flex-row gap-2 border-l py-2 px-4 w-[300px]">
@@ -312,7 +306,10 @@ export default function FormBuilderPage() {
                 variant="outline"
                 size="sm"
                 className="cursor-pointer flex-1"
-                onClick={() => {updateMode("preview"); selectComponent(null)}}
+                onClick={() => {
+                  updateMode("preview");
+                  selectComponent(null);
+                }}
               >
                 <PlayIcon className="h-4 w-4" />
                 Preview
@@ -321,11 +318,18 @@ export default function FormBuilderPage() {
                 variant="default"
                 size="sm"
                 className="cursor-pointer flex-1"
-                onClick={handleGenerateCode}
+                onClick={() => {
+                  updateMode("export");
+                  selectComponent(null);
+                }}
                 disabled={components.length === 0}
                 id="export-code-button"
               >
-                <ExternalLink className="h-4 w-4" />
+                {isGeneratingCode ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <ExternalLink className="h-4 w-4" />
+                )}
                 Export
               </Button>
             </>
@@ -339,6 +343,17 @@ export default function FormBuilderPage() {
             >
               <XIcon className="h-4 w-4" />
               Exit Preview
+            </Button>
+          )}
+          {mode === "export" && (
+            <Button
+              variant="default"
+              size="sm"
+              className="cursor-pointer w-full"
+              onClick={() => updateMode("editor")}
+            >
+              <XIcon className="h-4 w-4" />
+              Exit Export
             </Button>
           )}
         </div>
@@ -368,8 +383,17 @@ export default function FormBuilderPage() {
               <div className="flex w-full h-screen justify-between">
                 <SidebarLeft />
 
-                <main className={cn("flex-1 transition-all duration-300 overflow-auto relative bg-dotted pt-14 scrollbar-hide", mode === "preview" && "bg-slate-50")}>
-                  <MainCanvas />
+                <main
+                  className={cn(
+                    "flex-1 transition-all duration-300 overflow-auto relative bg-dotted pt-14 scrollbar-hide",
+                    mode === "preview" || mode === "export" && "bg-slate-50"
+                  )}
+                >
+                  {mode === "export" ? (
+                    <MainExport />
+                  ) : (
+                    <MainCanvas />
+                  )}
                 </main>
                 <SidebarRight />
               </div>
@@ -387,11 +411,6 @@ export default function FormBuilderPage() {
               </DragOverlay>
             </DndContext>
           </SidebarProvider>
-          <GenerateCodeDialog
-            open={showCodeDialog}
-            onOpenChange={setShowCodeDialog}
-            generatedCode={generatedCode}
-          />
         </>
       )}
     </div>
