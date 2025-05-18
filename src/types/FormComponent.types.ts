@@ -52,6 +52,7 @@ export type FormComponentProperties = {
 
 export interface FormComponentStyles {
   asCard?: "yes" | "no";
+  cardLayout?: "horizontal" | "vertical";
   showLabel?: "yes" | "no";
   visible?: "yes" | "no";
   labelPosition?: "top" | "left" | "right";

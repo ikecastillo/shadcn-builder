@@ -38,15 +38,15 @@ const styleMap: Partial<Record<keyof FormComponentStyles, Record<Viewports, Reco
   },
   asCard: {
     sm: {
-      yes: "rounded-md border p-4",
+      yes: "rounded-md border p-4 space-x-2",
       no: "border-0 p-0",
     },
     md: {
-      yes: "@3xl:rounded-md @3xl:border @3xl:p-4",
+      yes: "@3xl:rounded-md @3xl:border @3xl:p-4 @3xl:space-x-2",
       no: "@3xl:border-0 @3xl:p-0",
     },  
     lg: {
-      yes: "@5xl:rounded-md @5xl:border @5xl:p-4",
+      yes: "@5xl:rounded-md @5xl:border @5xl:p-4 @5xl:space-x-2",
       no: "@5xl:border-0 @5xl:p-0",
     },
   },

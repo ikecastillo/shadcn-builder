@@ -7,17 +7,29 @@ import { HtmlGroup } from "../sidebar/groups/html-group";
 import { LabelGroup } from "../sidebar/groups/label-group";
 import { InputGroup } from "../sidebar/groups/input-group";
 import { cn, generateTWClassesForAllViewports, escapeHtml } from "@/lib/utils";
-import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form";
+import {
+  ControllerRenderProps,
+  FieldValues,
+  UseFormReturn,
+} from "react-hook-form";
 import { ValidationGroup } from "../sidebar/groups/validation-group";
 import { FormLabel } from "@/components/ui/form";
+import { useFormBuilderStore } from "@/stores/form-builder-store";
 
-export function FormCheckbox(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
+export function FormCheckbox(
+  component: FormComponentModel,
+  form: UseFormReturn<FieldValues, undefined>,
+  field: ControllerRenderProps
+) {
   const asCardClasses = generateTWClassesForAllViewports(component, "asCard");
 
   return (
     <FormLabel
       key={component.id}
-      className={cn(asCardClasses, "w-full flex items-start space-x-2 has-[[data-state=checked]]:border-primary")}
+      className={cn(
+        asCardClasses,
+        "w-full flex items-start has-[[data-state=checked]]:border-primary",
+      )}
       htmlFor={component.getField("attributes.id")}
     >
       <Checkbox
@@ -28,13 +40,11 @@ export function FormCheckbox(component: FormComponentModel, form: UseFormReturn<
         onCheckedChange={field.onChange}
       />
       <div className="grid gap-1.5 leading-none">
-        <FormLabel>
-          {component.getField("label")}
-        </FormLabel>
+        <FormLabel htmlFor={component.getField("attributes.id")}>{component.getField("label")}</FormLabel>
         <p className="text-sm text-muted-foreground">
           {component.getField("label_description")}
         </p>
-      </div>
+      </div>r
     </FormLabel>
   );
 }
@@ -50,7 +60,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
     code: `
     <FormLabel
       key="${component.id}"
-      className="${escapeHtml(cn(asCardClasses, "w-full flex items-start space-x-2 has-[[data-state=checked]]:border-primary"))}"
+      className="${escapeHtml(cn(asCardClasses, "w-full flex items-start has-[[data-state=checked]]:border-primary"))}"
       htmlFor="${escapeHtml(component.getField("attributes.id"))}"
     >
       <Checkbox id="${escapeHtml(component.getField("attributes.id"))}" className="${escapeHtml(component.getField("attributes.class"))}" {...field} checked={field.value} onCheckedChange={field.onChange} />
@@ -67,7 +77,6 @@ export function getReactCode(component: FormComponentModel): ReactCode {
     dependencies: {
       "@/components/ui/checkbox": ["Checkbox"],
       "@/components/ui/form": ["FormLabel"],
-
     },
   };
 }

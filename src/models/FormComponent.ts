@@ -13,6 +13,7 @@ import * as Icons from "lucide-react";
 export const DEFAULT_PROPERTIES: FormComponentProperties = {
   style: {
     asCard: "no",
+    cardLayout: "vertical",
     showLabel: "yes",
     visible: "yes",
     labelPosition: "top",

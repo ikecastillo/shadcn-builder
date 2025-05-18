@@ -1,4 +1,4 @@
-import { ReactCode } from "@/types/form-builder.types";
+import { ReactCode, Viewports } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 import {
   // Form Components

@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/select";
 import { ViewportOverrideIndicator } from "@/components/form-builder/helpers/ViewportOverrideIndicator";
 import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
+import { AlignCenter, Columns2, Columns3, Rows2, Rows3 } from "lucide-react";
+import { AlignLeft } from "lucide-react";
 
-type propertiesWhitelist = "type" | "placeholder" | "description" | "asCard" | "value" | "checked";
+type propertiesWhitelist = "type" | "placeholder" | "description" | "asCard" | "value" | "checked" | "cardLayout";
 
 export type InputGroupProps = {
   whitelist?: propertiesWhitelist[];
@@ -37,6 +39,9 @@ export function InputGroup({
     "properties.style.asCard",
     viewport
   );
+
+  const defaultValueCardLayout = selectedComponent.getField(
+    "properties.style.cardLayout"  );
 
   const handleChange = (
     field: string,
@@ -147,6 +152,27 @@ export function InputGroup({
             <ViewportOverrideIndicator
               component={selectedComponent}
               field="properties.style.asCard"
+            />
+          </div>
+        </div>
+      )}
+      {whitelist.includes("cardLayout") && (
+        <div className="grid grid-cols-2 gap-2 items-center justify-between">
+          <Label htmlFor="cardLayout" className="text-xs text-gray-400">
+            Card Layout
+          </Label>
+          <div className="flex flex-row items-center gap-2">
+            <ToggleGroupNav
+              name="cardLayout"
+              items={[
+                { value: "horizontal", icon: Columns3 },
+                { value: "vertical", icon: Rows3 },
+              ]}
+              defaultValue={defaultValueCardLayout}
+              onValueChange={(value) =>
+                handleChange("properties.style.cardLayout", value, true)
+              }
+              className="w-full"
             />
           </div>
         </div>

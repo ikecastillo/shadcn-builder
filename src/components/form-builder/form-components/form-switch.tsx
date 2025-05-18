@@ -18,10 +18,10 @@ export function FormSwitch(component: FormComponentModel, form: UseFormReturn<Fi
   return (
     <FormLabel
       key={component.id}
-      className={cn(asCardClasses, "flex justify-between items-center space-x-2 w-full has-[[data-state=checked]]:border-primary")}
+      className={cn(asCardClasses, "flex justify-between items-center w-full has-[[data-state=checked]]:border-primary")}
       htmlFor={component.getField("attributes.id")}
     >
-      <div className="grid gap-1.5 leading-none">
+      <div className="grid gap-1 leading-none">
         <FormLabel>
           {component.getField("label")}
         </FormLabel>
@@ -45,7 +45,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
     code: `
     <FormLabel
       key="${component.id}"
-      className="${escapeHtml(cn(asCardClasses, "w-full flex justify-between items-center space-x-2 has-[[data-state=checked]]:border-primary"))}"
+      className="${escapeHtml(cn(asCardClasses, "w-full flex justify-between items-center has-[[data-state=checked]]:border-primary"))}"
       htmlFor="${escapeHtml(component.getField("attributes.id"))}"
     >
       <div className="grid gap-1.5 leading-none">

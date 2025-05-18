@@ -26,7 +26,7 @@ const JsonPreview = memo(
     );
 
     return (
-      <div className={`h-full overflow-scroll w-full`}>
+      <div className={`absolute top-0 right-0 h-full w-full`}>
         <Pre language="json" code={jsonString} />
       </div>
     );
