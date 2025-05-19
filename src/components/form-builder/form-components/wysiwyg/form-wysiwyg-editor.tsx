@@ -46,7 +46,7 @@ export const FormWysiwygEditor: React.FC<FormWysiwygEditorProps> = memo(
         StarterKit.configure({
           paragraph: {
             HTMLAttributes: {
-              class: "leading-7 not-first:mt-6",
+              class: "not-first:mt-6",
             },
           },
           codeBlock: {

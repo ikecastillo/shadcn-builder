@@ -224,7 +224,7 @@
     ],
     "formTitle": "Notifications"
   },
-  "upgrade_plan":   {
+  "upgrade_plan": {
     "components": [
       {
         "id": "text-0",
@@ -237,6 +237,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "yes",
             "visible": "yes",
             "labelPosition": "top",
@@ -261,6 +262,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "yes",
             "visible": "yes",
             "labelPosition": "top",
@@ -299,6 +301,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "yes",
             "visible": "yes",
             "labelPosition": "top",
@@ -337,6 +340,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "yes",
             "visible": "yes",
             "labelPosition": "top",
@@ -376,6 +380,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "no",
             "visible": "yes",
             "labelPosition": "top",
@@ -416,6 +421,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "no",
             "visible": "yes",
             "labelPosition": "top",
@@ -447,6 +453,88 @@
         }
       },
       {
+        "id": "text-2",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"not-first:mt-6\"><span class=\"text-sm font-medium leading-none\">Plan</span><br><span class=\"text-sm text-muted-foreground\" style=\"text-align: left\">Select the plan that best fits your needs.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "cardLayout": "vertical",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "text-2"
+        },
+        "overrides": {
+          "md": {
+            "properties": {
+              "style": {
+                "colSpan": "12"
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "radio-0",
+        "label": "Radio Group",
+        "label_info": "Group of radio buttons",
+        "type": "radio",
+        "options": [
+          {
+            "value": "starter",
+            "label": "Starter Plan",
+            "labelDescription": "Perfect for small businesses."
+          },
+          {
+            "value": "pro",
+            "label": "Pro Plan",
+            "labelDescription": "Advanced features with more storage."
+          }
+        ],
+        "category": "form",
+        "icon": "CircleDotIcon",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "cardLayout": "horizontal",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "radio-0"
+        },
+        "overrides": {
+          "md": {
+            "properties": {
+              "style": {
+                "colSpan": "12",
+                "asCard": "yes"
+              }
+            }
+          }
+        }
+      },
+      {
         "id": "textarea-0",
         "label": "Notes",
         "label_info": "Multi-line text input",
@@ -456,6 +544,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "yes",
             "visible": "yes",
             "labelPosition": "top",
@@ -482,6 +571,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "no",
             "visible": "yes",
             "labelPosition": "top",
@@ -511,6 +601,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "no",
             "visible": "yes",
             "labelPosition": "top",
@@ -536,6 +627,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "no",
             "visible": "yes",
             "labelPosition": "top",
@@ -562,6 +654,7 @@
         "properties": {
           "style": {
             "asCard": "no",
+            "cardLayout": "vertical",
             "showLabel": "no",
             "visible": "yes",
             "labelPosition": "top",

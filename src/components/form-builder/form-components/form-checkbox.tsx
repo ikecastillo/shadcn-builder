@@ -44,7 +44,7 @@ export function FormCheckbox(
         <p className="text-sm text-muted-foreground">
           {component.getField("label_description")}
         </p>
-      </div>r
+      </div>
     </FormLabel>
   );
 }
