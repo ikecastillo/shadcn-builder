@@ -1,13 +1,13 @@
 import { FormComponentModel } from "@/models/FormComponent";
 import { Editor } from "@tiptap/react";
-import * as Icons from "lucide-react";
+import { icons } from "lucide-react";
 import { HTMLAttributes, HTMLInputTypeAttribute } from 'react';
 
 export type SelectableComponents = {
   id: string;
   label: string;
   type: string;
-  icon: keyof typeof Icons;
+  icon: keyof typeof icons;
 };
 
 export type Viewports = 'sm' | 'md' | 'lg';

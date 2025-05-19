@@ -39,8 +39,7 @@ import {
   getReactCodeText,
   getReactCodeCheckboxGroup,
   } from "@/components/form-builder/form-components";
-import { ZodSchema } from "zod";
-import { ControllerRenderProps, FieldName, UseFormReturn } from "react-hook-form";
+import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
 
 const typographyComponents: FormComponentModel[] = [
@@ -71,7 +70,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Multi-line text input",
     type: "textarea",
     category: "form",
-    icon: "AlignLeftIcon",
+    icon: "AlignLeft",
   }),
   new FormComponentModel({
     id: "number-input",
@@ -79,7 +78,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Input field for numeric values",
     type: "number",
     category: "form",
-    icon: "HashIcon",
+    icon: "Hash",
     attributes: { type: "number" },
   }),
   new FormComponentModel({
@@ -88,7 +87,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Input field for email addresses",
     type: "email",
     category: "form",
-    icon: "MailIcon",
+    icon: "Mail",
     attributes: { type: "email" },
   }),
   new FormComponentModel({
@@ -97,7 +96,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Input field for passwords",
     type: "password",
     category: "form",
-    icon: "LockIcon",
+    icon: "Lock",
     attributes: { type: "password" },
   }),
   new FormComponentModel({
@@ -106,7 +105,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Input field for file uploads",
     type: "file",
     category: "form",
-    icon: "UploadIcon",
+    icon: "Upload",
     attributes: { type: "file" },
   }),
   new FormComponentModel({
@@ -115,7 +114,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Input field for telephone numbers",
     type: "tel",
     category: "form",
-    icon: "PhoneIcon",
+    icon: "Phone",
     attributes: { type: "tel" },
   }),
   new FormComponentModel({
@@ -124,7 +123,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Input field for URLs",
     type: "url",
     category: "form",
-    icon: "LinkIcon",
+    icon: "Link",
     attributes: { type: "url" },
   }),
   new FormComponentModel({
@@ -133,7 +132,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Dropdown select",
     type: "select",
     category: "form",
-    icon: "ListIcon",
+    icon: "List",
     options: [
       { value: "option1", label: "Option 1", labelDescription: "Option 1 Description" },
       { value: "option2", label: "Option 2", labelDescription: "Option 2 Description" },
@@ -146,7 +145,7 @@ const formComponents: FormComponentModel[] = [
     label_description: "Checkbox Description",
     type: "checkbox",
     category: "form",
-    icon: "CheckSquareIcon",
+    icon: "SquareCheck",
     properties: {
       style: {
         showLabel: "no",
@@ -159,7 +158,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Group of checkboxes",
     type: "checkbox-group",
     category: "form",
-    icon: "ListChecksIcon",
+    icon: "ListChecks",
     options: [
       { value: "option1", label: "Option 1", labelDescription: "Option 1 Description", checked: true },
       { value: "option2", label: "Option 2", labelDescription: "Option 2 Description" },
@@ -171,7 +170,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Group of radio buttons",
     type: "radio",
     category: "form",
-    icon: "CircleDotIcon",
+    icon: "CircleDot",
     options: [
       { value: "option1", label: "Option 1", labelDescription: "Option 1 Description" },
       { value: "option2", label: "Option 2", labelDescription: "Option 2 Description" },
@@ -183,7 +182,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Date picker input",
     type: "date",
     category: "form",
-    icon: "CalendarIcon",
+    icon: "Calendar",
     attributes: { placeholder: "Pick a date" },
   }),
   new FormComponentModel({
@@ -193,7 +192,7 @@ const formComponents: FormComponentModel[] = [
     label_description: "Switch Description",
     type: "switch",
     category: "form",
-    icon: "ToggleLeftIcon",
+    icon: "ToggleLeft",
     properties: {
       style: {
         showLabel: "no",

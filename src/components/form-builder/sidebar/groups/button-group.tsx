@@ -8,15 +8,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { IconPickerDialog } from "../../dialogs/icon-picker-dialog";
 
-type propertiesWhitelist = "type" | "content" | "variant";
+type propertiesWhitelist = "type" | "content" | "variant" | "icon";
 
 export type ButtonGroupProps = {
   whitelist?: propertiesWhitelist[];
 };
 
 export function ButtonGroup({
-  whitelist = ["type", "content", "variant"],
+  whitelist = ["type", "content", "variant", "icon"],
 }: ButtonGroupProps) {
   const { updateComponent, selectedComponent } = useFormBuilderStore();
 
@@ -28,6 +29,7 @@ export function ButtonGroup({
   let defaultInputContent = selectedComponent.getField("content");
   let defaultValueVariant =
     selectedComponent.getField("properties.variant") || "default";
+  let defaultValueIcon = selectedComponent.getField("properties.style.icon");
 
   const handleChange = (
     field: string,
@@ -98,6 +100,14 @@ export function ButtonGroup({
               <SelectItem value="link">Link</SelectItem>
             </SelectContent>
             </Select>
+          </div>
+        </div>
+      )}
+      {whitelist.includes("icon") && (
+        <div className="grid grid-cols-2 gap-2 items-center">
+          <Label className="text-xs text-gray-400">Icon</Label>
+          <div className="flex flex-row items-center gap-2">
+            <IconPickerDialog onSelect={(iconName) => handleChange("properties.style.icon", iconName, true)} selectedIcon={defaultValueIcon} />
           </div>
         </div>
       )}
