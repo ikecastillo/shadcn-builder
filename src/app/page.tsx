@@ -5,7 +5,6 @@ import {
   DndContext,
   DragOverlay,
   DragStartEvent,
-  KeyboardSensor,
   PointerSensor,
   useSensor,
 } from "@dnd-kit/core";
@@ -31,7 +30,6 @@ import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
 import { useCallback, useMemo, useState } from "react";
 import {
   DependenciesImports,
-  generateFormCode,
 } from "@/components/form-builder/helpers/generate-react-code";
 import { MainExport } from "@/components/form-builder/dialogs/generate-code-dialog";
 import { MobileNotification } from "@/components/form-builder/ui/mobile-notification";

@@ -1,4 +1,4 @@
-import * as Icons from "lucide-react";
+import { icons } from "lucide-react";
 import { Viewports } from "./form-builder.types";
 import { HTMLAttributes, HTMLInputTypeAttribute } from "react";
 
@@ -28,7 +28,7 @@ export interface FormComponentModelInput {
   label_description?: string;
   type: FormComponentTypes;
   category: "form" | "content";
-  icon: keyof typeof Icons;
+  icon: keyof typeof icons;
   properties?: FormComponentProperties;
   content?: string;
   description?: string;
@@ -86,6 +86,7 @@ export interface FormComponentStyles {
     | "11"
     | "12";
   flexAlign?: "start" | "center" | "end";
+  icon?: keyof typeof icons | "";
 }
 
 export type FormComponentAttributes = Partial<HTMLAttributes<HTMLElement>> & {
