@@ -12,6 +12,7 @@ import {
 } from "../helpers/generate-react-code";
 import * as prettierPluginEstree from "prettier/plugins/estree";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
+import type { Plugin } from "prettier";
 
 const getShadcnInstallInstructions = (
   dependencies: DependenciesImports
@@ -50,7 +51,7 @@ export function MainExport() {
     prettier
       .format(generatedCode.code, {
         parser: "typescript",
-        plugins: [parserTypescript, prettierPluginEstree],
+        plugins: [parserTypescript, prettierPluginEstree as Plugin],
         semi: true,
         singleQuote: false,
       })

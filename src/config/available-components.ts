@@ -39,8 +39,7 @@ import {
   getReactCodeText,
   getReactCodeCheckboxGroup,
   } from "@/components/form-builder/form-components";
-import { ZodSchema } from "zod";
-import { ControllerRenderProps, FieldName, UseFormReturn } from "react-hook-form";
+import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
 
 const typographyComponents: FormComponentModel[] = [
@@ -146,7 +145,7 @@ const formComponents: FormComponentModel[] = [
     label_description: "Checkbox Description",
     type: "checkbox",
     category: "form",
-    icon: "CheckSquare",
+    icon: "SquareCheck",
     properties: {
       style: {
         showLabel: "no",
@@ -183,7 +182,7 @@ const formComponents: FormComponentModel[] = [
     label_info: "Date picker input",
     type: "date",
     category: "form",
-    icon: "CalendarIcon",
+    icon: "Calendar",
     attributes: { placeholder: "Pick a date" },
   }),
   new FormComponentModel({
@@ -193,7 +192,7 @@ const formComponents: FormComponentModel[] = [
     label_description: "Switch Description",
     type: "switch",
     category: "form",
-    icon: "ToggleLeftIcon",
+    icon: "ToggleLeft",
     properties: {
       style: {
         showLabel: "no",

@@ -8,7 +8,7 @@ import {
   FormComponentValidationTypes,
   FormComponentTypes,
 } from "@/types/FormComponent.types";
-import * as Icons from "lucide-react";
+import { icons } from "lucide-react";
 
 export const DEFAULT_PROPERTIES: FormComponentProperties = {
   style: {
@@ -38,7 +38,7 @@ export class FormComponentModel {
   options?: FormComponentModelInput["options"];
   required?: boolean;
   category: "form" | "content";
-  icon: keyof typeof Icons;
+  icon: keyof typeof icons;
   properties?: FormComponentProperties;
   attributes?: FormComponentAttributes;
   overrides?: Partial<Record<Viewports, any>>;
