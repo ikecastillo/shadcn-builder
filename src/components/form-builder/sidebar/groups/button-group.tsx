@@ -9,6 +9,9 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { IconPickerDialog } from "../../dialogs/icon-picker-dialog";
+import { Slider } from "@/components/ui/slider";
+import { cn } from "@/lib/utils";
+import { CornerDownRightIcon } from "lucide-react";
 
 type propertiesWhitelist = "type" | "content" | "variant" | "icon";
 
@@ -30,7 +33,9 @@ export function ButtonGroup({
   let defaultValueVariant =
     selectedComponent.getField("properties.variant") || "default";
   let defaultValueIcon = selectedComponent.getField("properties.style.icon");
-
+  let defaultValueIconStrokeWidth = selectedComponent.getField(
+    "properties.style.iconStrokeWidth"
+  );
   const handleChange = (
     field: string,
     value: any,
@@ -42,6 +47,9 @@ export function ButtonGroup({
   const handleChangeVariant = (field: string, value: any) => {
     updateComponent(selectedComponent.id, field, value);
   };
+
+  const skipInterval = 2; // Set to 1 to allow no text skipping
+  const ticks = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3];
 
   return (
     <>
@@ -82,34 +90,82 @@ export function ButtonGroup({
         <div className="grid grid-cols-2 gap-2 items-center">
           <Label className="text-xs text-gray-400 flex-1 inline-block">
             Variant
-        </Label>
-        <div className="flex flex-row items-center gap-2">
-          <Select
-            value={defaultValueVariant}
-            onValueChange={(value) =>
-              handleChangeVariant("properties.variant", value)
-            }
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select variant" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="default">Default</SelectItem>
-              <SelectItem value="outline">Outline</SelectItem>
-              <SelectItem value="ghost">Ghost</SelectItem>
-              <SelectItem value="link">Link</SelectItem>
-            </SelectContent>
+          </Label>
+          <div className="flex flex-row items-center gap-2">
+            <Select
+              value={defaultValueVariant}
+              onValueChange={(value) =>
+                handleChangeVariant("properties.variant", value)
+              }
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select variant" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="default">Default</SelectItem>
+                <SelectItem value="outline">Outline</SelectItem>
+                <SelectItem value="ghost">Ghost</SelectItem>
+                <SelectItem value="link">Link</SelectItem>
+              </SelectContent>
             </Select>
           </div>
         </div>
       )}
       {whitelist.includes("icon") && (
-        <div className="grid grid-cols-2 gap-2 items-center">
-          <Label className="text-xs text-gray-400">Icon</Label>
-          <div className="flex flex-row items-center gap-2">
-            <IconPickerDialog onSelect={(iconName) => handleChange("properties.style.icon", iconName, true)} selectedIcon={defaultValueIcon} />
+        <>
+          <div className="grid grid-cols-2 gap-2 items-center">
+            <Label className="text-xs text-gray-400">Icon</Label>
+            <div className="flex flex-row items-center gap-2">
+              <IconPickerDialog
+                onSelect={(iconName) =>
+                  handleChange("properties.style.icon", iconName, true)
+                }
+                selectedIcon={defaultValueIcon}
+              />
+            </div>
           </div>
-        </div>
+          {defaultValueIcon && (
+            <div className="grid grid-cols-2 gap-2 items-start mt-4">
+              <div className="flex flex-row items-center gap-2 pl-2">
+                <CornerDownRightIcon className="size-4 text-gray-400" />
+              <Label className="text-xs text-gray-400">Stroke Width</Label>
+            </div>
+            <div className="flex flex-col items-center pt-1">
+              <Slider
+                value={[defaultValueIconStrokeWidth]}
+                onValueChange={(value) =>
+                  handleChange("properties.style.iconStrokeWidth", value[0], true)
+                }
+                className="[&>:last-child>span]:border-background [&>:last-child>span]:bg-primary **:data-[slot=slider-thumb]:shadow-none [&>:last-child>span]:h-6 [&>:last-child>span]:w-2.5 [&>:last-child>span]:border-[3px] [&>:last-child>span]:ring-offset-0"
+                min={0.5}
+                max={3}
+                step={0.25}
+              />
+              <span
+                className="text-muted-foreground mt-3 flex w-full items-center justify-between gap-1 px-2.5 text-xs font-medium"
+                aria-hidden="true"
+              >
+                {ticks.map((tick, i) => (
+                  <span
+                    key={i}
+                    className="flex w-0 flex-col items-center justify-center gap-2"
+                  >
+                    <span
+                      className={cn(
+                        "bg-muted-foreground/70 h-1 w-px",
+                        i % skipInterval !== 0 && "h-0.5"
+                      )}
+                    />
+                    <span className={cn(i % skipInterval !== 0 && "opacity-0")}>
+                      {tick}
+                    </span>
+                  </span>
+                ))}
+              </span>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </>
   );

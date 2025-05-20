@@ -87,6 +87,8 @@ export interface FormComponentStyles {
     | "12";
   flexAlign?: "start" | "center" | "end";
   icon?: keyof typeof icons | "";
+  iconPosition?: "left" | "right";
+  iconStrokeWidth?: number;
 }
 
 export type FormComponentAttributes = Partial<HTMLAttributes<HTMLElement>> & {

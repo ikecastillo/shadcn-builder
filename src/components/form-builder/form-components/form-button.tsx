@@ -19,7 +19,7 @@ export function FormButton(component: FormComponentModel, form: UseFormReturn<Fi
       type={component.getField("attributes.type")}
       variant={component.getField("properties.variant")}
     >
-      {component.getField("properties.style.icon") && <Icon name={component.getField("properties.style.icon")} className="size-4" />}
+      {component.getField("properties.style.icon") && <Icon name={component.getField("properties.style.icon")} className="size-4" strokeWidth={component.getField("properties.style.iconStrokeWidth")} />}
       {component.getField("content")}
     </Button>
   );
@@ -41,7 +41,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       type="${component.getField("attributes.type")}"
       variant="${component.getField("properties.variant")}"
     >
-      ${component.getField("properties.style.icon") && `<${component.getField("properties.style.icon")} className="size-4" />`}
+      ${component.getField("properties.style.icon") && `<${component.getField("properties.style.icon")} className="size-4" strokeWidth="${component.getField("properties.style.iconStrokeWidth")}" />`}
       ${escapeHtml(component.getField("content"))}
     </Button>
   `,

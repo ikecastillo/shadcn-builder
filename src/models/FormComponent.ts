@@ -21,7 +21,9 @@ export const DEFAULT_PROPERTIES: FormComponentProperties = {
     textAlign: "left",
     colSpan: "12",
     colStart: "auto",
-    icon: ""
+    icon: "",
+    iconPosition: "left",
+    iconStrokeWidth: 1,
   },
   variant: "default",
 };
