@@ -46,8 +46,6 @@ export function getReactCode(component: FormComponentModel): ReactCode {
   );
   const IconPosition = component.getField("properties.style.iconPosition");
   let IconEl = `<${IconName} className="size-4" strokeWidth="${IconStrokeWidth}" />`;
-  let IconElLeft = IconPosition === "left" ? IconEl : null;
-  let IconElRight = IconPosition === "right" ? IconEl : null;
 
   return {
     code: `
@@ -59,9 +57,9 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       type="${component.getField("attributes.type")}"
       variant="${component.getField("properties.variant")}"
     >
-      ${IconElLeft || ""}
+      ${IconName && IconPosition === "left" ? IconEl : ""}
       ${escapeHtml(component.getField("content"))}
-      ${IconElRight || ""}
+      ${IconName && IconPosition === "right" ? IconEl : ""}
     </Button>
   `,
     dependencies: {

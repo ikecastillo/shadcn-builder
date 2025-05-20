@@ -70,7 +70,7 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       placeholder="${escapeHtml(component.getField("attributes.placeholder"))}"
       type="${escapeHtml(component.getField("attributes.type"))}"
       id="${escapeHtml(component.getField("attributes.id"))}"
-      className="${escapeHtml(component.getField("attributes.class"))} ${IconName ? (IconPosition === "left" ? "ps-9" : "pe-9") : ""}"
+      className="${escapeHtml(component.getField("attributes.class"))}"
       {...field}
     />  
     ${
