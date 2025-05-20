@@ -12,6 +12,7 @@ import { IconPickerDialog } from "../../dialogs/icon-picker-dialog";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { CornerDownRightIcon } from "lucide-react";
+import { ToggleGroupNav } from "../../ui/toggle-group-nav";
 
 type propertiesWhitelist = "type" | "content" | "variant" | "icon";
 
@@ -35,6 +36,9 @@ export function ButtonGroup({
   let defaultValueIcon = selectedComponent.getField("properties.style.icon");
   let defaultValueIconStrokeWidth = selectedComponent.getField(
     "properties.style.iconStrokeWidth"
+  );
+  let defaultValueIconPosition = selectedComponent.getField(
+    "properties.style.iconPosition"
   );
   const handleChange = (
     field: string,
@@ -125,43 +129,65 @@ export function ButtonGroup({
             </div>
           </div>
           {defaultValueIcon && (
-            <div className="grid grid-cols-2 gap-2 items-start mt-4">
-              <div className="flex flex-row items-center gap-2 pl-2">
-                <CornerDownRightIcon className="size-4 text-gray-400" />
-              <Label className="text-xs text-gray-400">Stroke Width</Label>
-            </div>
-            <div className="flex flex-col items-center pt-1">
-              <Slider
-                value={[defaultValueIconStrokeWidth]}
-                onValueChange={(value) =>
-                  handleChange("properties.style.iconStrokeWidth", value[0], true)
-                }
-                className="[&>:last-child>span]:border-background [&>:last-child>span]:bg-primary **:data-[slot=slider-thumb]:shadow-none [&>:last-child>span]:h-6 [&>:last-child>span]:w-2.5 [&>:last-child>span]:border-[3px] [&>:last-child>span]:ring-offset-0"
-                min={0.5}
-                max={3}
-                step={0.25}
-              />
-              <span
-                className="text-muted-foreground mt-3 flex w-full items-center justify-between gap-1 px-2.5 text-xs font-medium"
-                aria-hidden="true"
-              >
-                {ticks.map((tick, i) => (
+            <div className="space-y-4 ml-2">
+              <div className="grid grid-cols-2 gap-2 items-start mt-4">
+                <Label className="text-xs text-gray-400">Stroke Width</Label>
+                <div className="flex flex-col items-center pt-1">
+                  <Slider
+                    value={[defaultValueIconStrokeWidth]}
+                    onValueChange={(value) =>
+                      handleChange(
+                        "properties.style.iconStrokeWidth",
+                        value[0],
+                        true
+                      )
+                    }
+                    className="[&>:last-child>span]:border-background [&>:last-child>span]:bg-primary **:data-[slot=slider-thumb]:shadow-none [&>:last-child>span]:h-6 [&>:last-child>span]:w-2 [&>:last-child>span]:border-[3px] [&>:last-child>span]:ring-offset-0"
+                    min={0.5}
+                    max={3}
+                    step={0.25}
+                  />
                   <span
-                    key={i}
-                    className="flex w-0 flex-col items-center justify-center gap-2"
+                    className="text-muted-foreground mt-3 flex w-full items-center justify-between gap-1 px-2.5 text-xs font-medium"
+                    aria-hidden="true"
                   >
-                    <span
-                      className={cn(
-                        "bg-muted-foreground/70 h-1 w-px",
-                        i % skipInterval !== 0 && "h-0.5"
-                      )}
-                    />
-                    <span className={cn(i % skipInterval !== 0 && "opacity-0")}>
-                      {tick}
-                    </span>
+                    {ticks.map((tick, i) => (
+                      <span
+                        key={i}
+                        className="flex w-0 flex-col items-center justify-center gap-2"
+                      >
+                        <span
+                          className={cn(
+                            "bg-muted-foreground/70 h-1 w-px",
+                            i % skipInterval !== 0 && "h-0.5"
+                          )}
+                        />
+                        <span
+                          className={cn(i % skipInterval !== 0 && "opacity-0")}
+                        >
+                          {tick}
+                        </span>
+                      </span>
+                    ))}
                   </span>
-                ))}
-              </span>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2 items-center">
+                <Label className="text-xs text-gray-400">Position</Label>
+                <div className="flex flex-row items-center gap-2">
+                  <ToggleGroupNav
+                    name="iconPosition"
+                    items={[
+                      { value: "left", label: "left" },
+                      { value: "right", label: "right" },
+                    ]}
+                    defaultValue={defaultValueIconPosition}
+                    onValueChange={(value) =>
+                      handleChange("properties.style.iconPosition", value, true)
+                    }
+                    className="w-full"
+                  />
+                </div>
               </div>
             </div>
           )}

@@ -10,6 +10,13 @@ import { Icon } from "../helpers/icon-render";
 import { icons, Rows } from "lucide-react";
 
 export function FormButton(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
+  const IconName = component.getField("properties.style.icon");
+  const IconStrokeWidth = component.getField(
+    "properties.style.iconStrokeWidth"
+  );
+  const IconPosition = component.getField("properties.style.iconPosition");
+  let IconEl = <Icon name={IconName} className="size-4" strokeWidth={IconStrokeWidth} />
+
   return (
     <Button
       key={component.id}
@@ -19,8 +26,10 @@ export function FormButton(component: FormComponentModel, form: UseFormReturn<Fi
       type={component.getField("attributes.type")}
       variant={component.getField("properties.variant")}
     >
-      {component.getField("properties.style.icon") && <Icon name={component.getField("properties.style.icon")} className="size-4" strokeWidth={component.getField("properties.style.iconStrokeWidth")} />}
+
+      {IconName && IconPosition === "left" ? IconEl : null}
       {component.getField("content")}
+      {IconName && IconPosition === "right" ? IconEl : null}
     </Button>
   );
 }
@@ -31,6 +40,15 @@ type ReactCode = {
 };
 
 export function getReactCode(component: FormComponentModel): ReactCode {
+  const IconName = component.getField("properties.style.icon");
+  const IconStrokeWidth = component.getField(
+    "properties.style.iconStrokeWidth"
+  );
+  const IconPosition = component.getField("properties.style.iconPosition");
+  let IconEl = `<${IconName} className="size-4" strokeWidth="${IconStrokeWidth}" />`;
+  let IconElLeft = IconPosition === "left" ? IconEl : null;
+  let IconElRight = IconPosition === "right" ? IconEl : null;
+
   return {
     code: `
     <Button
@@ -41,14 +59,15 @@ export function getReactCode(component: FormComponentModel): ReactCode {
       type="${component.getField("attributes.type")}"
       variant="${component.getField("properties.variant")}"
     >
-      ${component.getField("properties.style.icon") && `<${component.getField("properties.style.icon")} className="size-4" strokeWidth="${component.getField("properties.style.iconStrokeWidth")}" />`}
+      ${IconElLeft || ""}
       ${escapeHtml(component.getField("content"))}
+      ${IconElRight || ""}
     </Button>
   `,
     dependencies: {
       "@/components/ui/button": ["Button"],
-      ...(component.getField("properties.style.icon") && {
-        [`lucide-react`]: [component.getField("properties.style.icon")],
+      ...(IconName && {
+        [`lucide-react`]: [IconName],
       }),
     },
   };
