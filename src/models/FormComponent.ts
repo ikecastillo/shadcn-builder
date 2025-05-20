@@ -23,7 +23,7 @@ export const DEFAULT_PROPERTIES: FormComponentProperties = {
     colStart: "auto",
     icon: "",
     iconPosition: "left",
-    iconStrokeWidth: 1,
+    iconStrokeWidth: 2,
   },
   variant: "default",
 };

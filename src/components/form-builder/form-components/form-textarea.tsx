@@ -52,7 +52,7 @@ export const TextareaDesignProperties: DesignPropertiesViews = {
   grid: <GridGroup />,
   html: <HtmlGroup />,
   label: <LabelGroup whitelist={["label", "labelPosition", "labelAlign", "showLabel"]} />,
-  input: <InputGroup />,
+  input: <InputGroup whitelist={["placeholder", "description", "value"]} />,
   options: null,
   button: null,
   validation: <ValidationGroup />,
