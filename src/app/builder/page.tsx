@@ -40,7 +40,6 @@ import { useForm } from "react-hook-form";
 import { cn, getGridRows, updateColSpans } from "@/lib/utils";
 import { EditorToolbar } from "@/components/form-builder/form-components/wysiwyg/editor-toolbar";
 import { MainStart } from "@/components/form-builder/mainStart";
-import { Router } from "next/router";
 
 export default function FormBuilderPage() {
   const isMobile = useIsMobile();
@@ -240,15 +239,179 @@ export default function FormBuilderPage() {
             </sup>
           </h2>
         </div>
-        <div className="">
-
+        <div className="p-2 flex-1 grid grid-cols-7 2xl:grid-cols-3">
+          {mode === "editor" && (
+            <>
+              <div
+                className={cn(
+                  "hidden 2xl:block col-span-1",
+                  editor && "2xl:hidden"
+                )}
+              >
+                {process.env.NODE_ENV === "development" && <OpenJsonDialog />}
+              </div>
+              <div className="col-span-5 2xl:col-span-1 2xl:col-start-2 flex 2xl:justify-center">
+                {editor ? (
+                  <EditorToolbar editor={editor} isEditable={true} />
+                ) : (
+                  <div className="text-center flex flex-row items-center justify-center gap-1 border rounded-md h-9 px-4">
+                    <div
+                      className="max-w-80 overflow-y-hidden whitespace-nowrap text-sm outline-none scrollbar-hide"
+                      contentEditable
+                      suppressContentEditableWarning
+                      onBlur={(e) => updateFormTitle(e.target.innerText)}
+                    >
+                      {formTitle}
+                    </div>
+                    <span className="text-muted-foreground text-xs">.tsx</span>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+          <div
+            className={cn(
+              "col-span-2 2xl:col-span-1 hidden md:flex justify-end gap-4",
+              editor && "",
+              mode === "preview" && "justify-center col-span-7 2xl:col-span-3"
+            )}
+          >
+            {process.env.NODE_ENV === "development" && mode === "editor" && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleJsonPreview}
+                className={showJson ? "bg-slate-100" : ""}
+              >
+                <CodeIcon className="h-4 w-4" />
+              </Button>
+            )}
+            {mode !== "export" && (
+              <ToggleGroupNav
+                name="viewport"
+                items={viewportItems}
+                defaultValue={viewport}
+                onValueChange={(value) =>
+                  updateViewport(value as "sm" | "md" | "lg")
+                }
+              />
+            )}
+          </div>
         </div>
         <div className="hidden md:flex flex-row gap-2 border-l py-2 px-4 w-[300px]">
-
+          {mode === "editor" && (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                className="cursor-pointer flex-1"
+                onClick={() => {
+                  updateMode("preview");
+                  selectComponent(null);
+                }}
+              >
+                <PlayIcon className="h-4 w-4" />
+                Preview
+              </Button>
+              <Button
+                variant="default"
+                size="sm"
+                className="cursor-pointer flex-1"
+                onClick={() => {
+                  updateMode("export");
+                  selectComponent(null);
+                }}
+                disabled={components.length === 0}
+                id="export-code-button"
+              >
+                {isGeneratingCode ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <ExternalLink className="h-4 w-4" />
+                )}
+                Export
+              </Button>
+            </>
+          )}
+          {mode === "preview" && (
+            <Button
+              variant="default"
+              size="sm"
+              className="cursor-pointer w-full"
+              onClick={() => updateMode("editor")}
+            >
+              <XIcon className="h-4 w-4" />
+              Exit Preview
+            </Button>
+          )}
+          {mode === "export" && (
+            <Button
+              variant="default"
+              size="sm"
+              className="cursor-pointer w-full"
+              onClick={() => updateMode("editor")}
+            >
+              <XIcon className="h-4 w-4" />
+              Exit Export
+            </Button>
+          )}
         </div>
       </div>
 
-      <MainStart />
+      {isMobile ? (
+        <>
+          <MobileNotification />
+          <div className="fixed bottom-0 w-full p-4 border-t">
+            <SocialLinks />
+          </div>
+        </>
+      ) : (
+        <>
+          <SidebarProvider
+            className="relative hidden md:block"
+            style={{ "--sidebar-width": "300px" } as React.CSSProperties}
+            open={mode === "editor"}
+          >
+            <DndContext
+              id="form-builder"
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+              onDragStart={handleDragStart}
+            >
+              <div className="flex w-full h-screen justify-between">
+                <SidebarLeft />
+
+                <main
+                  className={cn(
+                    "flex-1 transition-all duration-300 overflow-auto relative bg-dotted pt-14 scrollbar-hide",
+                    mode === "preview" || mode === "export" && "bg-slate-50"
+                  )}
+                >
+                  {mode === "export" ? (
+                    <MainExport />
+                  ) : (
+                    <MainCanvas />
+                  )}
+                </main>
+                <SidebarRight />
+              </div>
+              <DragOverlay>
+                {draggingDOMElement && (
+                  <div className="bg-white p-2 rounded-md shadow opacity-80">
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: draggingDOMElement.innerHTML,
+                      }}
+                      className="max-h-52 overflow-hidden"
+                    />
+                  </div>
+                )}
+              </DragOverlay>
+            </DndContext>
+          </SidebarProvider>
+        </>
+      )}
     </div>
   );
 }

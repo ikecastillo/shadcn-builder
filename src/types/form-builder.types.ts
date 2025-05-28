@@ -35,7 +35,7 @@ export interface FormBuilderStore {
   formTitle: string;
   editor: Editor | null;
   enableDragging: boolean;
-  updateMode: (mode: 'editor' | 'preview' | 'export') => void;
+  updateMode: (mode: FormBuilderStore['mode']) => void;
   updateViewport: (viewport: Viewports) => void;
   toggleJsonPreview: () => void;
   updateFormTitle: (title: string) => void;

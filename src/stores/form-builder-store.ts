@@ -30,7 +30,7 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
       formTitle: "generatedForm",
       editor: null,
       enableDragging: true,
-      updateMode: (mode: "editor" | "preview" | "export") => set({ mode }),
+      updateMode: (mode: FormBuilderStore['mode']) => set({ mode }),
       updateViewport: (viewport: Viewports) => set({ viewport }),
       toggleJsonPreview: () => set((state) => ({ showJson: !state.showJson })),
       updateFormTitle: (title: string) => set({ formTitle: title }),

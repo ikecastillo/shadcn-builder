@@ -218,11 +218,13 @@
           },
           "variant": "default"
         },
-        "attributes": { "type": "submit", "id": "submit-button-0" },
         "overrides": { "md": { "properties": { "style": { "colSpan": "3" } } } }
       }
     ],
-    "formTitle": "Notifications"
+    "formTitle": "Notifications",
+    "formDescription": "Configure how you receive notifications.",
+    "tags": ["notifications", "email"],
+    "image": "/templates/notifications.png"
   },
   "upgrade_plan": {
     "components": [
@@ -671,6 +673,4753 @@
         }
       }
     ],
-    "formTitle": "Upgrade Plan"
+    "formTitle": "Upgrade Plan",
+    "formDescription": "Upgrade your plan to get access to all features.",
+    "tags": ["upgrade", "plan"],
+    "image": "/templates/upgrade_plan.png"
+  },
+  "contact_form": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Contact Us</span><br><span class=\"text-sm text-muted-foreground\">We'd love to hear from you. Please fill out this form to get in touch.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Subject",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "List",
+        "options": [
+          { "value": "general", "label": "General Inquiry" },
+          { "value": "support", "label": "Technical Support" },
+          { "value": "billing", "label": "Billing Question" },
+          { "value": "other", "label": "Other" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Message",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Your message here..."
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "10"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Send Message",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Contact Form",
+    "formDescription": "Get in touch with our team",
+    "tags": ["contact", "support"],
+    "image": "/templates/contact_form.png"
+  },
+  "survey_form": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Customer Satisfaction Survey</span><br><span class=\"text-sm text-muted-foreground\">Help us improve our services by sharing your feedback.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "radio-0",
+        "label": "How satisfied are you with our service?",
+        "label_info": "Group of radio buttons",
+        "type": "radio",
+        "options": [
+          { "value": "very-satisfied", "label": "Very Satisfied" },
+          { "value": "satisfied", "label": "Satisfied" },
+          { "value": "neutral", "label": "Neutral" },
+          { "value": "dissatisfied", "label": "Dissatisfied" },
+          { "value": "very-dissatisfied", "label": "Very Dissatisfied" }
+        ],
+        "category": "form",
+        "icon": "CircleDot",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "checkbox-group-0",
+        "label": "Which features do you use most often?",
+        "label_info": "Group of checkboxes",
+        "type": "checkbox-group",
+        "options": [
+          { "value": "feature1", "label": "Feature 1" },
+          { "value": "feature2", "label": "Feature 2" },
+          { "value": "feature3", "label": "Feature 3" },
+          { "value": "feature4", "label": "Feature 4" }
+        ],
+        "category": "form",
+        "icon": "ListChecks",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "What could we improve?",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Share your suggestions..."
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Submit Survey",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Customer Survey",
+    "formDescription": "Help us improve our services",
+    "tags": ["survey", "feedback"],
+    "image": "/templates/survey_form.png"
+  },
+  "registration_form": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Create an Account</span><br><span class=\"text-sm text-muted-foreground\">Join our community and get started.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "password-input-0",
+        "label": "Password",
+        "label_info": "Input field for passwords",
+        "type": "password",
+        "category": "form",
+        "icon": "Lock",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "password",
+          "id": "password-input-0",
+          "placeholder": "••••••••"
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "8"
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "I agree to the terms and conditions",
+        "label_info": "Checkbox input",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquare",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Create Account",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Registration",
+    "formDescription": "Create your account",
+    "tags": ["registration", "signup"],
+    "image": "/templates/registration_form.png"
+  },
+  "product_review": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Write a Review</span><br><span class=\"text-sm text-muted-foreground\">Share your experience with this product.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Your Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "radio-0",
+        "label": "Rating",
+        "label_info": "Group of radio buttons",
+        "type": "radio",
+        "options": [
+          { "value": "5", "label": "⭐⭐⭐⭐⭐ Excellent" },
+          { "value": "4", "label": "⭐⭐⭐⭐ Very Good" },
+          { "value": "3", "label": "⭐⭐⭐ Good" },
+          { "value": "2", "label": "⭐⭐ Fair" },
+          { "value": "1", "label": "⭐ Poor" }
+        ],
+        "category": "form",
+        "icon": "Star",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Review",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Share your thoughts about the product..."
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "10"
+        }
+      },
+      {
+        "id": "file-input-0",
+        "label": "Add Photos",
+        "label_info": "Input field for file uploads",
+        "type": "file",
+        "category": "form",
+        "icon": "Upload",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "file",
+          "id": "file-input-0",
+          "accept": "image/*",
+          "multiple": true
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Submit Review",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Product Review",
+    "formDescription": "Share your experience with this product",
+    "tags": ["review", "product", "feedback"],
+    "image": "/templates/product_review.png"
+  },
+  "checkout_form": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Checkout</span><br><span class=\"text-sm text-muted-foreground\">Complete your purchase by filling out the information below.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-1",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Contact Information</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-1" }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "text-2",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Shipping Address</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-2" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-input-1",
+        "label": "Address",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-1",
+          "placeholder": "123 Main St"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-input-2",
+        "label": "City",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-2",
+          "placeholder": "New York"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-input-3",
+        "label": "Postal Code",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-3",
+          "placeholder": "10001"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-3",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Payment Information</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-3" }
+      },
+      {
+        "id": "text-input-4",
+        "label": "Card Number",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-4",
+          "placeholder": "1234 5678 9012 3456"
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "16",
+          "maxLength": "19"
+        }
+      },
+      {
+        "id": "text-input-5",
+        "label": "Expiry Date",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-5",
+          "placeholder": "MM/YY"
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "5",
+          "maxLength": "5"
+        }
+      },
+      {
+        "id": "text-input-6",
+        "label": "CVC",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-6",
+          "placeholder": "123"
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "3",
+          "maxLength": "3"
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "Save this card for future purchases",
+        "label_info": "Checkbox input",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquare",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Complete Purchase",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Checkout",
+    "formDescription": "Complete your purchase",
+    "tags": ["checkout", "payment", "shipping"],
+    "image": "/templates/checkout_form.png"
+  },
+  "product_inquiry": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Product Inquiry</span><br><span class=\"text-sm text-muted-foreground\">Have questions about this product? Send us a message.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "tel-input-0",
+        "label": "Phone Number",
+        "label_info": "Input field for telephone numbers",
+        "type": "tel",
+        "category": "form",
+        "icon": "Phone",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "tel",
+          "id": "tel-input-0",
+          "placeholder": "+1 (555) 000-0000"
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Inquiry Type",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "List",
+        "options": [
+          { "value": "availability", "label": "Product Availability" },
+          { "value": "specifications", "label": "Product Specifications" },
+          { "value": "pricing", "label": "Pricing Information" },
+          { "value": "other", "label": "Other" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Message",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Please provide details about your inquiry..."
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "10"
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "I would like to receive updates about this product",
+        "label_info": "Checkbox input",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquare",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Send Inquiry",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Product Inquiry",
+    "formDescription": "Ask us about this product",
+    "tags": ["inquiry", "product", "support"],
+    "image": "/templates/product_inquiry.png"
+  },
+  "profile_update": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Update Profile</span><br><span class=\"text-sm text-muted-foreground\">Keep your profile information up to date.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "First Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-input-1",
+        "label": "Last Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-1",
+          "placeholder": "Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "tel-input-0",
+        "label": "Phone Number",
+        "label_info": "Input field for telephone numbers",
+        "type": "tel",
+        "category": "form",
+        "icon": "Phone",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "tel",
+          "id": "tel-input-0",
+          "placeholder": "+1 (555) 000-0000"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Bio",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Tell us about yourself..."
+        }
+      },
+      {
+        "id": "file-input-0",
+        "label": "Profile Picture",
+        "label_info": "Input field for file uploads",
+        "type": "file",
+        "category": "form",
+        "icon": "Upload",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "file",
+          "id": "file-input-0",
+          "accept": "image/*"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Update Profile",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Update Profile",
+    "formDescription": "Keep your profile information up to date",
+    "tags": ["profile", "account", "user"],
+    "category": "user-account",
+    "image": "/templates/profile_update.png"
+  },
+  "password_change": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Change Password</span><br><span class=\"text-sm text-muted-foreground\">Update your account password.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "password-input-0",
+        "label": "Current Password",
+        "label_info": "Input field for passwords",
+        "type": "password",
+        "category": "form",
+        "icon": "Lock",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "password",
+          "id": "password-input-0",
+          "placeholder": "••••••••"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "password-input-1",
+        "label": "New Password",
+        "label_info": "Input field for passwords",
+        "type": "password",
+        "category": "form",
+        "icon": "Lock",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "password",
+          "id": "password-input-1",
+          "placeholder": "••••••••"
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "8"
+        }
+      },
+      {
+        "id": "password-input-2",
+        "label": "Confirm New Password",
+        "label_info": "Input field for passwords",
+        "type": "password",
+        "category": "form",
+        "icon": "Lock",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "password",
+          "id": "password-input-2",
+          "placeholder": "••••••••"
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "8"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Update Password",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Change Password",
+    "formDescription": "Update your account password",
+    "tags": ["password", "security", "account"],
+    "category": "user-account",
+    "image": "/templates/password_change.png"
+  },
+  "appointment_booking": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Book an Appointment</span><br><span class=\"text-sm text-muted-foreground\">Schedule your appointment with us.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "tel-input-0",
+        "label": "Phone Number",
+        "label_info": "Input field for telephone numbers",
+        "type": "tel",
+        "category": "form",
+        "icon": "Phone",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "tel",
+          "id": "tel-input-0",
+          "placeholder": "+1 (555) 000-0000"
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Service Type",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "List",
+        "options": [
+          { "value": "consultation", "label": "Initial Consultation" },
+          { "value": "follow-up", "label": "Follow-up Appointment" },
+          { "value": "emergency", "label": "Emergency Visit" },
+          { "value": "other", "label": "Other" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "date-0",
+        "label": "Preferred Date",
+        "label_info": "Date picker input",
+        "type": "date",
+        "category": "form",
+        "icon": "Calendar",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-1",
+        "label": "Preferred Time",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Clock",
+        "options": [
+          { "value": "morning", "label": "Morning (9AM - 12PM)" },
+          { "value": "afternoon", "label": "Afternoon (12PM - 5PM)" },
+          { "value": "evening", "label": "Evening (5PM - 8PM)" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Additional Notes",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Any specific requirements or concerns..."
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Book Appointment",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Book an Appointment",
+    "formDescription": "Schedule your appointment with us",
+    "tags": ["appointment", "booking", "schedule"],
+    "category": "service",
+    "image": "/templates/appointment_booking.png"
+  },
+  "event_registration": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Event Registration</span><br><span class=\"text-sm text-muted-foreground\">Register for our upcoming event.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "tel-input-0",
+        "label": "Phone Number",
+        "label_info": "Input field for telephone numbers",
+        "type": "tel",
+        "category": "form",
+        "icon": "Phone",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "tel",
+          "id": "tel-input-0",
+          "placeholder": "+1 (555) 000-0000"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Ticket Type",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Ticket",
+        "options": [
+          { "value": "standard", "label": "Standard Admission" },
+          { "value": "vip", "label": "VIP Access" },
+          { "value": "early-bird", "label": "Early Bird Special" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "number-input-0",
+        "label": "Number of Tickets",
+        "label_info": "Input field for numbers",
+        "type": "number",
+        "category": "form",
+        "icon": "Hash",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "number",
+          "id": "number-input-0",
+          "min": "1",
+          "max": "10"
+        },
+        "validations": {
+          "required": "yes",
+          "min": "1",
+          "max": "10"
+        }
+      },
+      {
+        "id": "checkbox-group-0",
+        "label": "Special Requirements",
+        "label_info": "Group of checkboxes",
+        "type": "checkbox-group",
+        "options": [
+          { "value": "wheelchair", "label": "Wheelchair Access" },
+          { "value": "dietary", "label": "Special Dietary Requirements" },
+          { "value": "interpreter", "label": "Sign Language Interpreter" }
+        ],
+        "category": "form",
+        "icon": "ListChecks",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Additional Notes",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Any special requests or requirements..."
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Register for Event",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Event Registration",
+    "formDescription": "Register for our upcoming event",
+    "tags": ["event", "registration", "tickets"],
+    "category": "event",
+    "image": "/templates/event_registration.png"
+  },
+  "job_application": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Job Application</span><br><span class=\"text-sm text-muted-foreground\">Apply for the position and join our team.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "tel-input-0",
+        "label": "Phone Number",
+        "label_info": "Input field for telephone numbers",
+        "type": "tel",
+        "category": "form",
+        "icon": "Phone",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "tel",
+          "id": "tel-input-0",
+          "placeholder": "+1 (555) 000-0000"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Position Applied For",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Briefcase",
+        "options": [
+          { "value": "developer", "label": "Software Developer" },
+          { "value": "designer", "label": "UI/UX Designer" },
+          { "value": "manager", "label": "Project Manager" },
+          { "value": "other", "label": "Other" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "file-input-0",
+        "label": "Resume/CV",
+        "label_info": "Input field for file uploads",
+        "type": "file",
+        "category": "form",
+        "icon": "Upload",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "file",
+          "id": "file-input-0",
+          "accept": ".pdf,.doc,.docx"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "file-input-1",
+        "label": "Cover Letter",
+        "label_info": "Input field for file uploads",
+        "type": "file",
+        "category": "form",
+        "icon": "Upload",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "file",
+          "id": "file-input-1",
+          "accept": ".pdf,.doc,.docx"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Why do you want to join us?",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Tell us why you're interested in this position..."
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "100"
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "I confirm that all information provided is accurate",
+        "label_info": "Checkbox input",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquare",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Submit Application",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Job Application",
+    "formDescription": "Apply for the position and join our team",
+    "tags": ["job", "career", "application"],
+    "category": "business",
+    "image": "/templates/job_application.png"
+  },
+  "course_registration": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Course Registration</span><br><span class=\"text-sm text-muted-foreground\">Enroll in our courses and start your learning journey.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Course Category",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "BookOpen",
+        "options": [
+          { "value": "programming", "label": "Programming" },
+          { "value": "design", "label": "Design" },
+          { "value": "business", "label": "Business" },
+          { "value": "language", "label": "Language" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-1",
+        "label": "Course Level",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "GraduationCap",
+        "options": [
+          { "value": "beginner", "label": "Beginner" },
+          { "value": "intermediate", "label": "Intermediate" },
+          { "value": "advanced", "label": "Advanced" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-2",
+        "label": "Preferred Schedule",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Calendar",
+        "options": [
+          { "value": "morning", "label": "Morning (9AM - 12PM)" },
+          { "value": "afternoon", "label": "Afternoon (1PM - 4PM)" },
+          { "value": "evening", "label": "Evening (6PM - 9PM)" },
+          { "value": "weekend", "label": "Weekend" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "radio-0",
+        "label": "Learning Format",
+        "label_info": "Group of radio buttons",
+        "type": "radio",
+        "options": [
+          { "value": "online", "label": "Online Learning" },
+          { "value": "hybrid", "label": "Hybrid (Online + In-person)" },
+          { "value": "in-person", "label": "In-person Classes" }
+        ],
+        "category": "form",
+        "icon": "Monitor",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Learning Goals",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "What do you hope to achieve from this course?"
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "50"
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "I agree to the terms and conditions",
+        "label_info": "Checkbox input",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquare",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Register for Course",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Course Registration",
+    "formDescription": "Enroll in our courses and start your learning journey",
+    "tags": ["course", "education", "learning"],
+    "category": "education",
+    "image": "/templates/course_registration.png"
+  },
+  "patient_registration": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Patient Registration</span><br><span class=\"text-sm text-muted-foreground\">Complete your patient registration form.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "date-0",
+        "label": "Date of Birth",
+        "label_info": "Date picker input",
+        "type": "date",
+        "category": "form",
+        "icon": "Calendar",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Gender",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "User",
+        "options": [
+          { "value": "male", "label": "Male" },
+          { "value": "female", "label": "Female" },
+          { "value": "other", "label": "Other" },
+          { "value": "prefer-not-to-say", "label": "Prefer not to say" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "tel-input-0",
+        "label": "Phone Number",
+        "label_info": "Input field for telephone numbers",
+        "type": "tel",
+        "category": "form",
+        "icon": "Phone",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "tel",
+          "id": "tel-input-0",
+          "placeholder": "+1 (555) 000-0000"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-input-1",
+        "label": "Address",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "MapPin",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-1",
+          "placeholder": "123 Main St, City, State, ZIP"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-1",
+        "label": "Insurance Provider",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Shield",
+        "options": [
+          { "value": "provider1", "label": "Provider 1" },
+          { "value": "provider2", "label": "Provider 2" },
+          { "value": "provider3", "label": "Provider 3" },
+          { "value": "none", "label": "No Insurance" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-input-2",
+        "label": "Insurance Policy Number",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "FileText",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-2",
+          "placeholder": "Enter your policy number"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Medical History",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Please list any relevant medical conditions, allergies, or medications..."
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "I consent to the processing of my personal data",
+        "label_info": "Checkbox input",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquare",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Complete Registration",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Patient Registration",
+    "formDescription": "Complete your patient registration form",
+    "tags": ["patient", "medical", "healthcare"],
+    "category": "healthcare",
+    "image": "/templates/patient_registration.png"
+  },
+  "property_inquiry": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Property Inquiry</span><br><span class=\"text-sm text-muted-foreground\">Interested in this property? Send us your inquiry.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "tel-input-0",
+        "label": "Phone Number",
+        "label_info": "Input field for telephone numbers",
+        "type": "tel",
+        "category": "form",
+        "icon": "Phone",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "tel",
+          "id": "tel-input-0",
+          "placeholder": "+1 (555) 000-0000"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Inquiry Type",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "List",
+        "options": [
+          { "value": "viewing", "label": "Schedule Viewing" },
+          { "value": "price", "label": "Price Information" },
+          { "value": "details", "label": "Property Details" },
+          { "value": "other", "label": "Other" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "date-0",
+        "label": "Preferred Viewing Date",
+        "label_info": "Date picker input",
+        "type": "date",
+        "category": "form",
+        "icon": "Calendar",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        }
+      },
+      {
+        "id": "select-1",
+        "label": "Preferred Viewing Time",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Clock",
+        "options": [
+          { "value": "morning", "label": "Morning (9AM - 12PM)" },
+          { "value": "afternoon", "label": "Afternoon (1PM - 4PM)" },
+          { "value": "evening", "label": "Evening (5PM - 7PM)" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Additional Information",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Please provide any additional information or specific questions about the property..."
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "I agree to be contacted about this property",
+        "label_info": "Checkbox input",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquare",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Send Inquiry",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Property Inquiry",
+    "formDescription": "Interested in this property? Send us your inquiry",
+    "tags": ["property", "real-estate", "inquiry"],
+    "category": "real-estate",
+    "image": "/templates/property_inquiry.png"
+  },
+  "hotel_booking": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Hotel Booking</span><br><span class=\"text-sm text-muted-foreground\">Book your stay with us.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "tel-input-0",
+        "label": "Phone Number",
+        "label_info": "Input field for telephone numbers",
+        "type": "tel",
+        "category": "form",
+        "icon": "Phone",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "tel",
+          "id": "tel-input-0",
+          "placeholder": "+1 (555) 000-0000"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "date-0",
+        "label": "Check-in Date",
+        "label_info": "Date picker input",
+        "type": "date",
+        "category": "form",
+        "icon": "Calendar",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "date-1",
+        "label": "Check-out Date",
+        "label_info": "Date picker input",
+        "type": "date",
+        "category": "form",
+        "icon": "Calendar",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "6",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Room Type",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Bed",
+        "options": [
+          { "value": "standard", "label": "Standard Room" },
+          { "value": "deluxe", "label": "Deluxe Room" },
+          { "value": "suite", "label": "Suite" },
+          { "value": "family", "label": "Family Room" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-1",
+        "label": "Number of Guests",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Users",
+        "options": [
+          { "value": "1", "label": "1 Guest" },
+          { "value": "2", "label": "2 Guests" },
+          { "value": "3", "label": "3 Guests" },
+          { "value": "4", "label": "4 Guests" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "checkbox-group-0",
+        "label": "Special Requests",
+        "label_info": "Group of checkboxes",
+        "type": "checkbox-group",
+        "options": [
+          { "value": "early-checkin", "label": "Early Check-in" },
+          { "value": "late-checkout", "label": "Late Check-out" },
+          { "value": "airport-shuttle", "label": "Airport Shuttle" },
+          { "value": "room-service", "label": "Room Service" }
+        ],
+        "category": "form",
+        "icon": "ListChecks",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Additional Notes",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Any special requests or additional information..."
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "I agree to the terms and conditions",
+        "label_info": "Checkbox input",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquare",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Book Now",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Hotel Booking",
+    "formDescription": "Book your stay with us",
+    "tags": ["hotel", "booking", "travel"],
+    "category": "travel",
+    "image": "/templates/hotel_booking.png"
+  },
+  "newsletter_signup": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Newsletter Signup</span><br><span class=\"text-sm text-muted-foreground\">Stay updated with our latest news and offers.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Full Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "required": "yes",
+          "email": true
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Newsletter Frequency",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Calendar",
+        "options": [
+          { "value": "daily", "label": "Daily Digest" },
+          { "value": "weekly", "label": "Weekly Newsletter" },
+          { "value": "monthly", "label": "Monthly Newsletter" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "checkbox-group-0",
+        "label": "Topics of Interest",
+        "label_info": "Group of checkboxes",
+        "type": "checkbox-group",
+        "options": [
+          { "value": "news", "label": "Latest News" },
+          { "value": "updates", "label": "Product Updates" },
+          { "value": "tips", "label": "Tips & Tricks" },
+          { "value": "events", "label": "Events & Webinars" }
+        ],
+        "category": "form",
+        "icon": "ListChecks",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "checkbox-0",
+        "label": "I agree to receive marketing communications",
+        "label_info": "Checkbox input",
+        "type": "checkbox",
+        "category": "form",
+        "icon": "CheckSquare",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Subscribe",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Newsletter Signup",
+    "formDescription": "Stay updated with our latest news and offers",
+    "tags": ["newsletter", "subscription", "marketing"],
+    "category": "membership",
+    "image": "/templates/newsletter_signup.png"
+  },
+  "bug_report": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Bug Report</span><br><span class=\"text-sm text-muted-foreground\">Help us improve by reporting any issues you encounter.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Title",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "Brief description of the issue"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Issue Type",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Bug",
+        "options": [
+          { "value": "bug", "label": "Bug" },
+          { "value": "crash", "label": "Crash" },
+          { "value": "performance", "label": "Performance Issue" },
+          { "value": "ui", "label": "UI/UX Issue" },
+          { "value": "other", "label": "Other" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-1",
+        "label": "Severity",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "AlertTriangle",
+        "options": [
+          { "value": "critical", "label": "Critical" },
+          { "value": "high", "label": "High" },
+          { "value": "medium", "label": "Medium" },
+          { "value": "low", "label": "Low" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Description",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Please provide a detailed description of the issue..."
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "50"
+        }
+      },
+      {
+        "id": "textarea-1",
+        "label": "Steps to Reproduce",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "ListOrdered",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-1",
+          "placeholder": "1. First step\n2. Second step\n3. And so on..."
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-2",
+        "label": "Environment",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "Monitor",
+        "options": [
+          { "value": "windows", "label": "Windows" },
+          { "value": "macos", "label": "macOS" },
+          { "value": "linux", "label": "Linux" },
+          { "value": "ios", "label": "iOS" },
+          { "value": "android", "label": "Android" },
+          { "value": "other", "label": "Other" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "text-input-1",
+        "label": "Browser/App Version",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "Code",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-1",
+          "placeholder": "e.g., Chrome 120.0.6099.130"
+        }
+      },
+      {
+        "id": "file-0",
+        "label": "Screenshots/Logs",
+        "label_info": "File upload input",
+        "type": "file",
+        "category": "form",
+        "icon": "Upload",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "file",
+          "accept": "image/*,.log,.txt"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email (for follow-up)",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "email": true
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Submit Bug Report",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Bug Report",
+    "formDescription": "Help us improve by reporting any issues you encounter",
+    "tags": ["bug", "report", "technical"],
+    "category": "technical",
+    "image": "/templates/bug_report.png"
+  },
+  "feature_request": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Feature Request</span><br><span class=\"text-sm text-muted-foreground\">Help us improve our product by suggesting new features.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Feature Title",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "Brief description of the feature"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Feature Category",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "List",
+        "options": [
+          { "value": "ui", "label": "User Interface" },
+          { "value": "functionality", "label": "Functionality" },
+          { "value": "performance", "label": "Performance" },
+          { "value": "integration", "label": "Integration" },
+          { "value": "other", "label": "Other" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Feature Description",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Please provide a detailed description of the feature..."
+        },
+        "validations": {
+          "required": "yes",
+          "minLength": "50"
+        }
+      },
+      {
+        "id": "textarea-1",
+        "label": "Use Case",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "ListOrdered",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-1",
+          "placeholder": "How would you use this feature? What problem would it solve?"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "radio-0",
+        "label": "Priority Level",
+        "label_info": "Group of radio buttons",
+        "type": "radio",
+        "options": [
+          { "value": "high", "label": "High - This would significantly improve my workflow" },
+          { "value": "medium", "label": "Medium - This would be nice to have" },
+          { "value": "low", "label": "Low - This would be a minor improvement" }
+        ],
+        "category": "form",
+        "icon": "Star",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "file-0",
+        "label": "Mockups/Examples",
+        "label_info": "File upload input",
+        "type": "file",
+        "category": "form",
+        "icon": "Upload",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "file",
+          "accept": "image/*,.pdf"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email (for follow-up)",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "email": true
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Submit Feature Request",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Feature Request",
+    "formDescription": "Help us improve our product by suggesting new features",
+    "tags": ["feature", "request", "improvement"],
+    "category": "technical",
+    "image": "/templates/feature_request.png"
+  },
+  "feedback_form": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Feedback Form</span><br><span class=\"text-sm text-muted-foreground\">We value your feedback. Help us improve our service.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": { "id": "text-0" }
+      },
+      {
+        "id": "text-input-0",
+        "label": "Name",
+        "label_info": "Single line text input",
+        "type": "input",
+        "category": "form",
+        "icon": "TextCursorInput",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "text",
+          "id": "text-input-0",
+          "placeholder": "John Doe"
+        }
+      },
+      {
+        "id": "email-input-0",
+        "label": "Email",
+        "label_info": "Input field for email addresses",
+        "type": "email",
+        "category": "form",
+        "icon": "Mail",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "email",
+          "id": "email-input-0",
+          "placeholder": "john@example.com"
+        },
+        "validations": {
+          "email": true
+        }
+      },
+      {
+        "id": "select-0",
+        "label": "Feedback Type",
+        "label_info": "Dropdown select",
+        "type": "select",
+        "category": "form",
+        "icon": "List",
+        "options": [
+          { "value": "praise", "label": "Praise" },
+          { "value": "suggestion", "label": "Suggestion" },
+          { "value": "complaint", "label": "Complaint" },
+          { "value": "question", "label": "Question" },
+          { "value": "other", "label": "Other" }
+        ],
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "radio-0",
+        "label": "Overall Experience",
+        "label_info": "Group of radio buttons",
+        "type": "radio",
+        "options": [
+          { "value": "excellent", "label": "Excellent" },
+          { "value": "good", "label": "Good" },
+          { "value": "average", "label": "Average" },
+          { "value": "poor", "label": "Poor" }
+        ],
+        "category": "form",
+        "icon": "Star",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "checkbox-group-0",
+        "label": "What did you like?",
+        "label_info": "Group of checkboxes",
+        "type": "checkbox-group",
+        "options": [
+          { "value": "ease-of-use", "label": "Ease of Use" },
+          { "value": "design", "label": "Design" },
+          { "value": "features", "label": "Features" },
+          { "value": "performance", "label": "Performance" },
+          { "value": "support", "label": "Customer Support" }
+        ],
+        "category": "form",
+        "icon": "ThumbsUp",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        }
+      },
+      {
+        "id": "checkbox-group-1",
+        "label": "What could be improved?",
+        "label_info": "Group of checkboxes",
+        "type": "checkbox-group",
+        "options": [
+          { "value": "ease-of-use", "label": "Ease of Use" },
+          { "value": "design", "label": "Design" },
+          { "value": "features", "label": "Features" },
+          { "value": "performance", "label": "Performance" },
+          { "value": "support", "label": "Customer Support" }
+        ],
+        "category": "form",
+        "icon": "ThumbsDown",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        }
+      },
+      {
+        "id": "textarea-0",
+        "label": "Additional Comments",
+        "label_info": "Multi-line text input",
+        "type": "textarea",
+        "category": "form",
+        "icon": "AlignLeft",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "id": "textarea-0",
+          "placeholder": "Please share any additional thoughts or suggestions..."
+        }
+      },
+      {
+        "id": "radio-1",
+        "label": "Would you recommend us?",
+        "label_info": "Group of radio buttons",
+        "type": "radio",
+        "options": [
+          { "value": "definitely", "label": "Definitely" },
+          { "value": "probably", "label": "Probably" },
+          { "value": "maybe", "label": "Maybe" },
+          { "value": "probably-not", "label": "Probably Not" },
+          { "value": "definitely-not", "label": "Definitely Not" }
+        ],
+        "category": "form",
+        "icon": "Heart",
+        "properties": {
+          "style": {
+            "asCard": "yes",
+            "showLabel": "yes",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "validations": {
+          "required": "yes"
+        }
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Submit Feedback",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {
+          "style": {
+            "asCard": "no",
+            "showLabel": "no",
+            "visible": "yes",
+            "labelPosition": "top",
+            "labelAlign": "start",
+            "textAlign": "left",
+            "colSpan": "12",
+            "colStart": "auto"
+          },
+          "variant": "default"
+        },
+        "attributes": {
+          "type": "submit",
+          "id": "submit-button-0"
+        }
+      }
+    ],
+    "formTitle": "Feedback Form",
+    "formDescription": "We value your feedback. Help us improve our service",
+    "tags": ["feedback", "survey", "improvement"],
+    "category": "feedback",
+    "image": "/templates/feedback_form.png"
   }
 }
