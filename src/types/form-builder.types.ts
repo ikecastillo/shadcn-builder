@@ -33,6 +33,7 @@ export interface FormBuilderStore {
   viewport: Viewports;
   showJson: boolean;
   formTitle: string;
+  loadedTemplateId: string | null;
   editor: Editor | null;
   enableDragging: boolean;
   updateMode: (mode: FormBuilderStore['mode']) => void;
@@ -49,4 +50,5 @@ export interface FormBuilderStore {
   updateComponents: (components: FormComponentModel[]) => void;
   selectComponent: (component: FormComponentModel | null) => void;
   moveComponent: (oldIndex: number, newIndex: number) => void;
+  loadTemplate: (templateName: string, templateKey?: string) => Promise<boolean>;
 } 

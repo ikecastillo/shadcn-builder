@@ -27,10 +27,7 @@ import {
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { Button } from "@/components/ui/button";
 import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
-import { useCallback, useMemo, useState } from "react";
-import {
-  DependenciesImports,
-} from "@/components/form-builder/helpers/generate-react-code";
+import { useCallback, useMemo, useState, useEffect } from "react";
 import { MainExport } from "@/components/form-builder/dialogs/generate-code-dialog";
 import { MobileNotification } from "@/components/form-builder/ui/mobile-notification";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -39,15 +36,18 @@ import { OpenJsonDialog } from "@/components/form-builder/dialogs/open-json-dial
 import { useForm } from "react-hook-form";
 import { cn, getGridRows, updateColSpans } from "@/lib/utils";
 import { EditorToolbar } from "@/components/form-builder/form-components/wysiwyg/editor-toolbar";
-import { MainStart } from "@/components/form-builder/mainStart";
+import { useSearchParams } from "next/navigation";
 
 export default function FormBuilderPage() {
   const isMobile = useIsMobile();
+  const searchParams = useSearchParams();
+  
   // Split the store selectors to only subscribe to what we need
   const viewport = useFormBuilderStore((state) => state.viewport);
   const mode = useFormBuilderStore((state) => state.mode);
   const showJson = useFormBuilderStore((state) => state.showJson);
   const formTitle = useFormBuilderStore((state) => state.formTitle);
+  const loadedTemplateId = useFormBuilderStore((state) => state.loadedTemplateId);
   const updateViewport = useFormBuilderStore((state) => state.updateViewport);
   const updateMode = useFormBuilderStore((state) => state.updateMode);
   const updateFormTitle = useFormBuilderStore((state) => state.updateFormTitle);
@@ -56,17 +56,39 @@ export default function FormBuilderPage() {
   );
   const components = useFormBuilderStore((state) => state.components);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
-
-  const [generatedCode, setGeneratedCode] = useState<{
-    code: string;
-    dependenciesImports: DependenciesImports;
-  }>({ code: "", dependenciesImports: {} });
+  const loadTemplate = useFormBuilderStore((state) => state.loadTemplate);
 
   const [isGeneratingCode, setIsGeneratingCode] = useState(false);
+  const [isLoadingTemplate, setIsLoadingTemplate] = useState(false);
 
   const [draggingDOMElement, setDraggingDOMElement] =
     useState<HTMLElement | null>(null);
   const form = useForm();
+
+  // Check for template parameter in URL and load template
+  useEffect(() => {
+    const template = searchParams.get('template');
+    const templateKey = searchParams.get('key');
+    
+    if (template && loadedTemplateId !== templateKey && !isLoadingTemplate) {
+      setIsLoadingTemplate(true);
+      loadTemplate(template, templateKey || undefined)
+        .then((success) => {
+          if (success) {
+            console.log(`Template loaded successfully: ${template}${templateKey ? ` (${templateKey})` : ''}`);
+          } else {
+            window.location.href = '/';
+          }
+        })
+        .catch((error) => {
+          console.error('Error loading template:', error);
+          window.location.href = '/';
+        })
+        .finally(() => {
+          setIsLoadingTemplate(false);
+        });
+    }
+  }, []);
 
   // Memoize static values
   const viewportItems = useMemo(
@@ -222,6 +244,18 @@ export default function FormBuilderPage() {
     },
     [selectComponent]
   );
+
+  // Show loading state while template is being loaded
+  if (isLoadingTemplate) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-8 w-8 animate-spin" />
+          <p className="text-muted-foreground">Loading template...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

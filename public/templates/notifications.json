@@ -1,0 +1,121 @@
+{
+  "notifications": {
+    "components": [
+      {
+        "id": "text-0",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Notifications</span><br><span class=\"text-sm text-muted-foreground\">Configure how you receive notifications.</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {"style": {"asCard": "no", "showLabel": "yes", "visible": "yes", "labelPosition": "top", "labelAlign": "start", "textAlign": "left", "colSpan": "12", "colStart": "auto"}, "variant": "default"},
+        "attributes": {"id": "text-0"}
+      },
+      {
+        "id": "radio-0",
+        "label": "Notify me about...",
+        "label_info": "Group of radio buttons",
+        "type": "radio",
+        "value": "all",
+        "options": [
+          {"value": "all", "label": "All new messages"},
+          {"value": "direct", "label": " Direct messages and mentions"},
+          {"label": "Nothing", "value": "none", "checked": false}
+        ],
+        "category": "form",
+        "icon": "CircleDotIcon",
+        "properties": {"style": {"asCard": "no", "showLabel": "yes", "visible": "yes", "labelPosition": "top", "labelAlign": "start", "textAlign": "left", "colSpan": "12", "colStart": "auto"}, "variant": "default"},
+        "attributes": {"id": "radio-0"}
+      },
+      {
+        "id": "text-1",
+        "label": "Text block",
+        "label_info": "WYSIWYG Editor",
+        "type": "text",
+        "content": "<p class=\"leading-7 not-first:mt-6\"><span class=\"text-lg font-semibold\">Email Notifications</span></p>",
+        "category": "content",
+        "icon": "Text",
+        "properties": {"style": {"asCard": "no", "showLabel": "yes", "visible": "yes", "labelPosition": "top", "labelAlign": "start", "textAlign": "left", "colSpan": "12", "colStart": "auto"}, "variant": "default"},
+        "attributes": {"id": "text-1"}
+      },
+      {
+        "id": "switch-0",
+        "label": "Communication emails",
+        "label_info": "Toggle switch",
+        "label_description": "Receive emails about your account activity.",
+        "type": "switch",
+        "value": true,
+        "description": "",
+        "category": "form",
+        "icon": "ToggleLeftIcon",
+        "properties": {"style": {"asCard": "yes", "showLabel": "no", "visible": "yes", "labelPosition": "top", "labelAlign": "start", "textAlign": "left", "colSpan": "12", "colStart": "auto"}, "variant": "default"},
+        "attributes": {"id": "switch-0"}
+      },
+      {
+        "id": "switch-1",
+        "label": "Marketing emails",
+        "label_info": "Toggle switch",
+        "label_description": "Receive emails about new products, features, and more.",
+        "type": "switch",
+        "category": "form",
+        "icon": "ToggleLeftIcon",
+        "properties": {"style": {"asCard": "yes", "showLabel": "no", "visible": "yes", "labelPosition": "top", "labelAlign": "start", "textAlign": "left", "colSpan": "12", "colStart": "auto"}, "variant": "default"},
+        "attributes": {"id": "switch-1"}
+      },
+      {
+        "id": "switch-2",
+        "label": "Social Emails",
+        "label_info": "Toggle switch",
+        "label_description": "Receive emails for friend requests, follows, and more.",
+        "type": "switch",
+        "category": "form",
+        "icon": "ToggleLeftIcon",
+        "properties": {"style": {"asCard": "yes", "showLabel": "no", "visible": "yes", "labelPosition": "top", "labelAlign": "start", "textAlign": "left", "colSpan": "12", "colStart": "auto"}, "variant": "default"},
+        "attributes": {"id": "switch-2"}
+      },
+      {
+        "id": "switch-3",
+        "label": "Security Emails",
+        "label_info": "Toggle switch",
+        "label_description": "Receive emails about your account activity and security.",
+        "type": "switch",
+        "value": true,
+        "category": "form",
+        "icon": "ToggleLeftIcon",
+        "properties": {"style": {"asCard": "yes", "showLabel": "no", "visible": "yes", "labelPosition": "top", "labelAlign": "start", "textAlign": "left", "colSpan": "12", "colStart": "auto"}, "variant": "default"},
+        "attributes": {"id": "switch-3"}
+      },
+      {
+        "id": "checkbox-0",
+        "label": "Use different settings for my mobile devices",
+        "label_info": "Checkbox input",
+        "label_description": "You can manage your mobile notifications in the mobile settings page.",
+        "type": "checkbox",
+        "value": false,
+        "category": "form",
+        "icon": "CheckSquareIcon",
+        "properties": {"style": {"asCard": "no", "showLabel": "no", "visible": "yes", "labelPosition": "top", "labelAlign": "start", "textAlign": "left", "colSpan": "12", "colStart": "auto"}, "variant": "default"},
+        "attributes": {"id": "checkbox-0"},
+        "overrides": {"md": {"value": true, "properties": {"style": {"asCard": "no"}}}}
+      },
+      {
+        "id": "submit-button-0",
+        "label": "Submit",
+        "label_info": "Button to submit form",
+        "type": "submit-button",
+        "content": "Update Nottifications",
+        "category": "form",
+        "icon": "SquareMousePointer",
+        "properties": {"style": {"asCard": "no", "showLabel": "no", "visible": "yes", "labelPosition": "top", "labelAlign": "start", "textAlign": "left", "colSpan": "12", "colStart": "auto"}, "variant": "default"},
+        "overrides": {"md": {"properties": {"style": {"colSpan": "3"}}}},
+        "attributes": {"type": "submit", "id": "submit-button-0"}
+      }
+    ],
+    "formTitle": "Notifications",
+    "formDescription": "Configure how you receive notifications.",
+    "tags": ["notifications", "email"],
+    "image": "/templates/images/notifications.png",
+    "category": "user-account"
+  }
+} 
