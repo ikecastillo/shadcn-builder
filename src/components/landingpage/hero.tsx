@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 export default function Hero() {
   return (
-    <main className="relative container mt-4 max-w-screen-xl px-6">
+    <section className="relative container mt-4 max-w-screen-xl px-6">
         <div className="relative sm:overflow-hidden">
           <div className="relative flex flex-col items-start justify-start rounded-xl  max-md:text-center">
             <div
@@ -30,7 +30,7 @@ export default function Hero() {
               }}
             />
             <h1 className="mb-4 flex flex-wrap gap-2 text-3xl leading-tight font-medium md:text-5xl">
-            Build your own forms with ease
+            Build Your Production ready forms with ease
             </h1>
             <p className="text-muted-foreground mb-8 text-left md:max-w-[80%] md:text-xl">
             Shadcn Builder is a powerful, no-code form builder for the
@@ -149,6 +149,6 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </main>
+      </section>
   );
 }

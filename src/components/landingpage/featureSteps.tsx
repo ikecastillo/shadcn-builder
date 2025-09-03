@@ -53,15 +53,15 @@ export default function FeatureSteps() {
   }, [progress]);
 
   return (
-    <div className={'p-8 md:p-12'}>
+    <section className={'p-8 md:p-12'}>
       <div className="mx-auto w-full max-w-7xl">
         <div className="relative mx-auto mb-12 max-w-2xl sm:text-center">
           <div className="relative z-10">
-            <h2 className="font-geist text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">
-              Build Your MVP in Three Steps
+            <h2 className="font-geist text-3xl font-medium tracking-tighter md:text-4xl lg:text-5xl">
+              Build Forms in Three Steps
             </h2>
             <p className="font-geist text-foreground/60 mt-3">
-              MVPBlocks helps you create, customize, and deploy your product
+              Shadcn Builder helps you create, customize, and generate your forms
               faster than ever before.
             </p>
           </div>
@@ -144,6 +144,6 @@ export default function FeatureSteps() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -33,6 +33,7 @@ import { MobileNotification } from "@/components/form-builder/ui/mobile-notifica
 import { useIsMobile } from "@/hooks/use-mobile";
 import SocialLinks from "@/components/form-builder/sidebar/socialLinks";
 import { OpenJsonDialog } from "@/components/form-builder/dialogs/open-json-dialog";
+import { WelcomeDialog } from "@/components/form-builder/dialogs/welcome-dialog";
 import { useForm } from "react-hook-form";
 import { cn, getGridRows, updateColSpans } from "@/lib/utils";
 import { EditorToolbar } from "@/components/form-builder/form-components/wysiwyg/editor-toolbar";
@@ -60,6 +61,7 @@ export default function FormBuilderPage() {
 
   const [isGeneratingCode, setIsGeneratingCode] = useState(false);
   const [isLoadingTemplate, setIsLoadingTemplate] = useState(false);
+  const [showWelcomeDialog, setShowWelcomeDialog] = useState(false);
 
   const [draggingDOMElement, setDraggingDOMElement] =
     useState<HTMLElement | null>(null);
@@ -88,7 +90,25 @@ export default function FormBuilderPage() {
           setIsLoadingTemplate(false);
         });
     }
-  }, []);
+  }, [isLoadingTemplate, loadTemplate, loadedTemplateId, searchParams]);
+
+  // Show welcome dialog when no template is loaded and no components exist
+  useEffect(() => {
+    // Don't show if we're loading a template or if we're not in editor mode
+    if (isLoadingTemplate || mode !== "editor") {
+      return;
+    }
+
+    // Don't show if there's a template parameter in URL (loading in progress)
+    const template = searchParams.get('template');
+    if (template) {
+      return;
+    }
+
+    // Show if no template loaded and no components
+    const shouldShow = !loadedTemplateId && components.length === 0;
+    setShowWelcomeDialog(shouldShow);
+  }, [isLoadingTemplate, mode, loadedTemplateId, components.length, searchParams]);
 
   // Memoize static values
   const viewportItems = useMemo(
@@ -446,6 +466,12 @@ export default function FormBuilderPage() {
           </SidebarProvider>
         </>
       )}
+
+      {/* Welcome Dialog */}
+      <WelcomeDialog 
+        open={showWelcomeDialog} 
+        onOpenChange={setShowWelcomeDialog} 
+      />
     </div>
   );
 }
