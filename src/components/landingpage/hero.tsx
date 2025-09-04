@@ -115,7 +115,7 @@ export default function Hero() {
                   buttonVariants({
                     size: "lg",
                     className:
-                      "from-primary to-primary/80 text-primary-foreground rounded-full bg-gradient-to-b",
+                      "rounded-full",
                   })
                 )}
               >
@@ -139,7 +139,7 @@ export default function Hero() {
             </div>
             <div className="relative z-10 mt-16 w-full">
                 <img
-                  src="/og-image.png"
+                  src="/images/features/hero.png"
                   alt="MVPBlocks component library preview"
                   width={1000}
                   height={600}

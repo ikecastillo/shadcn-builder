@@ -8,30 +8,30 @@ import { Rocket, Code, Paintbrush } from 'lucide-react';
 const features = [
   {
     step: 'Step 1',
-    title: 'Create a Form',
+    title: 'Start adding components to your form',
     content:
-        'Create a new form or select one from the templates.',
+        'Create a new form or select one from the templates and add components to your form.',
     icon: <Rocket className="text-primary h-6 w-6" />,
     image:
-      'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=2070&auto=format&fit=crop',
+      '/images/features/drag_and_drop.png',
   },
   {
     step: 'Step 2',
-    title: 'Add components to your form',
+    title: 'Customize your form',
     content:
-      'Add components to your form and customize them to your needs.',
+      'Customize your form and make it your own.',
     icon: <Paintbrush className="text-primary h-6 w-6" />,
     image:
-      'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?q=80&w=2070&auto=format&fit=crop',
+      '/images/features/customize.png',
   },
   {
     step: 'Step 3',
-    title: 'Generate the code',
+    title: 'Export the code',
     content:
-      'Generate the code for your form and use it in your project.',
+      'Export the code for your form and use it in your project.',
     icon: <Code className="text-primary h-6 w-6" />,
     image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+      '/images/features/code.png',
   },
 ];
 
@@ -85,13 +85,13 @@ export default function FeatureSteps() {
               >
                 <motion.div
                   className={cn(
-                    'flex h-12 w-12 items-center justify-center rounded-full border-2 md:h-14 md:w-14',
+                    'flex h-12 w-12 items-center justify-center rounded-full border-1 md:h-14 md:w-14',
                     index === currentFeature
-                      ? 'border-primary bg-primary/10 text-primary scale-110 '
-                      : 'border-muted-foreground bg-muted',
+                      ? 'border-primary bg-black text-white scale-110 '
+                      : 'border-black',
                   )}
                 >
-                  {feature.icon}
+                  {index + 1}
                 </motion.div>
 
                 <div className="flex-1">
@@ -108,7 +108,7 @@ export default function FeatureSteps() {
 
           <div
             className={cn(
-              'border-primary/20 relative order-1 h-[200px] overflow-hidden rounded-xl border  md:order-2 md:h-[300px] lg:h-[400px]',
+              'border-primary/20 relative order-1 h-[200px] overflow-hidden rounded-xl border w-full  md:order-2 md:h-[300px] lg:h-[400px]',
             )}
           >
             <AnimatePresence mode="wait">
@@ -130,13 +130,6 @@ export default function FeatureSteps() {
                         width={1000}
                         height={500}
                       />
-                      <div className="from-background via-background/50 absolute right-0 bottom-0 left-0 h-2/3 bg-gradient-to-t to-transparent" />
-
-                      <div className="bg-background/80 absolute bottom-4 left-4 rounded-lg p-2 backdrop-blur-sm">
-                        <span className="text-primary text-xs font-medium">
-                          {feature.step}
-                        </span>
-                      </div>
                     </motion.div>
                   ),
               )}

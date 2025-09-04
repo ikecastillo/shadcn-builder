@@ -1,51 +1,21 @@
-import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
-import {
-  CircleArrowDown,
-  Zap,
-  ExternalLink,
-  BlocksIcon,
-  ArrowRight,
-  ArrowUpRight,
-  CirclePlay,
-  Search,
-  Filter,
-  X,
-} from "lucide-react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { HTMLAttributes, useMemo, useEffect, useState } from "react";
-import { FaDownload, FaGithub } from "react-icons/fa6";
-import { FormComponentModel } from "@/models/FormComponent";
-import Link from "next/link";
-import Hero from "../landingpage/hero";
-import FeatureSteps from "../landingpage/featureSteps";
-import { useLoadTemplates, LoadedTemplate } from "@/hooks/useLoadTemplates";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Loader2, AlertCircle } from "lucide-react";
+"use client";
 
-export function MainStart() {
-  const router = useRouter();
-  const updateComponents = useFormBuilderStore(
-    (state) => state.updateComponents
-  );
+import {
+  Loader2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useLoadTemplates } from "@/hooks/useLoadTemplates";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
+import Link from "next/link";
+import Header from "@/components/landingpage/header";
+export default function TemplatesPage() {
+
   const {
     allTemplates,
     isLoading,
@@ -55,21 +25,20 @@ export function MainStart() {
   } = useLoadTemplates();
 
   const [selectedCategory, setSelectedCategory] = useState<string>("business");
-
+  
   return (
-    <main className="flex flex-col items-center mt-24 gap-36">
-      <Hero />
-      <FeatureSteps />
+    <div>
+      <Header />
 
-      <section id="templates" className="relative w-full">
+<section id="templates" className="relative w-full mt-24">
         <div className="max-w-screen-xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-4xl sm:text-5xl font-medium tracking-tight">
               100+ Form Templates
             </h2>
             <p className="text-muted-foreground mt-2 sm:mt-4 text-lg">
-              Showcasing form templates organized by category, built with
-              shadcn/ui builder. Create your own form templates or use one of the templates below.
+              Checkout our 100+ form templates organized by category, built with
+              shadcn/ui builder.
             </p>
           </div>
 
@@ -230,6 +199,6 @@ export function MainStart() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
