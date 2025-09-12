@@ -209,13 +209,6 @@ export default function FAQPage() {
     support: filteredFAQs.filter(faq => faq.category === "support"),
   };
 
-  const categoryIcons = {
-    general: HelpCircle,
-    technical: Code2,
-    features: Zap,
-    pricing: Settings,
-    support: Users,
-  };
 
   const categoryLabels = {
     general: "General",
@@ -242,9 +235,6 @@ export default function FAQPage() {
             </Link>
             <div className="space-y-6">
               <div className="flex items-center gap-3">
-                <div className="p-3 rounded-xl bg-primary/10 text-primary">
-                  <HelpCircle className="h-8 w-8" strokeWidth={2} />
-                </div>
                 <div>
                   <h1 className="text-4xl font-bold tracking-tight">Frequently Asked Questions</h1>
                   <p className="text-xl text-muted-foreground mt-2">
@@ -293,7 +283,7 @@ export default function FAQPage() {
           {/* Results */}
           {searchQuery && (
             <div className="text-sm text-muted-foreground">
-              Found <strong>{filteredFAQs.length}</strong> questions matching "{searchQuery}"
+              Found <strong>{filteredFAQs.length}</strong> questions matching &quot;{searchQuery}&quot;
             </div>
           )}
 
@@ -304,24 +294,19 @@ export default function FAQPage() {
               {Object.entries(faqsByCategory).map(([category, faqs]) => {
                 if (faqs.length === 0) return null;
                 
-                const Icon = categoryIcons[category as keyof typeof categoryIcons];
                 const label = categoryLabels[category as keyof typeof categoryLabels];
                 
                 return (
                   <section key={category} className="space-y-6">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                        <Icon className="h-5 w-5" />
-                      </div>
                       <h2 className="text-2xl font-semibold">{label}</h2>
-                      <Badge variant="outline">{faqs.length}</Badge>
                     </div>
                     
                     <Accordion type="single" collapsible className="w-full">
                       {faqs.map((faq) => (
                         <AccordionItem key={faq.id} value={faq.id}>
                           <AccordionTrigger className="text-left hover:no-underline">
-                            <span className="font-medium">{faq.question}</span>
+                            <span className="text-base font-normal">{faq.question}</span>
                           </AccordionTrigger>
                           <AccordionContent className="text-muted-foreground leading-relaxed">
                             {faq.answer}
@@ -376,10 +361,10 @@ export default function FAQPage() {
           )}
 
           {/* Contact Section */}
-          <div className="bg-muted/50 rounded-lg p-8 text-center space-y-4 mt-12">
+          <div className="bg-dotted border rounded-lg p-8 text-center space-y-4 mt-12">
             <h3 className="text-2xl font-semibold">Still have questions?</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Can't find the answer you're looking for? Feel free to reach out to the community.
+              Can`t find the answer you`re looking for? Feel free to reach out to the community.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>

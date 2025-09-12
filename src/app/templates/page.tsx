@@ -1,21 +1,25 @@
 "use client";
 
-import {
-  Loader2,
-} from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useLoadTemplates } from "@/hooks/useLoadTemplates";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/landingpage/header";
+import Footer from "@/components/landingpage/footer";
 export default function TemplatesPage() {
-
   const {
     allTemplates,
     isLoading,
@@ -25,17 +29,16 @@ export default function TemplatesPage() {
   } = useLoadTemplates();
 
   const [selectedCategory, setSelectedCategory] = useState<string>("business");
-  
+
   return (
     <div>
       <Header />
-
-<section id="templates" className="relative w-full mt-24">
+      <section id="templates" className="relative w-full my-24">
         <div className="max-w-screen-xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl sm:text-5xl font-medium tracking-tight">
-              100+ Form Templates
-            </h2>
+            <h1 className="text-4xl sm:text-5xl font-medium tracking-tight">
+              Over 100 pre-built Form templates
+            </h1>
             <p className="text-muted-foreground mt-2 sm:mt-4 text-lg">
               Checkout our 100+ form templates organized by category, built with
               shadcn/ui builder.
@@ -176,7 +179,10 @@ export default function TemplatesPage() {
                           <div className="rounded-tl-xl rounded-br-xl border pt-6 pl-6 shadow-sm bg-white">
                             <div className="relative w-96 h-44 flex-shrink-0 overflow-hidden">
                               <Image
-                                src={template.image || "/templates/images/default_thumbnail.png"}
+                                src={
+                                  template.image ||
+                                  "/templates/images/default_thumbnail.png"
+                                }
                                 alt={`${template.formTitle} thumbnail`}
                                 fill
                                 className="object-none object-top-left transition-transform duration-200"
@@ -199,6 +205,7 @@ export default function TemplatesPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

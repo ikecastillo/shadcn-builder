@@ -104,7 +104,7 @@ export default function TestimonialsCarousel({
     <section
       className={cn('max-w-full overflow-hidden', className)}
     >
-      <div className=" px-4 py-24 md:px-6 bg-dotted border-t overflow-hidden">
+      <div className="py-24 bg-dotted border-t overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

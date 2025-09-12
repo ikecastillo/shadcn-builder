@@ -74,7 +74,7 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
       return (
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent 
-          className="w-full lg:max-w-7xl lg:max-h-[85vh] overflow-y-auto pb-0 [&>button]:hidden"
+          className="w-full lg:max-w-5xl lg:max-h-[85vh] overflow-y-auto pb-0 [&>button]:hidden"
           onPointerDownOutside={(e) => e.preventDefault()}
           onEscapeKeyDown={(e) => e.preventDefault()}
         >
@@ -100,9 +100,9 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
                   <Plus className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg">Create a new form</h3>
+                  <h3 className="font-semibold text-lg">Start with a blank form</h3>
                   <p className="text-muted-foreground">
-                    Build your form with complete creative control
+                    Build your form from scratch with complete creative control
                   </p>
                 </div>
               </div>

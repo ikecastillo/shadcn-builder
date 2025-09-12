@@ -66,7 +66,7 @@ export default function ComponentsPage() {
       <CardHeader className="">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+            <div className="bg-slate-100 p-2 rounded-md text-slate-500">
               <ComponentIcon iconName={component.icon} />
             </div>
             <div>
@@ -132,7 +132,7 @@ export default function ComponentsPage() {
   const ComponentListItem = ({ component }: { component: FormComponentModel }) => (
     <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
       <div className="flex items-center gap-4">
-        <div className="p-2 rounded-lg bg-primary/10 text-primary">
+        <div className="bg-slate-100 p-2 rounded-md text-slate-500">
           <ComponentIcon iconName={component.icon} />
         </div>
         <div className="flex flex-col gap-1">
@@ -233,7 +233,7 @@ export default function ComponentsPage() {
           {/* Results */}
           {searchQuery && (
             <div className="text-sm text-muted-foreground">
-              Found <strong>{allFilteredComponents.length}</strong> components matching "{searchQuery}"
+              Found <strong>{allFilteredComponents.length}</strong> components matching &quot;{searchQuery}&quot;
             </div>
           )}
 
@@ -333,7 +333,7 @@ export default function ComponentsPage() {
           )}
 
           {/* CTA Section */}
-          <div className="bg-muted/50 rounded-lg p-8 text-center space-y-4 mt-12">
+          <div className="bg-dotted border rounded-lg p-8 text-center space-y-4 mt-12">
             <h3 className="text-2xl font-semibold">Ready to start building?</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Take these components for a spin in our interactive form builder. 

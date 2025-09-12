@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Rocket, Code, Paintbrush } from 'lucide-react';
+import Image from 'next/image';
 
 const features = [
   {
@@ -108,7 +109,7 @@ export default function FeatureSteps() {
 
           <div
             className={cn(
-              'border-primary/20 relative order-1 h-[200px] overflow-hidden rounded-xl border w-full  md:order-2 md:h-[300px] lg:h-[400px]',
+              'border-primary/20 relative order-1 h-[200px] overflow-hidden rounded-xl border w-full bg-dotted  md:order-2 md:h-[300px] lg:h-[400px]',
             )}
           >
             <AnimatePresence mode="wait">
@@ -123,7 +124,7 @@ export default function FeatureSteps() {
                       exit={{ y: -100, opacity: 0, rotateX: 20 }}
                       transition={{ duration: 0.5, ease: 'easeInOut' }}
                     >
-                      <img
+                      <Image
                         src={feature.image}
                         alt={feature.title}
                         className="h-full w-full transform object-cover transition-transform hover:scale-105"

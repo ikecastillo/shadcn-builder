@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
+import Image from "next/image";
 export default function Hero() {
   return (
     <section className="relative container mt-4 max-w-screen-xl px-6">
@@ -71,7 +72,7 @@ export default function Hero() {
                     d="M5 13l4 4L19 7"
                   ></path>
                 </svg>
-                <span>Shadcn/ui</span>
+                <span>100+ Pre-built Form Templates</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg
@@ -137,13 +138,13 @@ export default function Hero() {
                 <FaGithub />
               </a>
             </div>
-            <div className="relative z-10 mt-16 w-full">
-                <img
+            <div className="relative z-10 mt-16 w-full overflow-hidden">
+                <Image
                   src="/images/features/hero.png"
                   alt="MVPBlocks component library preview"
                   width={1000}
                   height={600}
-                  className="animate-in fade-in slide-in-from-bottom-12 z-10 mx-auto -mb-60 w-full rounded-lg border-6 border-neutral-100 object-cover shadow-2xl duration-1000 select-none lg:-mb-40 dark:border-neutral-600"
+                  className="animate-in fade-in slide-in-from-bottom-12 z-10 mx-auto w-full rounded-lg border-6 border-neutral-100 object-cover shadow-2xl duration-1000 select-none lg:-mb-40 dark:border-neutral-600"
                 />
                 <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent"></div>
             </div>

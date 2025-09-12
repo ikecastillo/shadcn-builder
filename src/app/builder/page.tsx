@@ -38,7 +38,9 @@ import { useForm } from "react-hook-form";
 import { cn, getGridRows, updateColSpans } from "@/lib/utils";
 import { EditorToolbar } from "@/components/form-builder/form-components/wysiwyg/editor-toolbar";
 import { useSearchParams } from "next/navigation";
-
+import Logo from "@/components/landingpage/logo";
+import Link from "next/link";
+  
 export default function FormBuilderPage() {
   const isMobile = useIsMobile();
   const searchParams = useSearchParams();
@@ -284,15 +286,9 @@ export default function FormBuilderPage() {
           "fixed top-0 w-full flex flex-row gap-2 justify-between bg-white border-b z-30"
         )}
       >
-        <div className="flex flex-row gap-2 items-center justify-center md:justify-start p-2 px-4 border-r w-full md:w-[300px]">
-          <BlocksIcon className="h-6 w-6" strokeWidth={2} />
-          <h2 className="text-lg font-semibold">
-            shadcn/ui <span className="font-normal">Builder</span>
-            <sup className="text-xs text-muted-foreground font-normal ml-1">
-              Beta
-            </sup>
-          </h2>
-        </div>
+        <Link href="/" className="flex flex-row gap-2 items-center justify-center md:justify-start p-2 px-4 border-r w-full md:w-[300px]">
+          <Logo />
+        </Link>
         <div className="p-2 flex-1 grid grid-cols-7 2xl:grid-cols-3">
           {mode === "editor" && (
             <>

@@ -109,7 +109,7 @@ export function MainExport() {
       <div className="relative">
         <h2 className="text-lg font-semibold mb-0">2. React Code</h2>
         <h3 className="text-sm text-muted-foreground">
-          Copy and paste the following code into your project or{" "}
+          Copy and paste the following code into your project or
           <a href="#" onClick={handleDownload} className="underline font-bold">
             download the file
           </a>

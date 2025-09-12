@@ -1,7 +1,5 @@
 "use client";
 
-import { BlocksIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import Hero from "@/components/landingpage/hero";
 import FeatureSteps from "@/components/landingpage/featureSteps";
 import Templates from "@/components/landingpage/templates";
@@ -13,7 +11,7 @@ export default function FormBuilderPage() {
   return (
     <div>
       <Header />
-      <main className="flex flex-col items-center mt-24 gap-36">
+      <main className="flex flex-col items-center mt-24 gap-10 md:gap-36">
         <Hero />
         <FeatureSteps />
         <Templates />

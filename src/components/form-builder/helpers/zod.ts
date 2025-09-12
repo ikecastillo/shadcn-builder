@@ -531,6 +531,7 @@ const createSchemaForComponent = (
   isRequired: boolean,
   asString?: boolean
 ): z.ZodType | string => {
+  console.log(component.type);
   if (component.type === "number") {
     return asString
       ? createNumberSchemaAsString(validations, isRequired)
@@ -549,7 +550,7 @@ const createSchemaForComponent = (
       : createCheckboxGroupSchema(validations, isRequired);
   }
 
-  if (component.type === "checkbox" || component.type === "switch") {
+  if (component.type === "checkbox") {
     return asString
       ? createCheckboxSchemaAsString(validations, isRequired)
       : createCheckboxSchema(validations, isRequired);

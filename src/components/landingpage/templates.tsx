@@ -21,7 +21,7 @@ export default function Templates() {
       <div className="max-w-screen-xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-4xl sm:text-5xl font-medium tracking-tight">
-            100+ Form Templates
+            Over <span className="underline">100</span> pre-built Form templates
           </h2>
           <p className="text-muted-foreground mt-2 sm:mt-4 text-lg">
             Showcasing form templates organized by category, built with
