@@ -18,6 +18,38 @@ const generateComponentId = (
   return newId;
 };
 
+// Template loading function
+const loadTemplate = async (templateName: string, templateKey?: string): Promise<{ components: FormComponentModel[], formTitle: string } | null> => {
+  try {    
+    const response = await fetch(`/templates/${templateName}.json`);
+    if (!response.ok) {
+      throw new Error(`Failed to load template: ${templateName} - Status: ${response.status}`);
+    }
+    
+    const templateData = await response.json();
+    
+    // If templateKey is provided, look for that specific template within the file
+    const template = templateKey ? templateData[templateKey] : Object.values(templateData)[0];
+    
+    if (!template || !template.components) {
+      throw new Error(`Template not found: ${templateKey || 'default'} in ${templateName}.json`);
+    }
+        
+    // Convert template components to FormComponentModel instances
+    const components = template.components.map((component: any) => {
+      return new FormComponentModel(component);
+    });
+    
+    return {
+      components,
+      formTitle: template.formTitle || "generatedForm"
+    };
+  } catch (error) {
+    console.error('Error loading template:', (error as Error).message);
+    throw error;
+  }
+};
+
 export const useFormBuilderStore = create<FormBuilderStore>()(
   persist(
     (set, get) => ({
@@ -28,9 +60,10 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
       viewport: "sm",
       showJson: false,
       formTitle: "generatedForm",
+      loadedTemplateId: null,
       editor: null,
       enableDragging: true,
-      updateMode: (mode: "editor" | "preview" | "export") => set({ mode }),
+      updateMode: (mode: FormBuilderStore['mode']) => set({ mode }),
       updateViewport: (viewport: Viewports) => set({ viewport }),
       toggleJsonPreview: () => set((state) => ({ showJson: !state.showJson })),
       updateFormTitle: (title: string) => set({ formTitle: title }),
@@ -156,6 +189,20 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
 
           return { components, selectedComponent: null };
         }),
+      loadTemplate: async (templateName: string, templateKey?: string) => {
+        const templateData = await loadTemplate(templateName, templateKey);
+        if (templateData) {
+          set({
+            components: templateData.components,
+            formTitle: templateData.formTitle,
+            selectedComponent: null,
+            mode: "editor",
+            loadedTemplateId: templateKey || null
+          });
+          return true;
+        }
+        return false;
+      },
     }),
     {
       name: "form-builder-storage",

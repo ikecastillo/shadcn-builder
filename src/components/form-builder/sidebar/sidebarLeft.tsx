@@ -136,8 +136,8 @@ export function SidebarLeft() {
             </SidebarGroup>
           ))}
         </SidebarContent>
-        <SidebarFooter className="border-t">
-          <SocialLinks />
+        <SidebarFooter className="border-t flex flex-row gap-4 py-3 px-2 justify-center">
+          <SocialLinks /> 
         </SidebarFooter>
       </div>
     </Sidebar>
