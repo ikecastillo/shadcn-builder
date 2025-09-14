@@ -49,7 +49,7 @@ export function ButtonGroup({
   };
 
   const handleChangeVariant = (field: string, value: any) => {
-    updateComponent(selectedComponent.id, field, value);
+    updateComponent(selectedComponent.id, field, value, true);
   };
 
   const skipInterval = 2; // Set to 1 to allow no text skipping

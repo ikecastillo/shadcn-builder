@@ -111,6 +111,7 @@ export default function Hero() {
             </div>
             <div className="z-10 mt-2 inline-flex items-center justify-start gap-3">
               <Link
+              id="hero-start-builder-cta"
                 href="/builder"
                 className={cn(
                   buttonVariants({
@@ -123,6 +124,7 @@ export default function Hero() {
                 Getting Started <ArrowRight className="size-4" />
               </Link>
               <a
+              id="hero-github-cta"
                 href="https://github.com/iduspara/shadcn-builder"
                 target="_blank"
                 rel="noreferrer noopener"
