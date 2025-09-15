@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/card";
 import {
   BlocksIcon,
-  FileText,
+  File,
   Zap,
   Plus,
   Users,
@@ -30,6 +30,7 @@ import {
   Home,
   Bug,
   X,
+  ChevronRight,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -80,7 +81,6 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
         >
           <DialogHeader>
           <DialogTitle className="text-2xl font-bold flex items-center gap-2">
-            <BlocksIcon className="h-6 w-6" />
             Welcome
           </DialogTitle>
           <DialogDescription className="text-base">
@@ -95,22 +95,21 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
             onClick={handleStartFromScratch}
           >
             <CardContent className="">
-              <div className="flex items-center gap-4 max-w-lg mx-auto">
-                <div className="p-3 rounded-lg  border shadow-sm group-hover:bg-muted transition-colors">
-                  <Plus className="h-6 w-6 text-primary" />
-                </div>
-                <div>
+              <div className="flex items-center gap-4">
+                <File  className="h-10 w-10 text-muted-foreground  " strokeWidth={1} />
+                <div className="flex-1">
                   <h3 className="font-semibold text-lg">Start with a blank form</h3>
                   <p className="text-muted-foreground">
                     Build your form from scratch with complete creative control
                   </p>
                 </div>
+                <ChevronRight className="h-6 w-6 text-muted-foreground flex-shrink-0" />
               </div>
             </CardContent>
           </Card>
 
           {/* Separator */}
-          <div className="flex items-center gap-4 my-6">
+          <div className="flex items-center gap-4 my-10 max-w-xl mx-auto">
             <Separator className="flex-1" />
             <span className="text-sm text-muted-foreground font-medium">
               or start with a template
@@ -151,10 +150,10 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
-                      className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                      className={`w-full text-left px-3 py-2 rounded-md text-base transition-colors ${
                         selectedCategory === category
-                          ? "bg-primary text-primary-foreground"
-                          : "hover:bg-muted"
+                          ? "font-bold underline"
+                          : "hover:bg-muted cursor-pointer"
                       }`}
                     >
                       <div className="flex justify-between items-center">
@@ -162,7 +161,7 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
                           {category.replace("-", " ")}
                         </span>
                         {templateCount > 0 && (
-                          <span className="text-xs opacity-70">
+                          <span className="text-sm opacity-70 font-normal">
                             ({templateCount})
                           </span>
                         )}

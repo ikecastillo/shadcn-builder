@@ -206,11 +206,18 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
     }),
     {
       name: "form-builder-storage",
-      partialize: (state) => ({
-        components: state.components,
-        viewport: state.viewport,
-        formTitle: state.formTitle,
-      }),
+      partialize: (state) => {
+        // Only persist if no template is selected
+        if (state.loadedTemplateId !== null) {
+          return {};
+        }
+        
+        return {
+          components: state.components,
+          viewport: state.viewport,
+          formTitle: state.formTitle,
+        };
+      },
       onRehydrateStorage: () => (state) => {
         if (state?.components) {
           state.components = state.components.map((component) => {

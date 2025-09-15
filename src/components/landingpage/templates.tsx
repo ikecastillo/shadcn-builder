@@ -44,7 +44,7 @@ export default function Templates() {
                 onMouseLeave={() => setHovered(null)}
                 className="group relative overflow-hidden border rounded-2xl  transition-all duration-300 ease-in-out pl-6 pt-6 bg-dotted"
               >
-                <div className="rounded-tl-xl rounded-br-xl border pt-6 pl-6 shadow-sm bg-white">
+                <a href={`/builder?template=${template.category}&key=${template.formId}`} className="block rounded-tl-xl rounded-br-xl border pt-6 pl-6 shadow-sm bg-white">
                   <motion.img
                     src={template.image}
                     alt={`${template.formTitle}`}
@@ -57,7 +57,7 @@ export default function Templates() {
                     }`}
                     whileHover={{ scale: 1.05 }}
                   />
-                </div>
+                </a>
               </motion.div>
             ))}
           </div>
