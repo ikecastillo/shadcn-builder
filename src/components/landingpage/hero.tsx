@@ -124,6 +124,7 @@ export default function Hero() {
                 Getting Started <ArrowRight className="size-4" />
               </a>
               <a
+              id="hero-github-cta"
                 href="https://github.com/iduspara/shadcn-builder"
                 target="_blank"
                 rel="noreferrer noopener"
