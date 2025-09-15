@@ -182,9 +182,9 @@ export default function TestimonialsCarousel({
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col">
-                      <h4 className="text-foreground font-medium whitespace-nowrap">
+                      <span className="text-foreground font-medium whitespace-nowrap">
                         {testimonial.name}
-                      </h4>
+                      </span>
                       <div className="flex items-center gap-2">
                         <p className="text-primary/80 text-sm whitespace-nowrap">
                           {testimonial.username}
