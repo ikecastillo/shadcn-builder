@@ -74,7 +74,7 @@ export default function Header() {
 
       {/* Desktop CTA Button */}
       <div className="hidden md:flex flex-row gap-2 border-l py-2 px-4 w-[300px]">
-        <Link
+        <a
           href="/builder"
           className={cn(
             buttonVariants({
@@ -85,7 +85,7 @@ export default function Header() {
           )}
         >
           Open Builder <ArrowRight className="size-4" />
-        </Link>
+        </a>
       </div>
     </div>
   );

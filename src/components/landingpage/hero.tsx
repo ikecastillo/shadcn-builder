@@ -110,7 +110,7 @@ export default function Hero() {
               </div>
             </div>
             <div className="z-10 mt-2 inline-flex items-center justify-start gap-3">
-              <Link
+              <a
               id="hero-start-builder-cta"
                 href="/builder"
                 className={cn(
@@ -122,7 +122,7 @@ export default function Hero() {
                 )}
               >
                 Getting Started <ArrowRight className="size-4" />
-              </Link>
+              </a>
               <a
               id="hero-github-cta"
                 href="https://github.com/iduspara/shadcn-builder"
