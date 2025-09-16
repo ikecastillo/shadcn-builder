@@ -193,9 +193,6 @@ export default function AboutPage() {
             </Link>
             <div className="space-y-6">
               <div className="flex items-center gap-3">
-                <div className="p-3 rounded-xl bg-primary/10 text-primary">
-                  <BlocksIcon className="h-8 w-8" strokeWidth={2} />
-                </div>
                 <div>
                   <h1 className="text-4xl font-bold tracking-tight">
                     About shadcn/ui Builder
@@ -241,7 +238,7 @@ export default function AboutPage() {
 
               <div className="space-y-4">
                 <p className="text-muted-foreground leading-relaxed">
-                  It was a typical Tuesday morning when the idea for shadcn/ui
+                  It was a typical Saturday morning when the idea for shadcn/ui
                   Builder was born. As a developer, I found myself repeatedly
                   building the same form components, styling them with Tailwind
                   CSS, and ensuring they worked perfectly with React Hook Form
@@ -265,7 +262,7 @@ export default function AboutPage() {
                 </p>
 
                 <p className="text-muted-foreground leading-relaxed">
-                  What started as a late-night side project quickly evolved into
+                  What started as a late-night weekend side project quickly evolved into
                   something much bigger. I envisioned a tool that would make
                   form building as simple as drag-and-drop, while still
                   generating clean, production-ready React code that developers
@@ -275,90 +272,63 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Mission & Vision */}
-          <section className="grid md:grid-cols-2 gap-8">
-            <Card className="border-primary/20">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Target className="h-6 w-6 text-primary" />
-                  <CardTitle>My Mission</CardTitle>
+                    {/* Development Journey */}
+                    <section className="space-y-6">
+            <h2 className="text-3xl font-bold">My Journey So Far</h2>
+
+            <div className="space-y-4">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full ring ring-primary flex items-center justify-center">
+                  <Coffee className="h-5 w-5 text-primary" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  To democratize form building by providing a powerful,
-                  intuitive visual builder that generates clean, maintainable
-                  React code using the best practices and modern web standards.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-blue-200 dark:border-blue-800">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Lightbulb className="h-6 w-6 text-blue-600" />
-                  <CardTitle>My Vision</CardTitle>
+                <div className="space-y-2">
+                  <h3 className="font-semibold">The Idea Phase</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Late nights and countless coffee sessions figuring out the
+                    perfect form builder that developers would actually want to
+                    use.
+                  </p>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  A world where creating beautiful, accessible, and functional
-                  forms takes minutes, not hours, and where both developers and
-                  non-developers can build professional web forms effortlessly.
-                </p>
-              </CardContent>
-            </Card>
-          </section>
+              </div>
 
-          {/* Core Values */}
-          <section className="space-y-6">
-            <h2 className="text-3xl font-bold">What Drives Me</h2>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card className="text-center">
-                <CardHeader>
-                  <div className="mx-auto p-3 rounded-full border border-primary w-fit">
-                    <CheckCircle className="h-6 w-6" />
-                  </div>
-                  <CardTitle className="text-lg">Simplicity First</CardTitle>
-                </CardHeader>
-                <CardContent>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full border border-primary flex items-center justify-center">
+                  <Code2 className="h-5 w-5" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold">First Prototype</h3>
                   <p className="text-sm text-muted-foreground">
-                    Complex problems deserve simple solutions. We believe
-                    powerful tools don&apos;t have to be complicated.
+                    Built the initial drag-and-drop interface and component
+                    system. The magic moment when I saw components come to life!
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
-              <Card className="text-center">
-                <CardHeader>
-                  <div className="mx-auto p-3 rounded-full border border-primary w-fit">
-                    <Code2 className="h-6 w-6" />
-                  </div>
-                  <CardTitle className="text-lg">Code Quality</CardTitle>
-                </CardHeader>
-                <CardContent>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full border border-primary flex items-center justify-center">
+                  <Zap className="h-5 w-5" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold">Beta Launch</h3>
                   <p className="text-sm text-muted-foreground">
-                    Generated code should be clean, readable, and maintainable -
-                    code you&apos;d be proud to write yourself.
+                    Released my first public beta with core form components and
+                    code generation capabilities.
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
-              <Card className="text-center">
-                <CardHeader>
-                  <div className="mx-auto p-3 rounded-full border border-primary w-fit">
-                    <Users className="h-6 w-6" />
-                  </div>
-                  <CardTitle className="text-lg">Community Driven</CardTitle>
-                </CardHeader>
-                <CardContent>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full border border-primary flex items-center justify-center">
+                  <Users className="h-5 w-5" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold">Community Growth</h3>
                   <p className="text-sm text-muted-foreground">
-                    Built by developers, for developers, with feedback and
-                    contributions from the community.
+                    Amazing feedback from early adopters helping me shape the
+                    roadmap and improve the user experience.
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -435,63 +405,92 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Development Journey */}
+
+
+          {/* Mission & Vision */}
+          <section className="grid md:grid-cols-2 gap-8">
+            <Card className="border-primary/20">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Target className="h-6 w-6 text-primary" />
+                  <CardTitle>My Mission</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed">
+                  To democratize form building by providing a powerful,
+                  intuitive visual builder that generates clean, maintainable
+                  React code using the best practices and modern web standards.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-blue-200 dark:border-blue-800">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Lightbulb className="h-6 w-6 " />
+                  <CardTitle>My Vision</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed">
+                  A world where creating beautiful, accessible, and functional
+                  forms takes minutes, not hours, and where both developers and
+                  non-developers can build professional web forms effortlessly.
+                </p>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Core Values */}
           <section className="space-y-6">
-            <h2 className="text-3xl font-bold">My Journey So Far</h2>
+            <h2 className="text-3xl font-bold">What Drives Me</h2>
 
-            <div className="space-y-4">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full ring ring-primary flex items-center justify-center">
-                  <Coffee className="h-5 w-5 text-primary" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-semibold">The Idea Phase</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card className="text-center">
+                <CardHeader>
+                  <div className="mx-auto p-3 rounded-full border border-primary w-fit">
+                    <CheckCircle className="h-6 w-6" />
+                  </div>
+                  <CardTitle className="text-lg">Simplicity First</CardTitle>
+                </CardHeader>
+                <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Late nights and countless coffee sessions figuring out the
-                    perfect form builder that developers would actually want to
-                    use.
+                    Complex problems deserve simple solutions. We believe
+                    powerful tools don&apos;t have to be complicated.
                   </p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
 
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full border border-primary flex items-center justify-center">
-                  <Code2 className="h-5 w-5" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-semibold">First Prototype</h3>
+              <Card className="text-center">
+                <CardHeader>
+                  <div className="mx-auto p-3 rounded-full border border-primary w-fit">
+                    <Code2 className="h-6 w-6" />
+                  </div>
+                  <CardTitle className="text-lg">Code Quality</CardTitle>
+                </CardHeader>
+                <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Built the initial drag-and-drop interface and component
-                    system. The magic moment when I saw components come to life!
+                    Generated code should be clean, readable, and maintainable -
+                    code you&apos;d be proud to write yourself.
                   </p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
 
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full border border-primary flex items-center justify-center">
-                  <Zap className="h-5 w-5" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-semibold">Beta Launch</h3>
+              <Card className="text-center">
+                <CardHeader>
+                  <div className="mx-auto p-3 rounded-full border border-primary w-fit">
+                    <Users className="h-6 w-6" />
+                  </div>
+                  <CardTitle className="text-lg">Community Driven</CardTitle>
+                </CardHeader>
+                <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Released my first public beta with core form components and
-                    code generation capabilities.
+                    Built by developers, for developers, with feedback and
+                    contributions from the community.
                   </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full border border-primary flex items-center justify-center">
-                  <Users className="h-5 w-5" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-semibold">Community Growth</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Amazing feedback from early adopters helping me shape the
-                    roadmap and improve the user experience.
-                  </p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </div>
           </section>
 

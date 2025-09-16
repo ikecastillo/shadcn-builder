@@ -531,7 +531,6 @@ const createSchemaForComponent = (
   isRequired: boolean,
   asString?: boolean
 ): z.ZodType | string => {
-  console.log(component.type);
   if (component.type === "number") {
     return asString
       ? createNumberSchemaAsString(validations, isRequired)

@@ -136,8 +136,8 @@ export default function TemplatesPage() {
                     key={template.formId}
                     className="cursor-pointer hover:shadow-md transition-shadow group p-0 overflow-hidden"
                   >
-                    <Link
-                      href={`/builder?template=${selectedCategory}&key=${template.formId}`}
+                    <a
+                      href={`/template/${selectedCategory}/${template.formId}/preview`}
                       className="block"
                     >
                       <div className="flex flex-col md:flex-row">
@@ -191,7 +191,7 @@ export default function TemplatesPage() {
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   </Card>
                 )) || (
                   <div className="text-center py-12">
