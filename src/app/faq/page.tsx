@@ -373,9 +373,9 @@ export default function FAQPage() {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/builder">
+                <a href="/builder">
                   Try the Builder
-                </Link>
+                </a>
               </Button>
             </div>
           </div>

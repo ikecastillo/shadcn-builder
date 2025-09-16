@@ -119,10 +119,10 @@ export default function ComponentsPage() {
 
           <div className="flex gap-2 pt-2">
             <Button size="sm" variant="outline" className="flex-1" asChild>
-              <Link href="/builder">
+              <a href="/builder">
                 <Eye className="h-4 w-4 mr-1" />
                 Try in Builder
-              </Link>
+              </a>
             </Button>
           </div>
       </CardContent>
@@ -147,9 +147,9 @@ export default function ComponentsPage() {
         </div>
       </div>
       <Button size="sm" variant="outline" asChild>
-        <Link href="/builder">
+        <a href="/builder">
           Try <ArrowRight className="h-4 w-4 ml-1" />
-        </Link>
+        </a>
       </Button>
     </div>
   );
@@ -341,9 +341,9 @@ export default function ComponentsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
-                <Link href="/builder">
+                <a href="/builder">
                   Open Form Builder <ArrowRight className="h-4 w-4 ml-2" />
-                </Link>
+                </a>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="/templates">
