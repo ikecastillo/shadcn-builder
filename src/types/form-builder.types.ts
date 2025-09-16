@@ -28,12 +28,21 @@ export type ReactCode = {
   dependencies: Record<string, string[]>;
 };
 
+export type TemplateData = {
+  components: FormComponentModel[];
+  formTitle: string;
+  formDescription: string;
+  tags: string[];
+  category: string;
+};
+
 export interface FormBuilderStore {
   mode: 'editor' | 'preview' | 'export';
   viewport: Viewports;
   showJson: boolean;
   formTitle: string;
   loadedTemplateId: string | null;
+  loadedTemplate: TemplateData | null;
   editor: Editor | null;
   enableDragging: boolean;
   updateMode: (mode: FormBuilderStore['mode']) => void;

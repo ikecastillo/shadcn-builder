@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { FormBuilderStore, Viewports } from "@/types/form-builder.types";
+import { FormBuilderStore, TemplateData, Viewports } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 import { Editor } from "@tiptap/react";
 
@@ -19,7 +19,7 @@ const generateComponentId = (
 };
 
 // Template loading function
-const loadTemplate = async (templateName: string, templateKey?: string): Promise<{ components: FormComponentModel[], formTitle: string } | null> => {
+const loadTemplate = async (templateName: string, templateKey?: string): Promise<TemplateData | null> => {
   try {    
     const response = await fetch(`/templates/${templateName}.json`);
     if (!response.ok) {
@@ -42,7 +42,10 @@ const loadTemplate = async (templateName: string, templateKey?: string): Promise
     
     return {
       components,
-      formTitle: template.formTitle || "generatedForm"
+      formTitle: template.formTitle || "generatedForm",
+      formDescription: template.formDescription || "generatedForm",
+      tags: template.tags || [],
+      category: template.category || "generatedForm"
     };
   } catch (error) {
     console.error('Error loading template:', (error as Error).message);
@@ -61,6 +64,7 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
       showJson: false,
       formTitle: "generatedForm",
       loadedTemplateId: null,
+      loadedTemplate: null,
       editor: null,
       enableDragging: true,
       updateMode: (mode: FormBuilderStore['mode']) => set({ mode }),
@@ -197,7 +201,8 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
             formTitle: templateData.formTitle,
             selectedComponent: null,
             mode: "editor",
-            loadedTemplateId: templateKey || null
+            loadedTemplateId: templateKey || null,
+            loadedTemplate: templateData
           });
           return true;
         }
