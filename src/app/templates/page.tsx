@@ -137,7 +137,7 @@ export default function TemplatesPage() {
                     className="cursor-pointer hover:shadow-md transition-shadow group p-0 overflow-hidden"
                   >
                     <a
-                      href={`/template/${selectedCategory}/${template.formId}/preview`}
+                      href={`/template/${selectedCategory}/${template.formId}`}
                       className="block"
                     >
                       <div className="flex flex-col md:flex-row">
