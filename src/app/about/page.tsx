@@ -526,9 +526,9 @@ export default function AboutPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
-                <Link href="/builder">
+                <a href="/builder">
                   Try the Builder <ArrowRight className="h-4 w-4 ml-2" />
-                </Link>
+                </a>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="https://github.com/iduspara/shadcn-builder">

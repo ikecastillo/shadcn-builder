@@ -44,12 +44,12 @@ export default function Footer() {
             <h3 className="font-semibold">Product</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link
+                <a
                   href="/builder"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Form Builder
-                </Link>
+                </a>
               </li>
               <li>
                 <Link
