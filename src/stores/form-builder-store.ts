@@ -54,7 +54,6 @@ const loadTemplate = async (templateName: string, templateKey?: string): Promise
 };
 
 export const useFormBuilderStore = create<FormBuilderStore>()(
-  persist(
     (set, get) => ({
       mode: "editor",
       components: [],
@@ -208,28 +207,5 @@ export const useFormBuilderStore = create<FormBuilderStore>()(
         }
         return false;
       },
-    }),
-    {
-      name: "form-builder-storage",
-      partialize: (state) => {
-        // Only persist if no template is selected
-        if (state.loadedTemplateId !== null) {
-          return {};
-        }
-        
-        return {
-          components: state.components,
-          viewport: state.viewport,
-          formTitle: state.formTitle,
-        };
-      },
-      onRehydrateStorage: () => (state) => {
-        if (state?.components) {
-          state.components = state.components.map((component) => {
-            return new FormComponentModel(component);
-          });
-        }
-      },
-    }
-  )
+    })
 );
