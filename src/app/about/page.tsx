@@ -181,8 +181,8 @@ export default function AboutPage() {
   return (
     <div>
       <Header />
-      <main className="container mx-auto px-4 py-24 max-w-4xl">
-        <div className="space-y-12">
+      <main className="container mx-auto px-4 py-24 max-w-7xl">
+        <div className="space-y-8">
           {/* Header */}
           <div className="space-y-4">
             <Link

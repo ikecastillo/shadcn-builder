@@ -280,12 +280,12 @@ export default function FormBuilderPage() {
   }
 
   return (
-    <div>
-      <div
-        className={cn(
-          "fixed top-0 w-full flex flex-row gap-2 justify-between bg-white border-b z-30"
-        )}
-      >
+      <div>
+        <div
+          className={cn(
+            "fixed top-0 w-full flex flex-row gap-2 justify-between bg-white border-b z-30"
+          )}
+        >
         <Link href="/" className="flex flex-row gap-2 items-center justify-center md:justify-start p-2 px-4 border-r w-full md:w-[300px]">
           <Logo />
         </Link>
@@ -463,11 +463,11 @@ export default function FormBuilderPage() {
         </>
       )}
 
-      {/* Welcome Dialog */}
-      <WelcomeDialog 
-        open={showWelcomeDialog} 
-        onOpenChange={setShowWelcomeDialog} 
-      />
-    </div>
+        {/* Welcome Dialog */}
+        <WelcomeDialog 
+          open={showWelcomeDialog} 
+          onOpenChange={setShowWelcomeDialog} 
+        />
+      </div>
   );
 }

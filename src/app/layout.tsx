@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 import { fontVariables } from "@/lib/fonts";
 import { Analytics } from "@vercel/analytics/react";
 import { PostHogProvider } from "@/providers/PostHogProvider";
+import ConvexClientProvider from "@/providers/ConvexClientProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -55,13 +57,17 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={cn(fontVariables, "font-sans")}>
-        <PostHogProvider>
-          {children}
-          <Analytics />
-        </PostHogProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={cn(fontVariables, "font-sans")}>
+          <ConvexClientProvider>
+            <PostHogProvider>
+              {children}
+              <Analytics />
+            </PostHogProvider>
+          </ConvexClientProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

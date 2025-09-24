@@ -165,7 +165,7 @@ export default function ComponentsPage() {
               ← Back to Home
             </Link>
             <div className="space-y-2">
-              <h1 className="text-4xl font-bold tracking-tight">Form Components</h1>
+              <h1 className="text-4xl font-bold tracking-tight">Components</h1>
               <p className="text-xl text-muted-foreground">
                 Discover all available components for building powerful forms with drag-and-drop simplicity
               </p>

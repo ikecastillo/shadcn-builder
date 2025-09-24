@@ -1,5 +1,7 @@
+"use client";
+
 import { cn } from "@/lib/utils";
-import { ArrowRight, BlocksIcon, ExternalLink, Menu } from "lucide-react";
+import { ArrowRight, BlocksIcon, ExternalLink, Menu, User, LogOut } from "lucide-react";
 import { Button, buttonVariants } from "../ui/button";
 import {
   Sheet,
@@ -9,10 +11,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "./logo";
+import { Authenticated, Unauthenticated } from "convex/react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,25 +90,26 @@ export default function Header() {
                     </Link>
                   ))}
                 </div>
+                
               </div>
             </SheetContent>
           </Sheet>
         </div>
 
-        {/* Desktop CTA Button */}
-        <div className="hidden md:flex flex-row gap-2 py-2 px-4 w-[300px]">
-          <a
-            href="/builder"
-            className={cn(
-              buttonVariants({
-                variant: "default",
-                size: "lg",
-                className: "rounded-full w-full",
-              })
-            )}
-          >
-            Open Builder <ArrowRight className="size-4" />
-          </a>
+        {/* Desktop CTA Button & Auth */}
+        <div className="hidden md:flex flex-row gap-2 py-2 px-4 w-[250px] items-center justify-end">
+        <a
+                href="/builder"
+                className={cn(
+                  buttonVariants({
+                    variant: "default",
+                    className: "rounded-full w-full",
+                  })
+                )}
+              >
+                Open Builder <ArrowRight className="size-4" />
+              </a>
+
         </div>
       </div>
     </div>
