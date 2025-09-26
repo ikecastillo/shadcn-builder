@@ -81,10 +81,12 @@ export function FormBuilderHeader() {
 
           {mode !== "export" && !editor && (
             <>
+            {mode !== "editor-preview" && (
               <UndoRedoButtons
                 size="sm"
                 variant="ghost"
               />
+            )}
             <ToggleGroupNav
               name="viewport"
               items={viewportItems}
