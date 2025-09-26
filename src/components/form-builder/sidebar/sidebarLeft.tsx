@@ -14,8 +14,9 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import { ComponentIcon } from "../helpers/component-icon";
-import SocialLinks from "./socialLinks";
 import { DragOverlay, useDraggable } from "@dnd-kit/core";
+import { SidebarUser } from "./sidebarUser";
+import { useAuthState } from "@/hooks/use-auth";
 
 interface ComponentGroup {
   label: string;
@@ -24,7 +25,7 @@ interface ComponentGroup {
 
 export function SidebarLeft() {
   const { addComponent } = useFormBuilderStore();
-
+  const { user } = useAuthState();
   const componentGroups: ComponentGroup[] = [
     {
       label: "Typography",
@@ -120,7 +121,7 @@ export function SidebarLeft() {
   return (
     <Sidebar className="bg-white top-13 bottom-14 z-20">
       <div className="flex flex-col h-[calc(100%-56px)]">
-        <SidebarContent className="gap-0">
+        <SidebarContent className="gap-0 pb-5">
           {componentGroups.map((group) => (
             <SidebarGroup key={group.label}>
               <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
@@ -135,9 +136,11 @@ export function SidebarLeft() {
               </SidebarMenu>
             </SidebarGroup>
           ))}
+          
         </SidebarContent>
-        <SidebarFooter className="border-t flex flex-row gap-4 py-3 px-2 justify-center">
-          <SocialLinks /> 
+        <div className="absolute bottom-30 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+        <SidebarFooter className="border-t flex flex-col gap-4 py-3 px-2 justify-center">
+          <SidebarUser /> 
         </SidebarFooter>
       </div>
     </Sidebar>

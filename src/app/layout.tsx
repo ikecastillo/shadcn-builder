@@ -4,8 +4,10 @@ import { fontVariables } from "@/lib/fonts";
 import { Analytics } from "@vercel/analytics/react";
 import { PostHogProvider } from "@/providers/PostHogProvider";
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
+import { SubscriptionProvider } from "@/providers/SubscriptionProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -62,8 +64,11 @@ export default function RootLayout({
         <body className={cn(fontVariables, "font-sans")}>
           <ConvexClientProvider>
             <PostHogProvider>
-              {children}
-              <Analytics />
+              <SubscriptionProvider>
+                {children}
+                <Analytics />
+                <Toaster position="top-center" />
+              </SubscriptionProvider>
             </PostHogProvider>
           </ConvexClientProvider>
         </body>

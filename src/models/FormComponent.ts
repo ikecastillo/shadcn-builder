@@ -71,6 +71,12 @@ export class FormComponentModel {
     this.validations = input.validations;
   }
 
+  toJSON(): FormComponentModelInput {
+    return {
+      ...this
+    };
+  }
+
   getField(field: string, viewport?: Viewports, escapeHtml?: boolean): any {
     const getNestedValue = (obj: any, path: string[]): any => {
       if (path.length === 0) return obj;

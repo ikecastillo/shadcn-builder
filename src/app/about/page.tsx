@@ -176,21 +176,34 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Header from "@/components/landingpage/header";
 import Footer from "@/components/landingpage/footer";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function AboutPage() {
   return (
     <div>
       <Header />
-      <main className="container mx-auto px-4 py-24 max-w-7xl">
+      <main className="container mx-auto px-4 py-16 md:py-24 max-w-7xl">
         <div className="space-y-8">
           {/* Header */}
           <div className="space-y-4">
-            <Link
-              href="/"
-              className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
-            >
-              ← Back to Home
-            </Link>
+            <Breadcrumb className="mb-4">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/about">About</BreadcrumbLink>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <div>
@@ -230,9 +243,9 @@ export default function AboutPage() {
             <div className="prose prose-gray max-w-none space-y-6">
               <div className="bg-muted/50 rounded-lg p-6 border-l-4 border-primary">
                 <p className="text-lg leading-relaxed text-muted-foreground italic">
-                &quot;Every great tool starts with a frustration, and mine began
-                  with the countless hours I spent building forms from scratch,
-                  over and over again.&quot;
+                  &quot;Every great tool starts with a frustration, and mine
+                  began with the countless hours I spent building forms from
+                  scratch, over and over again.&quot;
                 </p>
               </div>
 
@@ -262,18 +275,18 @@ export default function AboutPage() {
                 </p>
 
                 <p className="text-muted-foreground leading-relaxed">
-                  What started as a late-night weekend side project quickly evolved into
-                  something much bigger. I envisioned a tool that would make
-                  form building as simple as drag-and-drop, while still
-                  generating clean, production-ready React code that developers
-                  could be proud of.
+                  What started as a late-night weekend side project quickly
+                  evolved into something much bigger. I envisioned a tool that
+                  would make form building as simple as drag-and-drop, while
+                  still generating clean, production-ready React code that
+                  developers could be proud of.
                 </p>
               </div>
             </div>
           </section>
 
-                    {/* Development Journey */}
-                    <section className="space-y-6">
+          {/* Development Journey */}
+          <section className="space-y-6">
             <h2 className="text-3xl font-bold">My Journey So Far</h2>
 
             <div className="space-y-4">
@@ -336,12 +349,7 @@ export default function AboutPage() {
           <section className="space-y-6">
             <h2 className="text-3xl font-bold">Built on Solid Foundations</h2>
 
-            <div className="bg-gradient-to-br from-muted/50 to-muted/20 rounded-lg p-6 space-y-4">
-              <p className="text-muted-foreground leading-relaxed">
-                I built shadcn/ui Builder using the same modern stack that
-                powers today&apos;s best web applications:
-              </p>
-
+            <div className="bg-gradient-to-br from-muted/50 to-muted/20 rounded-lg p-6 space-y-4 border">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center space-y-2">
                   <div className="p-3 rounded-lg bg-background border">
@@ -405,43 +413,6 @@ export default function AboutPage() {
             </div>
           </section>
 
-
-
-          {/* Mission & Vision */}
-          <section className="grid md:grid-cols-2 gap-8">
-            <Card className="border-primary/20">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Target className="h-6 w-6 text-primary" />
-                  <CardTitle>My Mission</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  To democratize form building by providing a powerful,
-                  intuitive visual builder that generates clean, maintainable
-                  React code using the best practices and modern web standards.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-blue-200 dark:border-blue-800">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Lightbulb className="h-6 w-6 " />
-                  <CardTitle>My Vision</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  A world where creating beautiful, accessible, and functional
-                  forms takes minutes, not hours, and where both developers and
-                  non-developers can build professional web forms effortlessly.
-                </p>
-              </CardContent>
-            </Card>
-          </section>
-
           {/* Core Values */}
           <section className="space-y-6">
             <h2 className="text-3xl font-bold">What Drives Me</h2>
@@ -498,30 +469,30 @@ export default function AboutPage() {
           <section className="space-y-6">
             <h2 className="text-3xl font-bold">What&apos;s Next</h2>
 
-              <p className="text-muted-foreground leading-relaxed">
-                I&apos;m just getting started! My roadmap includes advanced
-                validation rules, custom component support, form analytics, team
-                collaboration features, and integrations with popular services.
-                But most importantly, I&apos;m building what the community needs.
-              </p>
+            <p className="text-muted-foreground leading-relaxed">
+              I&apos;m just getting started! My roadmap includes advanced
+              validation rules, custom component support, form analytics, team
+              collaboration features, and integrations with popular services.
+              But most importantly, I&apos;m building what the community needs.
+            </p>
 
-              <div className="pt-4">
-                <Link
-                  href="https://github.com/iduspara/shadcn-builder/issues"
-                  className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
-                >
-                  Share your ideas on GitHub <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
+            <div className="pt-4">
+              <Link
+                href="https://github.com/iduspara/shadcn-builder/issues"
+                className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
+              >
+                Share your ideas on GitHub <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </section>
 
           {/* Call to Action */}
           <section className="text-center space-y-6 py-12 bg-dotted rounded-lg border">
             <h2 className="text-3xl font-bold">Join the Journey</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Whether you&apos;re a developer looking to speed up your workflow, or
-              someone who wants to build beautiful forms without code, I&apos;d love
-              to have you as part of this community.
+              Whether you&apos;re a developer looking to speed up your workflow,
+              or someone who wants to build beautiful forms without code,
+              I&apos;d love to have you as part of this community.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

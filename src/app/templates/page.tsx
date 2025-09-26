@@ -20,6 +20,7 @@ import Link from "next/link";
 import Header from "@/components/landingpage/header";
 import Footer from "@/components/landingpage/footer";
 import { Separator } from "@/components/ui/separator";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 export default function TemplatesPage() {
   const {
     allTemplates,
@@ -37,15 +38,20 @@ export default function TemplatesPage() {
       <Header />
       <section
         id="templates"
-        className="container mx-auto px-4 py-24 max-w-7xl space-y-8"
+        className="container mx-auto px-4 py-16 md:py-24 max-w-7xl space-y-8"
       >
         <div className="space-y-4">
-          <Link
-            href="/"
-            className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
-          >
-            ← Back to Home
-          </Link>
+          <Breadcrumb className="mb-4">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/templates">Templates</BreadcrumbLink>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           <div className="space-y-2">
             <h1 className="text-4xl font-bold tracking-tight">Templates</h1>
             <p className="text-xl text-muted-foreground">
