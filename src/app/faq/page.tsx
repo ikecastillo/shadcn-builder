@@ -23,6 +23,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/landingpage/header";
 import Footer from "@/components/landingpage/footer";
 import { cn } from "@/lib/utils";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 interface FAQItem {
   id: string;
@@ -226,13 +227,21 @@ export default function FAQPage() {
   return (
     <div>
       <Header />
-      <main className="container mx-auto px-4 py-24 max-w-6xl">
+      <main className="container mx-auto px-4 py-16 md:py-24 max-w-7xl">
         <div className="space-y-8">
           {/* Header */}
           <div className="space-y-4">
-            <Link href="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground">
-              ← Back to Home
-            </Link>
+            <Breadcrumb className="mb-4">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/faq">FAQ</BreadcrumbLink>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <div>

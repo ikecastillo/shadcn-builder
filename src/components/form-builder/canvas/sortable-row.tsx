@@ -128,7 +128,7 @@ export const RowColumn = ({ component, index, form }: SortableRowProps) => {
         "relative group self-end",
         colSpanClasses,
         colStartClasses,
-        mode === "preview" && visibilityClasses,
+        mode === "editor-preview" || mode === "preview" && visibilityClasses,
         mode === "editor" &&
           "group/component hover:outline-1 hover:outline-offset-6 hover:outline-primary cursor-pointer",
         columnIsDragging && "cursor-grabbing",
@@ -147,7 +147,7 @@ export const RowColumn = ({ component, index, form }: SortableRowProps) => {
         <div
           className={cn(
             "absolute top-0 left-0 right-0 bottom-0",
-            mode === "preview" && "hidden"
+            mode === "editor-preview" && "hidden"
           )}
           style={columnStyle}
         ></div>

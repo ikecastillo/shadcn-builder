@@ -65,7 +65,7 @@ export default function PreviewPage({
           console.log(
             `Template loaded successfully: ${template}${templateKey ? ` (${templateKey})` : ""}`
           );
-          updateMode("preview");
+          updateMode("editor-preview");
         } else {
           window.location.href = "/";
         }
@@ -79,7 +79,7 @@ export default function PreviewPage({
   return (
     <div>
       <Header />
-      <Breadcrumb className="container mx-auto mt-24 mb-4">
+      <Breadcrumb className="container max-w-7xl mx-auto mt-16 md:mt-24 mb-4 px-4">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -94,8 +94,8 @@ export default function PreviewPage({
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <main className="container mx-auto flex flex-row gap-6 items-start mb-24">
-        <div className="flex flex-col max-w-3/4 w-full gap-4">
+      <main className="container max-w-7xl mx-auto flex flex-col md:flex-row gap-6 items-start mb-24 px-4">
+        <div className="flex flex-col md:max-w-3/4 w-full gap-4">
           <div className="flex flex-col items-center border rounded-lg w-full">
             <div className="w-full border-b flex justify-between items-center p-2.5 px-4">
               <span className="text-slate text-muted-foreground">
@@ -125,7 +125,7 @@ export default function PreviewPage({
             </div>
           </div>
         </div>
-        <div className="w-1/4 border rounded-lg p-4">
+        <div className="md:w-1/4 border rounded-lg p-4">
           <h1 className="text-2xl font-bold mb-2">{loadedTemplate?.formTitle}</h1>
           <p className="text-sm mb-2">
             Form description:

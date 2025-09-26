@@ -12,58 +12,37 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { SidebarLeft } from "@/components/form-builder/sidebar/sidebarLeft";
 import { SidebarRight } from "@/components/form-builder/sidebar/sidebarRight";
 import { MainCanvas } from "@/components/form-builder/mainCanvas";
-import {
-  EyeIcon,
-  Monitor,
-  Tablet,
-  Smartphone,
-  BlocksIcon,
-  CodeIcon,
-  PlayIcon,
-  XIcon,
-  ExternalLink,
-  Loader2,
-} from "lucide-react";
+import { Loader2 } from "lucide-react";
+import { FormBuilderHeader } from "@/components/form-builder/ui/header/form-builder-header";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { Button } from "@/components/ui/button";
-import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
 import { useCallback, useMemo, useState, useEffect } from "react";
 import { MainExport } from "@/components/form-builder/dialogs/generate-code-dialog";
 import { MobileNotification } from "@/components/form-builder/ui/mobile-notification";
 import { useIsMobile } from "@/hooks/use-mobile";
 import SocialLinks from "@/components/form-builder/sidebar/socialLinks";
-import { OpenJsonDialog } from "@/components/form-builder/dialogs/open-json-dialog";
 import { WelcomeDialog } from "@/components/form-builder/dialogs/welcome-dialog";
 import { useForm } from "react-hook-form";
 import { cn, getGridRows, updateColSpans } from "@/lib/utils";
-import { EditorToolbar } from "@/components/form-builder/form-components/wysiwyg/editor-toolbar";
 import { useSearchParams } from "next/navigation";
-import Logo from "@/components/landingpage/logo";
-import Link from "next/link";
-  
+import { useAuthState } from "@/hooks/use-auth";
+
 export default function FormBuilderPage() {
   const isMobile = useIsMobile();
   const searchParams = useSearchParams();
-  
+
   // Split the store selectors to only subscribe to what we need
-  const viewport = useFormBuilderStore((state) => state.viewport);
   const mode = useFormBuilderStore((state) => state.mode);
-  const showJson = useFormBuilderStore((state) => state.showJson);
-  const formTitle = useFormBuilderStore((state) => state.formTitle);
-  const loadedTemplateId = useFormBuilderStore((state) => state.loadedTemplateId);
-  const updateViewport = useFormBuilderStore((state) => state.updateViewport);
-  const updateMode = useFormBuilderStore((state) => state.updateMode);
-  const updateFormTitle = useFormBuilderStore((state) => state.updateFormTitle);
-  const toggleJsonPreview = useFormBuilderStore(
-    (state) => state.toggleJsonPreview
+  const viewport = useFormBuilderStore((state) => state.viewport);
+  const loadedTemplateId = useFormBuilderStore(
+    (state) => state.loadedTemplateId
   );
+  const loadTemplate = useFormBuilderStore((state) => state.loadTemplate);
   const components = useFormBuilderStore((state) => state.components);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
-  const loadTemplate = useFormBuilderStore((state) => state.loadTemplate);
-
-  const [isGeneratingCode, setIsGeneratingCode] = useState(false);
+  const formTitle = useFormBuilderStore((state) => state.formTitle);
   const [isLoadingTemplate, setIsLoadingTemplate] = useState(false);
   const [showWelcomeDialog, setShowWelcomeDialog] = useState(false);
+  const { isLoading } = useAuthState();
 
   const [draggingDOMElement, setDraggingDOMElement] =
     useState<HTMLElement | null>(null);
@@ -71,22 +50,24 @@ export default function FormBuilderPage() {
 
   // Check for template parameter in URL and load template
   useEffect(() => {
-    const template = searchParams.get('template');
-    const templateKey = searchParams.get('key');
-    
+    const template = searchParams.get("template");
+    const templateKey = searchParams.get("key");
+
     if (template && loadedTemplateId !== templateKey && !isLoadingTemplate) {
       setIsLoadingTemplate(true);
       loadTemplate(template, templateKey || undefined)
         .then((success) => {
           if (success) {
-            console.log(`Template loaded successfully: ${template}${templateKey ? ` (${templateKey})` : ''}`);
+            console.log(
+              `Template loaded successfully: ${template}${templateKey ? ` (${templateKey})` : ""}`
+            );
           } else {
-            window.location.href = '/';
+            window.location.href = "/";
           }
         })
         .catch((error) => {
-          console.error('Error loading template:', error);
-          window.location.href = '/';
+          console.error("Error loading template:", error);
+          window.location.href = "/";
         })
         .finally(() => {
           setIsLoadingTemplate(false);
@@ -102,31 +83,27 @@ export default function FormBuilderPage() {
     }
 
     // Don't show if there's a template parameter in URL (loading in progress)
-    const template = searchParams.get('template');
+    const template = searchParams.get("template");
     if (template) {
       return;
     }
 
     // Show if no template loaded and no components
-    const shouldShow = !loadedTemplateId && components.length === 0;
+    const shouldShow = !loadedTemplateId && components.length === 0 && !formTitle;
     setShowWelcomeDialog(shouldShow);
-  }, [isLoadingTemplate, mode, loadedTemplateId, components.length, searchParams]);
-
-  // Memoize static values
-  const viewportItems = useMemo(
-    () => [
-      { value: "lg", icon: Monitor },
-      { value: "md", icon: Tablet },
-      { value: "sm", icon: Smartphone },
-    ],
-    []
-  );
+  }, [
+    isLoadingTemplate,
+    mode,
+    loadedTemplateId,
+    components.length,
+    searchParams,
+    formTitle,
+  ]);
 
   const updateComponent = useFormBuilderStore((state) => state.updateComponent);
   const moveComponent = useFormBuilderStore((state) => state.moveComponent);
   const addComponent = useFormBuilderStore((state) => state.addComponent);
   const gridRows = getGridRows(components, viewport);
-  const editor = useFormBuilderStore((state) => state.editor);
 
   // Create sensors outside of callback
   const pointerSensor = useSensor(PointerSensor, {
@@ -268,12 +245,12 @@ export default function FormBuilderPage() {
   );
 
   // Show loading state while template is being loaded
-  if (isLoadingTemplate) {
+  if (isLoadingTemplate || isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="h-8 w-8 animate-spin" />
-          <p className="text-muted-foreground">Loading template...</p>
+          <p className="text-muted-foreground">Loading...</p>
         </div>
       </div>
     );
@@ -281,133 +258,7 @@ export default function FormBuilderPage() {
 
   return (
     <div>
-      <div
-        className={cn(
-          "fixed top-0 w-full flex flex-row gap-2 justify-between bg-white border-b z-30"
-        )}
-      >
-        <Link href="/" className="flex flex-row gap-2 items-center justify-center md:justify-start p-2 px-4 border-r w-full md:w-[300px]">
-          <Logo />
-        </Link>
-        <div className="p-2 flex-1 grid grid-cols-7 2xl:grid-cols-3">
-          {mode === "editor" && (
-            <>
-              <div
-                className={cn(
-                  "hidden 2xl:block col-span-1",
-                  editor && "2xl:hidden"
-                )}
-              >
-                {process.env.NODE_ENV === "development" && <OpenJsonDialog />}
-              </div>
-              <div className="col-span-5 2xl:col-span-1 2xl:col-start-2 flex 2xl:justify-center">
-                {editor ? (
-                  <EditorToolbar editor={editor} isEditable={true} />
-                ) : (
-                  <div className="text-center flex flex-row items-center justify-center gap-1 border rounded-md h-9 px-4">
-                    <div
-                      className="max-w-80 overflow-y-hidden whitespace-nowrap text-sm outline-none scrollbar-hide"
-                      contentEditable
-                      suppressContentEditableWarning
-                      onBlur={(e) => updateFormTitle(e.target.innerText)}
-                    >
-                      {formTitle}
-                    </div>
-                    <span className="text-muted-foreground text-xs">.tsx</span>
-                  </div>
-                )}
-              </div>
-            </>
-          )}
-          <div
-            className={cn(
-              "col-span-2 2xl:col-span-1 hidden md:flex justify-end gap-4",
-              editor && "",
-              mode === "preview" && "justify-center col-span-7 2xl:col-span-3"
-            )}
-          >
-            {process.env.NODE_ENV === "development" && mode === "editor" && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleJsonPreview}
-                className={showJson ? "bg-slate-100" : ""}
-              >
-                <CodeIcon className="h-4 w-4" />
-              </Button>
-            )}
-            {mode !== "export" && (
-              <ToggleGroupNav
-                name="viewport"
-                items={viewportItems}
-                defaultValue={viewport}
-                onValueChange={(value) =>
-                  updateViewport(value as "sm" | "md" | "lg")
-                }
-              />
-            )}
-          </div>
-        </div>
-        <div className="hidden md:flex flex-row gap-2 border-l py-2 px-4 w-[300px]">
-          {mode === "editor" && (
-            <>
-              <Button
-                variant="outline"
-                size="sm"
-                className="cursor-pointer flex-1"
-                onClick={() => {
-                  updateMode("preview");
-                  selectComponent(null);
-                }}
-              >
-                <PlayIcon className="h-4 w-4" />
-                Preview
-              </Button>
-              <Button
-                variant="default"
-                size="sm"
-                className="cursor-pointer flex-1"
-                onClick={() => {
-                  updateMode("export");
-                  selectComponent(null);
-                }}
-                disabled={components.length === 0}
-                id="export-code-button"
-              >
-                {isGeneratingCode ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <ExternalLink className="h-4 w-4" />
-                )}
-                Export
-              </Button>
-            </>
-          )}
-          {mode === "preview" && (
-            <Button
-              variant="default"
-              size="sm"
-              className="cursor-pointer w-full"
-              onClick={() => updateMode("editor")}
-            >
-              <XIcon className="h-4 w-4" />
-              Exit Preview
-            </Button>
-          )}
-          {mode === "export" && (
-            <Button
-              variant="default"
-              size="sm"
-              className="cursor-pointer w-full"
-              onClick={() => updateMode("editor")}
-            >
-              <XIcon className="h-4 w-4" />
-              Exit Export
-            </Button>
-          )}
-        </div>
-      </div>
-
+      <FormBuilderHeader />
       {isMobile ? (
         <>
           <MobileNotification />
@@ -416,57 +267,51 @@ export default function FormBuilderPage() {
           </div>
         </>
       ) : (
-        <>
-          <SidebarProvider
-            className="relative hidden md:block"
-            style={{ "--sidebar-width": "300px" } as React.CSSProperties}
-            open={mode === "editor"}
+        <SidebarProvider
+          className="relative hidden md:block"
+          style={{ "--sidebar-width": "300px" } as React.CSSProperties}
+          open={mode === "editor" || mode === "preview"}
+        >
+          <DndContext
+            id="form-builder"
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
           >
-            <DndContext
-              id="form-builder"
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
-              onDragStart={handleDragStart}
-            >
-              <div className="flex w-full h-screen justify-between">
-                <SidebarLeft />
-
-                <main
-                  className={cn(
-                    "flex-1 transition-all duration-300 overflow-auto relative bg-dotted pt-14 scrollbar-hide",
-                    mode === "preview" || mode === "export" && "bg-slate-50"
-                  )}
-                >
-                  {mode === "export" ? (
-                    <MainExport />
-                  ) : (
-                    <MainCanvas />
-                  )}
-                </main>
-                <SidebarRight />
-              </div>
-              <DragOverlay>
-                {draggingDOMElement && (
-                  <div className="bg-white p-2 rounded-md shadow opacity-80">
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: draggingDOMElement.innerHTML,
-                      }}
-                      className="max-h-52 overflow-hidden"
-                    />
-                  </div>
+            <div className="flex w-full h-screen justify-between">
+              <SidebarLeft />
+              <main
+                className={cn(
+                  "flex-1 transition-all duration-300 overflow-auto relative bg-dotted pt-14 scrollbar-hide",
+                  mode === "editor-preview" ||
+                    (mode === "export" && "bg-slate-50")
                 )}
-              </DragOverlay>
-            </DndContext>
-          </SidebarProvider>
-        </>
+              >
+                {mode === "export" ? <MainExport /> : <MainCanvas />}
+              </main>
+              <SidebarRight />
+            </div>
+            <DragOverlay>
+              {draggingDOMElement && (
+                <div className="bg-white p-2 rounded-md shadow opacity-80">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: draggingDOMElement.innerHTML,
+                    }}
+                    className="max-h-52 overflow-hidden"
+                  />
+                </div>
+              )}
+            </DragOverlay>
+          </DndContext>
+        </SidebarProvider>
       )}
 
       {/* Welcome Dialog */}
-      <WelcomeDialog 
-        open={showWelcomeDialog} 
-        onOpenChange={setShowWelcomeDialog} 
+      <WelcomeDialog
+        open={showWelcomeDialog}
+        onOpenChange={setShowWelcomeDialog}
       />
     </div>
   );

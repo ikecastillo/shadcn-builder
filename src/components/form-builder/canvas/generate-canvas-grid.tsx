@@ -15,7 +15,7 @@ import { FormDataDialog } from "@/components/form-builder/dialogs/form-data-dial
 import { FormComponentModel } from "@/models/FormComponent";
 
 export default function GenerateCanvasGrid({
-  components,
+  components
 }: {
   components: FormComponentModel[];
 }) {
