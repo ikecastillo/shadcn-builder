@@ -84,7 +84,7 @@ export function LoadTemplateDialog({ children }: LoadTemplateDialogProps) {
 
       clearHistory();
       updateFormId(selectedForm._id);
-      updateFormTitle(selectedForm.title);
+      updateFormTitle(selectedForm.formTitle);
       updateMode("editor");
       updateComponents(components);
       setOpen(false);
