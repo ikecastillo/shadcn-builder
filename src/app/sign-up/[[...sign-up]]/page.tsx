@@ -21,7 +21,6 @@ export default function SignUpPage() {
                       rootBox: "!w-full",
                       formButtonPrimary:
                         "bg-blue-600 hover:bg-blue-700 text-sm normal-case",
-                      card: "shadow-none",
                       cardBox:
                         "!border-none !rounded-none !shadow-none !w-full",
                       headerTitle: "text-gray-900",

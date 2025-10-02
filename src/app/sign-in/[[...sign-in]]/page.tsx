@@ -26,8 +26,9 @@ export default function SignInPage() {
                       rootBox: "!w-full",
                       formButtonPrimary:
                         "bg-blue-600 hover:bg-blue-700 text-sm normal-case",
-                      card: "shadow-none",
-                      cardBox: "!border-none !rounded-none !shadow-none !w-full",
+                      card: "!shadow-none !border-none",
+                      cardBox: "!border-none !rounded-none !shadow-none !w-full !h-full !justify-between",
+                      footer: "!border-t",
                       headerTitle: "text-gray-900",
                       headerSubtitle: "text-gray-600",
                       socialButtonsBlockButton:
