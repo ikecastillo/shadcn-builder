@@ -30,14 +30,9 @@ export interface UseLoadTemplatesReturn {
 
 const DEFAULT_CATEGORIES = [
   "user-account",
-  "service",
   "event",
   "business",
-  "education",
-  "healthcare",
-  "real-estate",
   "travel",
-  "membership",
   "technical",
   "feedback",
   "notifications",

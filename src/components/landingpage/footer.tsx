@@ -56,7 +56,7 @@ export default function Footer() {
                   href="/templates"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Templates
+                  Current Forms
                 </Link>
               </li>
               <li>
@@ -65,14 +65,6 @@ export default function Footer() {
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Components
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  About
                 </Link>
               </li>
             </ul>

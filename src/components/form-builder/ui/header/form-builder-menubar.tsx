@@ -290,11 +290,6 @@ export function FormBuilderMenubar({ mode }: FormBuilderMenubarProps) {
             <Bug className="h-4 w-4" />
             Bug Report
           </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem onClick={() => window.open('/about', '_blank')}>
-            <Info className="h-4 w-4" />
-            About
-          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

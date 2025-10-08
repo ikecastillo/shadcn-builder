@@ -5,7 +5,7 @@ export default function Logo() {
     <>
       <BlocksIcon className="h-6 w-6" strokeWidth={2} />
       <span className="text-lg font-semibold">
-        shadcn/ui <span className="font-normal">Builder</span>
+        Switch <span className="font-normal">Jira FormBuilder</span>
         <sup className="text-xs text-muted-foreground font-normal ml-1">
           Beta
         </sup>

@@ -3,16 +3,29 @@ import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useAuthState } from "@/hooks/use-auth";
+import { isConvexConfigured } from "@/lib/convex-config";
 
 export function useSaveForm() {
   const [isSaving, setIsSaving] = useState(false);
   const { user } = useAuthState();
-  const saveForm = useMutation(api.forms.saveForm);
-  const updateForm = useMutation(api.forms.updateForm);
-  
   const components = useFormBuilderStore((state) => state.components);
   const formTitle = useFormBuilderStore((state) => state.formTitle);
   const formId = useFormBuilderStore((state) => state.formId);
+
+  if (!isConvexConfigured) {
+    return {
+      saveCurrentForm: async () => {
+        throw new Error(
+          "Saving forms requires configuring Convex (NEXT_PUBLIC_CONVEX_URL)."
+        );
+      },
+      isSaving: false,
+      canSave: components.length > 0,
+    };
+  }
+
+  const saveForm = useMutation(api.forms.saveForm);
+  const updateForm = useMutation(api.forms.updateForm);
 
   const saveCurrentForm = async (options?: {
     title?: string;

@@ -14,9 +14,8 @@ export default function Header() {
   const navigationLinks = [
     { href: "/", label: "Home" },
     { href: "/components", label: "Components" },
-    { href: "/templates", label: "Templates" },
+    { href: "/templates", label: "Current Forms" },
     { href: "/faq", label: "FAQ" },
-    { href: "/about", label: "About" },
   ];
 
   return (

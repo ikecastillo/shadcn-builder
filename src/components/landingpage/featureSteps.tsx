@@ -9,9 +9,9 @@ import Image from 'next/image';
 const features = [
   {
     step: 'Step 1',
-    title: 'Start adding components to your form',
+    title: 'Select all the fields you need',
     content:
-        'Create a new form or select one from the templates and add components to your form.',
+        'Choose from Jira fields or custom non-Jira tracked fields to build your customer-facing form.',
     icon: <Rocket className="text-primary h-6 w-6" />,
     image:
       '/images/features/drag_and_drop.png',
@@ -20,16 +20,16 @@ const features = [
     step: 'Step 2',
     title: 'Customize your form',
     content:
-      'Customize your form and make it your own.',
+      'Customize your form layout, styling, and behavior to match your service requirements.',
     icon: <Paintbrush className="text-primary h-6 w-6" />,
     image:
       '/images/features/customize.png',
   },
   {
     step: 'Step 3',
-    title: 'Export the code',
+    title: 'Attach form to your request type',
     content:
-      'Export the code for your form and use it in your project.',
+      'Seamlessly integrate your custom form with your Jira Service Management request types.',
     icon: <Code className="text-primary h-6 w-6" />,
     image:
       '/images/features/code.png',
@@ -54,52 +54,50 @@ export default function FeatureSteps() {
   }, [progress]);
 
   return (
-    <section className={'p-8 md:p-12'}>
-      <div className="mx-auto w-full max-w-7xl">
-        <div className="relative mx-auto mb-12 max-w-2xl sm:text-center">
+    <section className="w-full py-16 md:py-24 lg:py-32">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="relative mx-auto mb-16 max-w-3xl text-center">
           <div className="relative z-10">
-            <h2 className="font-geist text-3xl font-medium tracking-tighter md:text-4xl lg:text-5xl">
+            <h1 className="font-geist text-4xl font-medium tracking-tighter md:text-5xl lg:text-6xl xl:text-7xl">
               Build Forms in Three Steps
-            </h2>
-            <p className="font-geist text-foreground/60 mt-3">
-              Shadcn Builder helps you create, customize, and generate your forms
-              faster than ever before.
+            </h1>
+            <p className="font-geist text-foreground/60 mt-6 text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto">
+              Create customer-facing forms for Jira Service Management with drag-and-drop simplicity
             </p>
           </div>
-
         </div>
-        <hr className="bg-foreground/30 mx-auto mb-10 h-px w-1/2" />
+        <div className="mx-auto mb-12 w-24 h-px bg-foreground/20"></div>
 
-        <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:gap-10">
-          <div className="order-2 space-y-8 md:order-1">
+        <div className="flex flex-col items-center gap-12 lg:grid lg:grid-cols-2 lg:gap-16">
+          <div className="order-2 lg:order-1 space-y-10">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="flex items-center gap-6 md:gap-8"
+                className="flex items-start gap-6 md:gap-8"
                 initial={{ opacity: 0.5, x: -20 }}
                 animate={{
                   opacity: index === currentFeature ? 1 : 0.5,
                   x: 0,
-                  scale: index === currentFeature ? 1.05 : 1,
+                  scale: index === currentFeature ? 1.02 : 1,
                 }}
                 transition={{ duration: 0.5 }}
               >
                 <motion.div
                   className={cn(
-                    'flex h-12 w-12 items-center justify-center rounded-full border-1 md:h-14 md:w-14',
+                    'flex h-12 w-12 items-center justify-center rounded-full border-2 md:h-14 md:w-14 font-semibold text-sm md:text-base flex-shrink-0',
                     index === currentFeature
-                      ? 'border-primary bg-black text-white scale-110 '
-                      : 'border-black',
+                      ? 'border-primary bg-black text-white'
+                      : 'border-foreground/20 bg-background text-foreground/70',
                   )}
                 >
                   {index + 1}
                 </motion.div>
 
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold md:text-2xl">
+                <div className="flex-1 pt-1">
+                  <h3 className="text-xl font-semibold md:text-2xl mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm md:text-base">
+                  <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
                     {feature.content}
                   </p>
                 </div>
@@ -109,32 +107,34 @@ export default function FeatureSteps() {
 
           <div
             className={cn(
-              'border-primary/20 relative order-1 h-[200px] overflow-hidden rounded-xl border w-full bg-dotted  md:order-2 md:h-[300px] lg:h-[400px]',
+              'relative order-1 lg:order-2 w-full max-w-2xl mx-auto lg:max-w-none',
             )}
           >
-            <AnimatePresence mode="wait">
-              {features.map(
-                (feature, index) =>
-                  index === currentFeature && (
-                    <motion.div
-                      key={index}
-                      className="absolute inset-0 overflow-hidden rounded-lg"
-                      initial={{ y: 100, opacity: 0, rotateX: -20 }}
-                      animate={{ y: 0, opacity: 1, rotateX: 0 }}
-                      exit={{ y: -100, opacity: 0, rotateX: 20 }}
-                      transition={{ duration: 0.5, ease: 'easeInOut' }}
-                    >
-                      <Image
-                        src={feature.image}
-                        alt={feature.title}
-                        className="h-full w-full transform object-cover transition-transform hover:scale-105"
-                        width={1000}
-                        height={500}
-                      />
-                    </motion.div>
-                  ),
-              )}
-            </AnimatePresence>
+            <div className="relative h-[320px] md:h-[400px] lg:h-[480px] overflow-hidden rounded-2xl border border-foreground/10 bg-dotted shadow-2xl">
+              <AnimatePresence mode="wait">
+                {features.map(
+                  (feature, index) =>
+                    index === currentFeature && (
+                      <motion.div
+                        key={index}
+                        className="absolute inset-0 overflow-hidden rounded-2xl"
+                        initial={{ y: 100, opacity: 0, rotateX: -15 }}
+                        animate={{ y: 0, opacity: 1, rotateX: 0 }}
+                        exit={{ y: -100, opacity: 0, rotateX: 15 }}
+                        transition={{ duration: 0.6, ease: 'easeInOut' }}
+                      >
+                        <Image
+                          src={feature.image}
+                          alt={feature.title}
+                          className="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+                          width={1000}
+                          height={500}
+                        />
+                      </motion.div>
+                    ),
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
