@@ -1,31 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ArrowRight, BlocksIcon, ExternalLink, Menu, User, LogOut } from "lucide-react";
+import { ArrowRight, Menu } from "lucide-react";
 import { Button, buttonVariants } from "../ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import { useState } from "react";
 import Logo from "./logo";
-import { Authenticated, Unauthenticated } from "convex/react";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);

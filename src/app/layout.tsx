@@ -5,7 +5,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { PostHogProvider } from "@/providers/PostHogProvider";
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
 import { SubscriptionProvider } from "@/providers/SubscriptionProvider";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -59,20 +58,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={cn(fontVariables, "font-sans")}>
-          <ConvexClientProvider>
-            <PostHogProvider>
-              <SubscriptionProvider>
-                {children}
-                <Analytics />
-                <Toaster position="top-center" />
-              </SubscriptionProvider>
-            </PostHogProvider>
-          </ConvexClientProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={cn(fontVariables, "font-sans")}>
+        <ConvexClientProvider>
+          <PostHogProvider>
+            <SubscriptionProvider>
+              {children}
+              <Analytics />
+              <Toaster position="top-center" />
+            </SubscriptionProvider>
+          </PostHogProvider>
+        </ConvexClientProvider>
+      </body>
+    </html>
   );
 }

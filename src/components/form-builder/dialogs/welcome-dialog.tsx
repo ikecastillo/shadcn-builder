@@ -21,7 +21,6 @@ import {
   FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useAuthState } from "@/hooks/use-auth";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 
 interface WelcomeDialogProps {
@@ -30,7 +29,6 @@ interface WelcomeDialogProps {
 }
 
 export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
-  const { user } = useAuthState();
   const { updateFormTitle, saveSnapshot } = useFormBuilderStore();
 
   const handleStartFromScratch = () => {
@@ -49,7 +47,7 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
       >
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold flex items-center gap-2">
-            Welcome {user?.username}
+            Welcome to Shadcn Builder
           </DialogTitle>
           <DialogDescription className="text-base">
             Quick start by choosing a template or create a form from scratch

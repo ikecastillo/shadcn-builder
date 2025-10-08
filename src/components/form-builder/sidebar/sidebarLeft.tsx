@@ -16,7 +16,6 @@ import {
 import { ComponentIcon } from "../helpers/component-icon";
 import { DragOverlay, useDraggable } from "@dnd-kit/core";
 import { SidebarUser } from "./sidebarUser";
-import { useAuthState } from "@/hooks/use-auth";
 
 interface ComponentGroup {
   label: string;
@@ -25,7 +24,6 @@ interface ComponentGroup {
 
 export function SidebarLeft() {
   const { addComponent } = useFormBuilderStore();
-  const { user } = useAuthState();
   const componentGroups: ComponentGroup[] = [
     {
       label: "Typography",

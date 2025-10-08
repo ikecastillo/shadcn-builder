@@ -1,9 +1,6 @@
 import { SubscriptionTier, SubscriptionInfo, SUBSCRIPTION_LIMITS } from '@/types/subscription.types';
 
-/**
- * Get subscription information from Clerk user metadata
- * This function checks the user's public metadata for subscription information
- */
+/** Get subscription information for the provided subscription tier */
 export function getSubscriptionInfo(tier: SubscriptionTier): SubscriptionInfo {
   // Check if user has subscription metadata
   const subscriptionTier = tier;
